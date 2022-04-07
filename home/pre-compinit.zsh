@@ -1,6 +1,7 @@
 # Borrowed from https://github.com/burke/b/blob/master/etc/nix/home.nix
-PROMPT='$(shell-prompt "$?")'
-#PROMPT='$(starship prompt)'
+#PROMPT='$(shell-prompt "$?")'
+
+eval "$(starship init zsh)"
 
 # Fancy substitutions in prompts
 setopt prompt_subst
