@@ -57,5 +57,6 @@
 
 
     for f in $HOME/.functions/*; do source "$f"; done
+    eval "$(starship init bash)"
     '';
-};
+}
