@@ -40,7 +40,7 @@ rec {
     # clojure-lsp # not built for aarch64 yet (ever?)
     clojure
     cmake # For building libgit
-    emacs
+    #emacs
     fd
     git
     gnupg
@@ -60,11 +60,14 @@ rec {
     rust-analyzer
     rustup
     shellcheck
+    sshuttle
     terminal-notifier
     tmux
     tokei
     tree
-  ] ++ [ ls-colors shell-prompt ];
+  ] ++ [ # ls-colors
+         # shell-prompt
+  ];
 
   programs.git = {
     enable = true;
@@ -172,7 +175,13 @@ rec {
     data-dir ${home.homeDirectory}/.nix-profile/lib/aspell
   '';
 
-  # programs.bash = import ./home/bash.nix;
+  home.file.".psqlrc".text = ''
+    \set COMP_KEYWORD_CASE upper
+    \x auto
+    \pset null ¤
+  '';
+
+  # programs.bash = (import ./home/bash.nix {pkgs = pkgs;});
 
   programs.zsh = (import ./home/zsh.nix {pkgs = pkgs; ls-colors = ls-colors;});
 
@@ -183,7 +192,7 @@ rec {
 
   programs.bat = {
     enable = true;
-    config.theme = "gruvbox-dark";
+    config.theme = "Monokai Extended";
   };
 
   programs.nix-index = {
@@ -195,6 +204,20 @@ rec {
     enable = true;
     enableZshIntegration = true;
   };
+
+  # Until I can get starship builing in nix, seed this config manually
+  home.file.".config/starship.toml".text = ''
+    add_newline = false
+
+    [java]
+    disabled = true
+
+    [nodejs]
+    disabled = true
+
+    [python]
+    disabled = true
+  '';
 
   # starship isn't building properly at the moment.
   # programs.starship =  {
