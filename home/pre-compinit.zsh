@@ -39,3 +39,6 @@ setopt PROMPT_SP
 unsetopt PROMPT_BANG
 
 unsetopt MULTIOS
+
+bindkey '[D' backward-word
+bindkey '[C' forward-word
