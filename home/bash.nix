@@ -1,6 +1,6 @@
+{pkgs}:
 {
   enable = true;
-  #enableVteIntegration = true;
   historyControl = ["erasedups"];
   historyFile = "~/.bash_history";
   historyFileSize = 100000;
