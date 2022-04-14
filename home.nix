@@ -1,3 +1,4 @@
+# This repo is cloned at $HOME/.config/nixpkgs to work with home-manager.
 { config, pkgs, ... }:
 
 let
@@ -14,6 +15,11 @@ let
   '';
 
   shell-prompt = pkgs.callPackage ./home/shell-prompt { };
+
+  appliance-config-exists = builtins.pathExists /Users/jcsims/code/tg/appliance;
+
+  appliance-config = if appliance-config-exists then import /Users/jcsims/code/tg/appliance { }
+                     else {};
 
   # pinentry = pkgs.fetchFromGitHub {
   #   owner = "GPGTools";
@@ -67,7 +73,7 @@ rec {
     tree
   ] ++ [ # ls-colors
          # shell-prompt
-  ];
+  ] ++ (if appliance-config-exists then with appliance-config; [ tgRash tg-signed-json ] else [ ]);
 
   programs.git = {
     enable = true;
@@ -184,11 +190,6 @@ rec {
   # programs.bash = (import ./home/bash.nix {pkgs = pkgs;});
 
   programs.zsh = (import ./home/zsh.nix {pkgs = pkgs; ls-colors = ls-colors;});
-
-  # programs.fish = {
-  #   enable = true;
-
-  # };
 
   programs.bat = {
     enable = true;
