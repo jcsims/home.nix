@@ -79,7 +79,10 @@ rec {
     enable = true;
     userName = "Chris Sims";
     userEmail = "chris@jcsi.ms";
-    difftastic.enable = true;
+    attributes = ["*.gpg filter=gpg diff=gpg"];
+    # difftastic doesn't yet handle gpg diffs on the command-line with
+    # this config
+    #difftastic.enable = true;
     aliases = {
       recent = "branch --sort=-committerdate --format=\"%(committerdate:relative)%09%(refname:short)\"";
     };
@@ -102,6 +105,7 @@ rec {
       pull.rebase = true;
       rebase.autostach = true;
       status.submoduleSummary = true;
+      diff.gpg.textconv = "gpg --no-tty --decrypt";
     };
   };
 
