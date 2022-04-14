@@ -113,7 +113,7 @@ rec {
   programs.gpg = {
     enable = true;
     settings = {
-      default-key = "0xBB759FA6197A3272";
+      default-key = "0x25FF041622DE3AFB";
       personal-cipher-preferences = "AES256 AES192 AES";
       personal-digest-preferences = "SHA512 SHA384 SHA256";
       personal-compress-preferences = "ZLIB BZIP2 ZIP Uncompressed";
@@ -133,7 +133,6 @@ rec {
       require-cross-certification = true;
       no-symkey-cache = true;
       use-agent = true;
-      throw-keyids = true;
     };
   };
 
