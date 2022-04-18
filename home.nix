@@ -6,14 +6,6 @@ let
 
   appliance-config = if appliance-config-exists then import /Users/jcsims/code/tg/appliance { }
                      else {};
-
-  # pinentry = pkgs.fetchFromGitHub {
-  #   owner = "GPGTools";
-  #   repo = "pinentry";
-  #   rev = "b7195e9d4c098ea315e18ade3b4dab210492fadf";
-  #   sha256 = "0";
-  # };
-
 in
 rec {
   # Home Manager needs a bit of information about you and the
@@ -26,8 +18,6 @@ rec {
     act
     aspell
     aspellDicts.en
-    bashInteractive
-    bash-completion
     chezmoi
     # clojure-lsp # not built for aarch64 yet (ever?)
     clojure
@@ -44,7 +34,6 @@ rec {
     nixpkgs-fmt
     nix-tree
     pass
-    pinentry_mac # Builds an ancient version
     # To pin this version of postgres: nix-env --set-flag keep true postgresql
     postgresql_13
     redis
@@ -126,20 +115,19 @@ rec {
     disable-ccid = true;
   };
 
-  # TODO: This is an ancient version of pinentry-mac. Should look into
-  # a newer one at some point.
   home.file.".gnupg/gpg-agent.conf".text = ''
       default-cache-ttl 600
       max-cache-ttl 7200
     '' + (if pkgs.stdenv.isDarwin then ''
-      pinentry-program ${pkgs.pinentry_mac}/Applications/pinentry-mac.app/Contents/MacOS/pinentry-mac
+      pinentry-program /opt/homebrew/bin/pinentry-mac
     '' else
       "");
 
   home.sessionPath = ["$HOME/bin"
                       "/opt/homebrew/bin"
                       "/opt/homebrew/sbin"
-                      "$HOME/go/bin"];
+                      "$HOME/go/bin"
+                      "$HOME/.cargo/bin"];
 
   home.sessionVariables = {
     CLICOLOR = 1;
@@ -176,9 +164,16 @@ rec {
     \pset null ¤
   '';
 
-  # programs.bash = (import ./home/bash.nix {pkgs = pkgs;});
+  #programs.bash = (import ./home/bash.nix {pkgs = pkgs;});
 
-  programs.zsh = (import ./home/zsh.nix {pkgs = pkgs; ls-colors = ls-colors;});
+  programs.zsh = (import ./home/zsh.nix {pkgs = pkgs; });
+
+  # programs.fish = {
+  #   enable = true;
+  #   loginShellInit =''
+  #     starship init fish | source
+  #   '';
+  # };
 
   programs.bat = {
     enable = true;
