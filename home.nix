@@ -166,7 +166,7 @@ rec {
     \pset null ¤
   '';
 
-  programs.bash = (import ./home/bash.nix { bash-completion = pkgs.bash-completion; });
+  programs.bash = (import ./bash.nix { bash-completion = pkgs.bash-completion; });
 
   programs.bat = {
     enable = true;
