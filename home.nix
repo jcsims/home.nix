@@ -13,11 +13,12 @@ rec {
   home.username = "jcsims";
   home.homeDirectory = "/Users/jcsims";
 
-
   home.packages = with pkgs; [
     act
     aspell
     aspellDicts.en
+    bashInteractive
+    bash-completion
     chezmoi
     # clojure-lsp # not built for aarch64 yet (ever?)
     clojure
@@ -34,6 +35,7 @@ rec {
     nixpkgs-fmt
     nix-tree
     pass
+    pinentry_mac
     # To pin this version of postgres: nix-env --set-flag keep true postgresql
     postgresql_13
     redis
@@ -119,7 +121,7 @@ rec {
       default-cache-ttl 600
       max-cache-ttl 7200
     '' + (if pkgs.stdenv.isDarwin then ''
-      pinentry-program /opt/homebrew/bin/pinentry-mac
+      pinentry-program ${pkgs.pinentry_mac}/Applications/pinentry-mac.app/Contents/MacOS/pinentry-mac
     '' else
       "");
 
@@ -164,16 +166,7 @@ rec {
     \pset null ¤
   '';
 
-  #programs.bash = (import ./home/bash.nix {pkgs = pkgs;});
-
-  programs.zsh = (import ./home/zsh.nix {pkgs = pkgs; });
-
-  # programs.fish = {
-  #   enable = true;
-  #   loginShellInit =''
-  #     starship init fish | source
-  #   '';
-  # };
+  programs.bash = (import ./home/bash.nix { bash-completion = pkgs.bash-completion; });
 
   programs.bat = {
     enable = true;
@@ -182,12 +175,12 @@ rec {
 
   programs.nix-index = {
     enable = true;
-    enableZshIntegration = true;
+    enableBashIntegration = true;
   };
 
   programs.skim = {
     enable = true;
-    enableZshIntegration = true;
+    enableBashIntegration = true;
   };
 
   # Until I can get starship builing in nix, seed this config manually

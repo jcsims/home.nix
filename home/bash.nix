@@ -1,8 +1,8 @@
-{pkgs}:
+{ bash-completion }:
 {
   enable = true;
   historyControl = ["erasedups"];
-  historyFile = "~/.bash_history";
+  historyFile = "$HOME/.bash_history";
   historyFileSize = 100000;
   historyIgnore = ["bg" "clear" "exit" "fg" "history" "ls"];
   # env vars, if any needed outside of home.sessionVariables
@@ -55,6 +55,13 @@
       source "$HOME/.localrc"
     fi
 
+    # Configure bash-completion
+    source ${bash-completion}/etc/profile.d/bash_completion.sh
+
+    # This helps bash-completion work, since bash-completion will look here for
+    # other installed completions. Other packages that include bash completion
+    # scripts will link them here.
+    export XDG_DATA_DIRS="$HOME/.nix-profile/share:''${XDG_DATA_DIRS:-/usr/local/share:/usr/share}"
 
     for f in $HOME/.functions/*; do source "$f"; done
     eval "$(starship init bash)"
