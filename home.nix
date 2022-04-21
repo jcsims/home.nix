@@ -183,31 +183,22 @@ rec {
     enableBashIntegration = true;
   };
 
-  # Until I can get starship builing in nix, seed this config manually
-  home.file.".config/starship.toml".text = ''
-    add_newline = false
+  programs.starship =  {
+    enable = true;
+    enableBashIntegration = true;
+    settings = {
+      add_newline = false;
+      java.disabled = true;
+      nodejs.disabled = true;
+      python.disabled = true;
+    };
+  };
 
-    [java]
-    disabled = true
-
-    [nodejs]
-    disabled = true
-
-    [python]
-    disabled = true
-  '';
-
-  # starship isn't building properly at the moment.
-  # programs.starship =  {
-  #   enable = true;
-  #   enableZshIntegration = true;
-  #   settings = {
-  #     add_newline = false;
-  #     java.disabled = true;
-  #     nodejs.disable = true;
-  #     python.disabled = true;
-  #   };
-  # };
+  # This helps bash-completion work, since bash-completion will look here for
+  # other installed completions. Other packages that include bash completion
+  # scripts will link them here.
+  # N.B. this only works on Linux...
+  #xdg.systemDirs.data = [ "~/.nix-profile/share" ];
 
   # This value determines the Home Manager release that your
   # configuration is compatible with. This helps avoid breakage
