@@ -50,7 +50,7 @@ rec {
     tree
   ] ++ [ # ls-colors
          # shell-prompt
-  ] ++ (if appliance-config-exists then with appliance-config; [ tgRash tg-signed-json ] else [ ]);
+  ] ++ (if appliance-config-exists then with appliance-config; [ tgRash tg-signed-json tg-update-client ] else [ ]);
 
   programs.git = {
     enable = true;
