@@ -6,6 +6,9 @@ let
 
   appliance-config = if appliance-config-exists then import /Users/jcsims/code/tg/appliance { }
                      else {};
+  lein_jdk11 = pkgs.leiningen.override {
+    jdk = pkgs.jdk11;
+  };
 in
 rec {
   # Home Manager needs a bit of information about you and the
@@ -32,6 +35,7 @@ rec {
     htop
     jdk11
     jq
+    lein_jdk11
     nixpkgs-fmt
     nix-tree
     pass
