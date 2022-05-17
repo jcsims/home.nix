@@ -57,7 +57,9 @@ rec {
                                      tg-signed-json
                                      tg-update-client
                                      desync]
-        else [ ]);
+        else [])
+  ++ (if pkgs.stdenv.isDarwin then [iterm2]
+      else []);
 
   programs.git = {
     enable = true;
