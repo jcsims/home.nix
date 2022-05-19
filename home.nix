@@ -20,6 +20,7 @@ rec {
     act
     aspell
     aspellDicts.en
+    babashka
     bashInteractive
     bash-completion
     chezmoi
@@ -39,16 +40,15 @@ rec {
     nixpkgs-fmt
     nix-tree
     pass
-    pinentry_mac
     # To pin this version of postgres: nix-env --set-flag keep true postgresql
     postgresql_13
     redis
+    restic
     ripgrep
     rust-analyzer
     rustup
     shellcheck
     sshuttle
-    terminal-notifier
     tmux
     tokei
     tree
@@ -58,7 +58,7 @@ rec {
                                      tg-update-client
                                      desync]
         else [])
-  ++ (if pkgs.stdenv.isDarwin then [iterm2]
+  ++ (if pkgs.stdenv.isDarwin then [iterm2 pinentry_mac terminal-notifier]
       else []);
 
   programs.git = {
@@ -135,10 +135,12 @@ rec {
       "");
 
   home.sessionPath = ["$HOME/bin"
-                      "/opt/homebrew/bin"
-                      "/opt/homebrew/sbin"
                       "$HOME/go/bin"
-                      "$HOME/.cargo/bin"];
+                      "$HOME/.cargo/bin"] ++
+  (if pkgs.stdenv.isDarwin then
+                        ["/opt/homebrew/bin"
+                         "/opt/homebrew/sbin"]
+   else []);
 
   home.sessionVariables = {
     CLICOLOR = 1;
@@ -147,6 +149,7 @@ rec {
     MANPAGER = "sh -c 'col -bx | bat -l man -p'";
   };
 
+  # Manage a bunch of files
   home.file."bin/e" = {
     text = ''
     #!/usr/bin/env bash
@@ -175,6 +178,21 @@ rec {
     \pset null ¤
   '';
 
+  home.file."bin/check-nix-apps" = {
+    source = ./files/check-nix-apps;
+    executable = true;
+  };
+
+  home.file.".emacs.d" = {
+    source = ./files/emacs.d;
+    recursive = true;
+  };
+
+  home.file.".tmux.conf".source = ./files/tmux.conf;
+
+  home.file.".authinfo.gpg".source = ./files/authinfo.gpg;
+
+  # Set up bash
   programs.bash = (import ./bash.nix { bash-completion = pkgs.bash-completion; });
 
   programs.bat = {
