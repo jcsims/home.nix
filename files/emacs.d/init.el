@@ -79,7 +79,7 @@
 (setq initial-scratch-message nil)
 
 ;; y/n keypresses instead of typing out yes or no
-(defalias 'yes-or-no-p 'y-or-n-p)
+(setq use-short-answers t)
 
 (put 'erase-buffer 'disabled nil)
 (put 'upcase-region 'disabled nil)
@@ -1020,6 +1020,10 @@ Passes ARG onto `zap-to-char` or `backward-kill-word` if used."
 (use-package go-mode
   :hook (go-mode . (lambda ()
 		     (setq tab-width 2))))
+
+(use-package hippie-expand
+  :ensure f
+  :bind (([remap dabbrev-expand] . hippie-expand)))
 
 ;; Local personalization
 (let ((file (expand-file-name (concat (user-real-login-name) ".el")
