@@ -64,6 +64,5 @@
     export XDG_DATA_DIRS="$HOME/.nix-profile/share:''${XDG_DATA_DIRS:-/usr/local/share:/usr/share}"
 
     for f in $HOME/.functions/*; do source "$f"; done
-    eval "$(starship init bash)"
     '';
 }
