@@ -124,11 +124,6 @@
   (set-frame-font "Hack Nerd Font 12"))
 
 ;;; Themes
-
-(use-package smart-mode-line
-  :custom (sml/theme 'automatic)
-  :config (sml/setup))
-
 ;; emacs-plus offers this handy hook to tie in to system appearance
 (defun jcs/apply-theme (appearance)
   "Load theme, taking current system APPEARANCE into consideration."
@@ -168,6 +163,10 @@
       (progn (setq jcs-active-theme jcs-light-theme)
 	     (sml/apply-theme 'light)))
     (load-theme jcs-active-theme t)))
+
+(use-package smart-mode-line
+  :custom (sml/theme 'automatic)
+  :config (sml/setup))
 
 ;; Allow for seamless gpg interaction
 (use-package epa-file
