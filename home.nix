@@ -33,6 +33,7 @@ rec {
     gnupg
     go
     gopls
+    hack-font
     htop
     jdk11
     jq

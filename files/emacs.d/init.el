@@ -124,14 +124,9 @@
   (set-frame-font "Hack Nerd Font 12"))
 
 ;;; Themes
-(defvar jcs-active-theme)
-(defvar jcs-light-theme)
-(defvar jcs-dark-theme)
-
-;;; Themes
 
 (use-package smart-mode-line
-  :custom (sml/theme 'respectful)
+  :custom (sml/theme 'automatic)
   :config (sml/setup))
 
 ;; emacs-plus offers this handy hook to tie in to system appearance
@@ -145,7 +140,7 @@
     (sml/setup)))
 
 (use-package modus-themes
-  ;:disabled
+  :disabled
   :init (modus-themes-load-themes)
   :config (if (eq system-type 'darwin)
               (progn
@@ -153,8 +148,12 @@
                 (setq ns-system-appearance-change-functions '(jcs/apply-theme)))
             (modus-themes-load-vivendi)))
 
+(defvar jcs-active-theme)
+(defvar jcs-light-theme)
+(defvar jcs-dark-theme)
+
 (use-package color-theme-sanityinc-tomorrow
-  :disabled
+  ;:disabled
   :config
   (setq jcs-active-theme 'sanityinc-tomorrow-eighties
 	jcs-light-theme 'sanityinc-tomorrow-day
@@ -497,6 +496,9 @@ canceled tasks."
 (use-package org-modern
   :disabled
   :hook (org-mode . org-modern-mode))
+
+(use-package orglink
+  :config (global-orglink-mode))
 
 (use-package autorevert
   :ensure f
