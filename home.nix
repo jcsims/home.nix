@@ -33,11 +33,11 @@ rec {
     gnupg
     go
     gopls
-    hack-font
     htop
     jdk11
     jq
     lein_jdk11
+    (nerdfonts.override { fonts = [ "Hack" ]; })
     nixpkgs-fmt
     nix-tree
     pass
