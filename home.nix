@@ -92,7 +92,7 @@ rec {
       init.defaultBranch = "main";
       magit.hideCampaign = true;
       pull.rebase = true;
-      rebase.autostach = true;
+      rebase.autostash = true;
       status.submoduleSummary = true;
       diff.gpg.textconv = "gpg --no-tty --decrypt";
     };
