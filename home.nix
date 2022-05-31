@@ -176,8 +176,9 @@ rec {
   };
 
   home.file.".tmux.conf".source = ./files/tmux.conf;
-
   home.file.".authinfo.gpg".source = ./files/authinfo.gpg;
+  home.file.".functions/c.bash".source = ./files/c.bash;
+  home.file.".functions/_c.bash".source = ./files/_c.bash;
 
   # Set up bash
   programs.bash = (import ./bash.nix { bash-completion = pkgs.bash-completion; });
