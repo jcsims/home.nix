@@ -23,7 +23,6 @@ rec {
     babashka
     bashInteractive
     bash-completion
-    chezmoi
     # clojure-lsp # not built for aarch64 yet (ever?)
     clojure
     cmake # For building libgit
