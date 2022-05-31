@@ -1,5 +1,5 @@
 # What is this?
-This repo (designed to be cloned at `~/.config/nixpkgs` is my working dev setup
+This repo (designed to be cloned at `~/.config/nixpkgs`) is my working dev setup
 using nix + home-manager. There are a few things I still install via Homebrew,
 but this setup gives me all of my configuration and most of the tools (including
 some appliance-team-specific tools).
