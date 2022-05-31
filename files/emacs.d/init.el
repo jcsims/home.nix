@@ -790,8 +790,6 @@ Passes ARG onto `zap-to-char` or `backward-kill-word` if used."
 
 (use-package git-modes)
 
-(use-package magit-libgit :after magit)
-
 (use-package git-timemachine)
 
 (use-package paredit
@@ -865,7 +863,7 @@ Passes ARG onto `zap-to-char` or `backward-kill-word` if used."
   (cider-jdk-src-paths '("~/code/clojure-sources"
 			 "/usr/local/opt/java11/libexec/openjdk.jdk/Contents/Home/lib/src.zip"))
   ;; This should put it after e.g. lsp
-  (cider-xref-fn-depth 90)
+  ;;(cider-xref-fn-depth 90)
   (cider-save-file-on-load t)
   (cider-repl-use-pretty-printing t)
   (nrepl-use-ssh-fallback-for-remote-hosts t)

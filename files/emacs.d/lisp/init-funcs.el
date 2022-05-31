@@ -77,8 +77,8 @@ If region is active, apply to active region instead."
     (eshell-send-input)))
 
 (add-hook 'eshell-mode-hook
-	  '(lambda ()
-	     (local-set-key (kbd "C-l") 'eshell-clear-buffer)))
+	  #'(lambda ()
+	      (local-set-key (kbd "C-l") 'eshell-clear-buffer)))
 
 (defun dired-do-ispell (&optional arg)
   "Check all marked files ARG with ispell. Borrowed from the Emacswiki."
