@@ -17,3 +17,6 @@ some appliance-team-specific tools).
    `~/.bashrc`), but you should understand what's going to go where before you
    start using this.
 5. Replace `~/.config/nixpkgs` with this repo, and start using it.
+6. If you install Mac application packages, then make sure you have something
+   like `check-nix-apps` that's included in this repo, to make them available to
+   whatever launcher you use.
