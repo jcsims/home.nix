@@ -84,8 +84,27 @@ rec {
         condition = "gitdir:~/dev/tg/";
       }
     ];
+    ignores = [
+      ".DS_Store"
+
+      # Emacs
+      "*.elc"
+      "auto-save-list"
+      "tramp"
+      ".\#*"
+      "*-autoloads.el"
+      "*.info"
+      "flycheck_*.el"
+      "*-pkg.el"
+      "*-autoloads.el"
+
+      # Clojure/Emacs
+      ".clj-kondo"
+
+      # LSP
+      ".lsp"
+    ];
     extraConfig = {
-      core.excludesFile = "~/.gitignore";
       credential.helper = "osxkeychain";
       fetch.prune = true;
       init.defaultBranch = "main";
