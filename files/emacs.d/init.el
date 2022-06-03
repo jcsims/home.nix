@@ -609,10 +609,10 @@ canceled tasks."
 
 (use-package minions
   :config
-  (setq minions-direct '(flycheck-mode
-			 vlf-mode
-			 lsp-mode
-			 whitespace-cleanup-mode))
+  (setq minions-prominent-modes '(flycheck-mode
+				  vlf-mode
+				  lsp-mode
+				  whitespace-cleanup-mode))
   (minions-mode))
 
 (defun find-init-file ()

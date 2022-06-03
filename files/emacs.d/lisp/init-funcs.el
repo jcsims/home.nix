@@ -159,8 +159,6 @@ the commit as well."
 
 (defvar jcs/tab-sensitive-modes '(makefile-bsdmake-mode go-mode))
 (defvar jcs/indent-sensitive-modes '(conf-mode
-				     coffee-mode
-				     haml-mode
 				     python-mode
 				     slim-mode
 				     yaml-mode))
