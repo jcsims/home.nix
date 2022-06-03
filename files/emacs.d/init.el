@@ -1014,7 +1014,8 @@ Passes ARG onto `zap-to-char` or `backward-kill-word` if used."
   :hook (prog-mode . hs-minor-mode))
 
 (use-package winner
-  :ensure f)
+  :ensure f
+  :config (winner-mode))
 
 (use-package go-mode
   :hook (go-mode . (lambda ()
