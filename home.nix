@@ -2,9 +2,9 @@
 { config, pkgs, ... }:
 
 let
-  appliance-config-exists = builtins.pathExists /Users/jcsims/code/tg/appliance;
+  appliance-config-exists = builtins.pathExists /Users/jcsims/dev/tg/appliance;
 
-  appliance-config = if appliance-config-exists then import /Users/jcsims/code/tg/appliance { }
+  appliance-config = if appliance-config-exists then import /Users/jcsims/dev/tg/appliance { }
                      else {};
   lein_jdk11 = pkgs.leiningen.override {
     jdk = pkgs.jdk11;
@@ -25,7 +25,6 @@ rec {
     bash-completion
     # clojure-lsp # not built for aarch64 yet (ever?)
     clojure
-    cmake # For building libgit
     #emacs
     fd
     git
@@ -40,7 +39,6 @@ rec {
     nixpkgs-fmt
     nix-tree
     pass
-    # To pin this version of postgres: nix-env --set-flag keep true postgresql
     postgresql_13
     redis
     restic
