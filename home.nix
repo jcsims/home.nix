@@ -51,10 +51,11 @@ rec {
     tokei
     tree
   ] ++ (if appliance-config-exists
-        then with appliance-config; [tgRash
+        then with appliance-config; [desync
                                      tg-signed-json
                                      tg-update-client
-                                     desync]
+                                     tgRash
+                                     preq]
         else [])
   ++ (if pkgs.stdenv.isDarwin then [iterm2
                                     pinentry_mac
