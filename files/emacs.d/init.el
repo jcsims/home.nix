@@ -141,7 +141,12 @@
               (progn
                 (jcs/apply-theme ns-system-appearance)
                 (setq ns-system-appearance-change-functions '(jcs/apply-theme)))
-            (modus-themes-load-vivendi)))
+            (modus-themes-load-vivendi))
+  :custom (modus-themes-org-agenda (quote ((header-block . (variable-pitch 1.5 semibold))
+					   (header-date . (grayscale workaholic bold-today 1.2))
+					   (event . (accented italic varied))
+					   (scheduled . uniform)
+					   (habit . traffic-light)))))
 
 (defvar jcs-active-theme)
 (defvar jcs-light-theme)

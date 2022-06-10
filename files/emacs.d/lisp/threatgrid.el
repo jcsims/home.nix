@@ -38,14 +38,14 @@
    ""
    (magit-get-upstream-branch)))
 
-(defun tg-convert-issue-to-pr (branch-name upstream)
-  "Convert a particular issue branch BRANCH-NAME to a pull-request.
+(defun tg-convert-issue-to-pr (repo branch-name upstream)
+  "Convert a particular issue branch BRANCH-NAME to a pull-request against REPO.
 Pass different UPSTREAM to target something other than master for the PR.
 See: https://developer.github.com/v3/pulls/#alternative-input"
   (let ((branch-name (or branch-name (magit-get-current-branch))))
     (if (not (string-prefix-p "issue-" branch-name))
         (message "branch-name should be of the format `issue-<issue number>`.")
-      (let ((repo "threatgrid/threatbrain")
+      (let ((repo (or repo "threatgrid/threatbrain"))
             (upstream (or upstream (tg-get-current-upstream-branch) "master"))
             (issue-number (string-to-number (substring branch-name 6)))
             (pr-head (concat tg-gh-username ":" branch-name)))
@@ -54,14 +54,20 @@ See: https://developer.github.com/v3/pulls/#alternative-input"
                    :payload (list
                              (cons 'issue issue-number)
                              (cons 'head pr-head)
-                             (cons 'base upstream))
+                             (cons 'base upstream)
+			     (cons 'maintainer_can_modify nil))
                    :host tg-gh-host)
         (message "Created PR")))))
 
 (defun preq ()
   "Convert an issue to a PR."
   (interactive)
-  (tg-convert-issue-to-pr nil nil))
+  (tg-convert-issue-to-pr nil nil nil))
+
+(defun app-preq ()
+  "Convert an issue in the appliance repo to a PR."
+  (interactive)
+  (tg-convert-issue-to-pr "threatgrid/appliance" nil nil))
 
 ;;; Reporting
 (defun tg--prs-for-user (prs username)

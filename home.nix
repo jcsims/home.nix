@@ -35,7 +35,7 @@ rec {
     jdk11
     jq
     lein_jdk11
-    (nerdfonts.override { fonts = [ "Hack" ]; })
+    (nerdfonts.override { fonts = [ "Hack" "RobotoMono" ]; })
     nixpkgs-fmt
     nix-tree
     pass
@@ -55,7 +55,8 @@ rec {
                                      tg-signed-json
                                      tg-update-client
                                      tgRash
-                                     preq]
+                                     #preq
+                                    ]
         else [])
   ++ (if pkgs.stdenv.isDarwin then [iterm2
                                     pinentry_mac
