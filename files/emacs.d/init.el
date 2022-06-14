@@ -135,7 +135,7 @@
     (sml/setup)))
 
 (use-package modus-themes
-  :disabled
+  ;:disabled
   :init (modus-themes-load-themes)
   :config (if (eq system-type 'darwin)
               (progn
@@ -153,7 +153,7 @@
 (defvar jcs-dark-theme)
 
 (use-package color-theme-sanityinc-tomorrow
-  ;:disabled
+  :disabled
   :config
   (setq jcs-active-theme 'sanityinc-tomorrow-eighties
 	jcs-light-theme 'sanityinc-tomorrow-day
