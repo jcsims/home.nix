@@ -2,13 +2,9 @@
 { config, pkgs, ... }:
 
 let
-  appliance-config-exists = builtins.pathExists /Users/jcsims/dev/tg/appliance;
-
-  appliance-config = if appliance-config-exists then import /Users/jcsims/dev/tg/appliance { }
-                     else {};
-  lein_jdk11 = pkgs.leiningen.override {
-    jdk = pkgs.jdk11;
-  };
+  work-config = if builtins.pathExists ./work.nix
+                then (import ./work.nix {pkgs = pkgs;})
+                else {packages = [];};
 in
 rec {
   # Home Manager needs a bit of information about you and the
@@ -29,39 +25,26 @@ rec {
     fd
     git
     gnupg
-    go
-    gopls
     htop
-    jdk11
     jq
-    lein_jdk11
     (nerdfonts.override { fonts = [ "Hack" "RobotoMono" ]; })
     nixpkgs-fmt
     nix-tree
     pass
-    postgresql_13
-    redis
     restic
     ripgrep
     rust-analyzer
     rustup
     shellcheck
-    sshuttle
     tmux
     tokei
     tree
-  ] ++ (if appliance-config-exists
-        then with appliance-config; [desync
-                                     tg-signed-json
-                                     tg-update-client
-                                     tgRash
-                                     #preq
-                                    ]
-        else [])
+  ]
   ++ (if pkgs.stdenv.isDarwin then [iterm2
                                     pinentry_mac
                                     terminal-notifier]
-      else []);
+      else [])
+  ++ work-config.packages;
 
   programs.git = {
     enable = true;
