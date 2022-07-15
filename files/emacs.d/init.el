@@ -62,6 +62,18 @@
   :ensure f
   :custom (auth-sources '("~/.authinfo.gpg")))
 
+;;; Misc settings
+(setq inhibit-splash-screen t		; Don't show the splash screen
+      ring-bell-function 'ignore	; Just ignore error notifications
+      indent-tabs-mode nil		; Don't use tabs unless buffer-local
+      select-enable-primary t
+      save-interprogram-paste-before-kill t
+      mouse-yank-at-point t
+      ;; When scrolling, make sure to come back to the same spot
+      scroll-preserve-screen-position 'always
+      scroll-error-top-bottom t		; Scroll similar to vim
+      )
+
 ;;; Personal info
 (setq user-full-name "Chris Sims"
       user-mail-address "chris@jcsi.ms")
@@ -135,7 +147,7 @@
     (sml/setup)))
 
 (use-package modus-themes
-  ;:disabled
+  :disabled
   :init (modus-themes-load-themes)
   :config (if (eq system-type 'darwin)
               (progn
@@ -153,7 +165,7 @@
 (defvar jcs-dark-theme)
 
 (use-package color-theme-sanityinc-tomorrow
-  :disabled
+  ;:disabled
   :config
   (setq jcs-active-theme 'sanityinc-tomorrow-eighties
 	jcs-light-theme 'sanityinc-tomorrow-day
@@ -255,6 +267,19 @@ same directory as the org-buffer and insert a link to this file."
     (if (file-exists-p filename)
 	(insert (concat "[[file:" filename "]]")))
     (org-display-inline-images))
+
+  ;; Borrowed from http://mbork.pl/2021-05-02_Org-mode_to_Markdown_via_the_clipboard
+  (defun org-copy-region-as-markdown ()
+    "Copy the region (in Org) to the system clipboard as Markdown."
+    (interactive)
+    (if (use-region-p)
+	(let* ((region
+		(buffer-substring-no-properties
+		 (region-beginning)
+		 (region-end)))
+	       (markdown
+		(org-export-string-as region 'md t '(:with-toc nil))))
+	  (gui-set-selection 'CLIPBOARD markdown))))
 
   :bind (("C-c l" . org-store-link)
 	 ("C-c a" . org-agenda)))
@@ -521,18 +546,6 @@ canceled tasks."
   :ensure f
   :when (version< "25" emacs-version)
   :config (save-place-mode t))
-
-;;; Misc settings
-(setq inhibit-splash-screen t  ; Don't show the splash screen
-      ring-bell-function 'ignore ; Just ignore error notifications
-      indent-tabs-mode nil ; Don't use tabs unless buffer-local
-      select-enable-primary t
-      save-interprogram-paste-before-kill t
-      mouse-yank-at-point t
-      ;; When scrolling, make sure to come back to the same spot
-      scroll-preserve-screen-position 'always
-      scroll-error-top-bottom t ; Scroll similar to vim
-      )
 
 ;;; Packages
 (use-package vc-hooks
@@ -876,7 +889,8 @@ Passes ARG onto `zap-to-char` or `backward-kill-word` if used."
   (cider-auto-jump-to-error 'errors-only)
   ;; Remove 'deprecated since LSP does that as well
   (cider-font-lock-dynamically '(macro core))
-  (cider-eldoc-display-context-dependent-info t)
+  ;; Let LSP handle eldoc
+  (cider-eldoc-display-for-symbol-at-point nil)
   (cider-enrich-classpath t)
   :config
   ;; kill REPL buffers for a project as well
@@ -906,6 +920,8 @@ Passes ARG onto `zap-to-char` or `backward-kill-word` if used."
 
 (use-package json-snatcher
   :config (setq jsons-path-printer 'jsons-print-path-jq))
+
+(use-package jsonian)
 
 (use-package jq-mode)
 
