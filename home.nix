@@ -19,7 +19,7 @@ rec {
     babashka
     bashInteractive
     bash-completion
-    # clojure-lsp # not built for aarch64 yet (ever?)
+    clojure-lsp
     clojure
     #emacs
     fd
