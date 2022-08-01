@@ -233,6 +233,8 @@
 	org-outline-path-complete-in-steps nil
 	;; Don't ask every time before evaluating an org source block
 	org-confirm-babel-evaluate nil
+	;; Display images in org by default
+	org-startup-with-inline-images t
 	;; Try to keep image widths in emacs to a sane value (measured in pixels)
 	org-image-actual-width 1000)
   (setq org-todo-keywords
@@ -263,7 +265,7 @@ same directory as the org-buffer and insert a link to this file."
 	(call-process "screencapture" nil nil nil "-i" filename))
     (if (eq system-type 'gnu/linux)
 	(call-process "import" nil nil nil filename))
-					; insert into file if correctly taken
+    ;; insert into file if correctly taken
     (if (file-exists-p filename)
 	(insert (concat "[[file:" filename "]]")))
     (org-display-inline-images))
