@@ -7,9 +7,6 @@
 
 ;;; Code:
 
-;; Prefer the newer version of a file, whether it's compiled or not.
-(setq load-prefer-newer t)
-
 (setq custom-file "~/.emacs.d/custom.el")
 (load custom-file)
 
