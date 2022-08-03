@@ -285,6 +285,8 @@ same directory as the org-buffer and insert a link to this file."
 
 (use-package org-tempo :ensure org)
 
+(use-package org-mac-link)
+
 (use-package ox-md :ensure org)
 
 (use-package org-roam
