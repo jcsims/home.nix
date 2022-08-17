@@ -881,8 +881,6 @@ Passes ARG onto `zap-to-char` or `backward-kill-word` if used."
   ;; TODO: update these paths
   (cider-jdk-src-paths '("~/code/clojure-sources"
 			 "/usr/local/opt/java11/libexec/openjdk.jdk/Contents/Home/lib/src.zip"))
-  ;; This should put it after e.g. lsp
-  ;;(cider-xref-fn-depth 90)
   (cider-save-file-on-load t)
   (cider-repl-use-pretty-printing t)
   (nrepl-use-ssh-fallback-for-remote-hosts t)
@@ -957,9 +955,7 @@ Passes ARG onto `zap-to-char` or `backward-kill-word` if used."
 
 (use-package rustic
   :hook (rustic-mode . (lambda ()
-			 (setq indent-tabs-mode nil)))
-  :custom
-  (rustic-lsp-format t))
+			 (setq indent-tabs-mode nil))))
 
 (use-package flycheck-rust
   :after rust-mode
