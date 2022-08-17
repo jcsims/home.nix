@@ -30,9 +30,11 @@ rec {
     (nerdfonts.override { fonts = [ "Hack" "RobotoMono" ]; })
     nixpkgs-fmt
     nix-tree
+    nodePackages.bash-language-server
     pass
     restic
     ripgrep
+    rnix-lsp
     rust-analyzer
     rustup
     shellcheck
