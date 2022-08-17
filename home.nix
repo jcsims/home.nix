@@ -21,7 +21,7 @@ rec {
     bash-completion
     clojure-lsp
     clojure
-    emacs28NativeComp
+    emacs
     fd
     git
     gnupg
