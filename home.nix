@@ -14,6 +14,7 @@ rec {
 
   home.packages = with pkgs; [
     act
+    alejandra
     aspell
     aspellDicts.en
     babashka
@@ -27,6 +28,7 @@ rec {
     gnupg
     htop
     jq
+    languagetool
     (nerdfonts.override { fonts = [ "Hack" "RobotoMono" ]; })
     nixpkgs-fmt
     nix-tree
@@ -55,7 +57,7 @@ rec {
     attributes = ["*.gpg filter=gpg diff=gpg"];
     # difftastic doesn't yet handle gpg diffs on the command-line with
     # this config
-    #difftastic.enable = true;
+    difftastic.enable = true;
     aliases = {
       recent = "branch --sort=-committerdate --format=\"%(committerdate:relative)%09%(refname:short)\"";
     };
@@ -65,8 +67,16 @@ rec {
         condition = "gitdir:~/code/tg/";
       }
       {
+        path = "~/code/.gitconfig";
+        condition = "gitdir:~/code";
+      }
+      {
         path = "~/dev/tg/.gitconfig";
         condition = "gitdir:~/dev/tg/";
+      }
+      {
+        path = "~/dev/.gitconfig";
+        condition = "gitdir:~/dev/";
       }
     ];
     ignores = [
