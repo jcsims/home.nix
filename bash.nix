@@ -11,7 +11,7 @@
     cat = "bat";
     grep = "grep --color=auto";
     ls = "ls --color=auto";
-    "reload!" = ". ~/.bashrc";
+    reload = "exec bash";
     stay-awake = "caffeinate -di";
     tree = "tree -C";
     alert = "terminal-notifier -activate 'com.googlecode.iterm2' -message \"$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')\"";
