@@ -793,7 +793,7 @@ Passes ARG onto `zap-to-char` or `backward-kill-word` if used."
   :bind ("C-o" . embark-act))
 
 (use-package magit
-  :demand
+  :demand t
   :bind (("C-c g"   . magit-status)
 	 ("C-c M-g" . magit-dispatch))
   :custom
@@ -925,9 +925,11 @@ Passes ARG onto `zap-to-char` or `backward-kill-word` if used."
 
 ;; LSP
 (use-package lsp-mode
+  :disabled
   :hook ((rust-mode . lsp)
 	 (clojure-mode . lsp)
-	 (go-mode . lsp))
+	 (go-mode . lsp)
+	 (sh-mode . lsp))
   :config
   (setq read-process-output-max (* 1024 1024))
   (setq lsp-enable-indentation nil)
@@ -937,7 +939,16 @@ Passes ARG onto `zap-to-char` or `backward-kill-word` if used."
   :custom (lsp-rust-analyzer-cargo-watch-command "clippy")
   :commands lsp)
 
+(use-package eglot
+  :hook ((rust-mode
+	  clojure-mode
+	  go-mode
+	  sh-mode) . eglot-ensure)
+  :bind (:map eglot-mode-map
+	      ("C-M-." . xref-find-references)))
+
 (use-package lsp-ui
+  :disabled
   :after lsp-mode
   :commands lsp-ui-mode
   :bind (:map lsp-ui-mode-map
@@ -949,6 +960,7 @@ Passes ARG onto `zap-to-char` or `backward-kill-word` if used."
   (lsp-ui-doc-use-webkit t))
 
 (use-package lsp-treemacs
+  :disabled
   :after lsp-mode
   :config (setq treemacs-space-between-root-nodes nil))
 
@@ -1041,6 +1053,12 @@ Passes ARG onto `zap-to-char` or `backward-kill-word` if used."
 (use-package hippie-expand
   :ensure f
   :bind (([remap dabbrev-expand] . hippie-expand)))
+
+(use-package obsidian
+  :demand t
+  :config
+  (obsidian-specify-path "~/notes/work")
+  (global-obsidian-mode))
 
 ;; Local personalization
 (let ((file (expand-file-name (concat (user-real-login-name) ".el")
