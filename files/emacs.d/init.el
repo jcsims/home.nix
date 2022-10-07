@@ -925,7 +925,7 @@ Passes ARG onto `zap-to-char` or `backward-kill-word` if used."
 
 ;; LSP
 (use-package lsp-mode
-  :disabled
+  ;;:disabled
   :hook ((rust-mode . lsp)
 	 (clojure-mode . lsp)
 	 (go-mode . lsp)
@@ -940,6 +940,7 @@ Passes ARG onto `zap-to-char` or `backward-kill-word` if used."
   :commands lsp)
 
 (use-package eglot
+  :disabled
   :hook ((rust-mode
 	  clojure-mode
 	  go-mode
@@ -948,7 +949,7 @@ Passes ARG onto `zap-to-char` or `backward-kill-word` if used."
 	      ("C-M-." . xref-find-references)))
 
 (use-package lsp-ui
-  :disabled
+  ;;:disabled
   :after lsp-mode
   :commands lsp-ui-mode
   :bind (:map lsp-ui-mode-map
@@ -960,7 +961,7 @@ Passes ARG onto `zap-to-char` or `backward-kill-word` if used."
   (lsp-ui-doc-use-webkit t))
 
 (use-package lsp-treemacs
-  :disabled
+  ;;:disabled
   :after lsp-mode
   :config (setq treemacs-space-between-root-nodes nil))
 
