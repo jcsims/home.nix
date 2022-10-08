@@ -952,8 +952,8 @@ Passes ARG onto `zap-to-char` or `backward-kill-word` if used."
 	      ("C-M-." . xref-find-references)
 	      ([remap xref-find-references] . lsp-ui-peek-find-references))
   :custom
-  (lsp-ui-sideline-show-code-actions nil)
-  (lsp-ui-sideline-show-diagnostics nil)
+  ;;(lsp-ui-sideline-show-code-actions nil)
+  ;;(lsp-ui-sideline-show-diagnostics nil)
   (lsp-ui-doc-use-webkit t))
 
 (use-package lsp-treemacs
