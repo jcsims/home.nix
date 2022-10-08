@@ -633,15 +633,10 @@ canceled tasks."
 				  whitespace-cleanup-mode))
   (minions-mode))
 
-(defun find-init-file ()
-  "Open the init file for editing."
+(defun find-nix-file (filepath)
+  "Find the FILEPATH under ~/.config/nixpkgs."
   (interactive)
-  (find-file "~/.config/nixpkgs/files/emacs.d/init.el"))
-
-(defun find-home-nix ()
-  "Open home.nix for editing."
-  (interactive)
-  (find-file "~/.config/nixpkgs/home.nix"))
+  (find-file (expand-file-name filepath "~/.config/nixpkgs/")))
 
 (use-package simple
   :ensure f
@@ -652,8 +647,9 @@ canceled tasks."
   (setq-default what-cursor-show-names t)
   :bind
   ("M-SPC" . cycle-spacing)
-  ("C-c e e" . find-init-file)
-  ("C-c e h" . find-home-nix)
+  ("C-c e e" . (lambda () (interactive) (find-nix-file "files/emacs.d/init.el")))
+  ("C-c e h" . (lambda () (interactive) (find-nix-file "home.nix")))
+  ("C-c e w" . (lambda () (interactive) (find-nix-file "work.nix")))
   :hook ((text-mode org-mode markdown-mode) . turn-on-auto-fill))
 
 (use-package text-mode
