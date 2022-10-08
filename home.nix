@@ -57,7 +57,7 @@ rec {
     attributes = ["*.gpg filter=gpg diff=gpg"];
     # difftastic doesn't yet handle gpg diffs on the command-line with
     # this config
-    difftastic.enable = true;
+    #difftastic.enable = true;
     aliases = {
       recent = "branch --sort=-committerdate --format=\"%(committerdate:relative)%09%(refname:short)\"";
     };
