@@ -1051,11 +1051,26 @@ Passes ARG onto `zap-to-char` or `backward-kill-word` if used."
   :ensure f
   :bind (([remap dabbrev-expand] . hippie-expand)))
 
+(use-package dash)
+(use-package s)
 (use-package obsidian
   :demand t
+  :after (s dash)
   :config
   (obsidian-specify-path "~/notes/work")
-  (global-obsidian-mode))
+  (global-obsidian-mode)
+
+  (defun jcs/open-todays-meeting ()
+    "Open an Obsidian meeting note from today."
+    (interactive)
+    (let* ((today-string (format-time-string "%Y-%m-%d"))
+	   (meeting-dir (expand-file-name "meetings" obsidian-directory))
+	   (choices (->> (directory-files-recursively meeting-dir "\.*$")
+			 (-filter #'obsidian-file-p)
+			 (-map (lambda (f) (file-relative-name f meeting-dir)))
+			 (-filter (lambda (f) (s-starts-with? today-string f)))))
+	   (choice (completing-read "Select file: " choices)))
+      (obsidian-find-file (expand-file-name choice meeting-dir))))))
 
 ;; Local personalization
 (let ((file (expand-file-name (concat (user-real-login-name) ".el")
