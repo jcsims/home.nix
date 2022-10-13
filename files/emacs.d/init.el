@@ -921,11 +921,13 @@ Passes ARG onto `zap-to-char` or `backward-kill-word` if used."
 
 ;; LSP
 (use-package lsp-mode
-  :disabled
-  :hook ((rust-mode . lsp)
-	 (clojure-mode . lsp)
-	 (go-mode . lsp)
-	 (sh-mode . lsp))
+  ;;:disabled
+  :hook ((rust-mode
+	  clojure-mode
+	  go-mode
+	  sh-mode
+	  nix-mode)
+	 . lsp)
   :config
   (setq read-process-output-max (* 1024 1024))
   (setq lsp-enable-indentation nil)
@@ -936,24 +938,25 @@ Passes ARG onto `zap-to-char` or `backward-kill-word` if used."
   :commands lsp)
 
 (use-package eglot
-  ;;:disabled
+  :disabled
   :hook ((rust-mode
 	  clojure-mode
 	  go-mode
-	  sh-mode) . eglot-ensure)
+	  sh-mode)
+	 . eglot-ensure)
   :bind (:map eglot-mode-map
 	      ("C-M-." . xref-find-references)))
 
 (use-package lsp-ui
-  :disabled
+  ;;:disabled
   :after lsp-mode
   :commands lsp-ui-mode
   :bind (:map lsp-ui-mode-map
 	      ("C-M-." . xref-find-references)
 	      ([remap xref-find-references] . lsp-ui-peek-find-references))
   :custom
-  ;;(lsp-ui-sideline-show-code-actions nil)
-  ;;(lsp-ui-sideline-show-diagnostics nil)
+  (lsp-ui-sideline-show-code-actions nil)
+  (lsp-ui-sideline-show-diagnostics nil)
   (lsp-ui-doc-use-webkit t))
 
 (use-package lsp-treemacs
