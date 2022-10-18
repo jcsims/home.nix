@@ -7,9 +7,6 @@
 
 ;;; Code:
 
-(setq custom-file "~/.emacs.d/custom.el")
-(load custom-file)
-
 ;; Seed the PRNG anew, from the system's entropy pool
 (random t)
 
@@ -30,6 +27,17 @@
       use-package-compute-statistics t
       use-package-verbose t)
 (use-package bind-key)
+
+(use-package custom
+  :ensure f
+  :config
+  (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
+  (when (file-exists-p custom-file)
+    (load custom-file)))
+
+;; (use-package init-packages
+;;   :ensure f
+;;   :load-path "lisp")
 
 (use-package gcmh
   :custom (gcmh-verbose t)
