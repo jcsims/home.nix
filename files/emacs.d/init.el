@@ -238,7 +238,9 @@
 
 (use-package minions
   :config
-  (setq minions-prominent-modes '(flycheck-mode
+  (setq minions-prominent-modes '(eglot-mode
+				  flycheck-mode
+				  flymake-mode
 				  vlf-mode
 				  lsp-mode
 				  whitespace-cleanup-mode))
@@ -356,9 +358,14 @@ Passes ARG onto `zap-to-char` or `backward-kill-word` if used."
 	completion-category-overrides '((file (styles . (partial-completion))))))
 
 (use-package consult
+  :disabled
   :demand ;; never want to lazy-load this package
   :bind (("M-y" . consult-yank-from-kill-ring)
-	 ([remap isearch-forward-regexp] . consult-line)))
+	 ([remap isearch-forward-regexp] . consult-line))
+  :config
+  ;; Make the default selection the symbol that point is on already.
+  (consult-customize consult-line
+		     :initial (thing-at-point 'symbol)))
 
 (use-package marginalia
   :init (marginalia-mode))
@@ -485,7 +492,7 @@ Passes ARG onto `zap-to-char` or `backward-kill-word` if used."
 
 ;; LSP
 (use-package lsp-mode
-  ;;:disabled
+  :disabled
   :hook ((rust-mode
 	  clojure-mode
 	  go-mode
@@ -502,7 +509,7 @@ Passes ARG onto `zap-to-char` or `backward-kill-word` if used."
   :commands lsp)
 
 (use-package eglot
-  :disabled
+  ;;:disabled
   :hook ((rust-mode
 	  clojure-mode
 	  go-mode
@@ -512,8 +519,14 @@ Passes ARG onto `zap-to-char` or `backward-kill-word` if used."
   :bind (:map eglot-mode-map
 	      ("C-M-." . xref-find-references)))
 
+(use-package flymake
+  :ensure f
+  :bind (:map flymake-mode-map
+	      ("M-n" . flymake-goto-next-error)
+	      ("M-p" . flymake-goto-prev-error)))
+
 (use-package lsp-ui
-  ;;:disabled
+  :disabled
   :after lsp-mode
   :commands lsp-ui-mode
   :bind (:map lsp-ui-mode-map
