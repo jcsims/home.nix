@@ -152,7 +152,7 @@
 			 ("@stacey" . ?s)
 			 ("@uma" . ?u)
 			 ("@ed" . ?e)
-			 ("@tega" . ?t)
+			 ("@francois" . ?f)
 			 (:newline)
 			 ("important" . ?i)
 			 ("urgent" . ?r)
