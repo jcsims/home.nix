@@ -1,5 +1,5 @@
 # This repo is cloned at $HOME/.config/nixpkgs to work with home-manager.
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 let
   appliance-config = (import (builtins.fetchGit {
@@ -18,6 +18,10 @@ rec {
   home.username = "jcsims";
   home.homeDirectory = "/Users/jcsims";
 
+  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
+    "elasticsearch"
+  ];
+
   home.packages =
     [lein_jdk11] ++
     (with pkgs; [
@@ -31,6 +35,7 @@ rec {
       bash-completion
       clojure-lsp
       clojure
+      elasticsearch7
       emacs
       fd
       git
