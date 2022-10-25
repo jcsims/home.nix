@@ -156,7 +156,7 @@
 			 (:newline)
 			 ("important" . ?i)
 			 ("urgent" . ?r)
-			 ("to_delegate" . ?d))))
+			 ("delegated" . ?d))))
 
   :config
   (setq org-hide-leading-stars t
