@@ -2,9 +2,15 @@
 { config, pkgs, ... }:
 
 let
-  work-config = if builtins.pathExists ./work.nix
-                then (import ./work.nix {pkgs = pkgs;})
-                else {packages = [];};
+  appliance-config = (import (builtins.fetchGit {
+    url = "git@github.threatbuild.com:threatgrid/appliance.git";
+    rev = "d1c4dae4798c5cc48b04d5ec92a8773ef049ad66";
+  })) { };
+
+  lein_jdk11 = pkgs.leiningen.override {
+    jdk = pkgs.jdk11;
+  };
+
 in
 rec {
   # Home Manager needs a bit of information about you and the
@@ -12,43 +18,62 @@ rec {
   home.username = "jcsims";
   home.homeDirectory = "/Users/jcsims";
 
-  home.packages = with pkgs; [
-    act
-    alejandra
-    aspell
-    aspellDicts.en
-    babashka
-    bashInteractive
-    bash-completion
-    clojure-lsp
-    clojure
-    emacs
-    fd
-    git
-    gnupg
-    htop
-    jq
-    languagetool
-    (nerdfonts.override { fonts = [ "Hack" "RobotoMono" ]; })
-    nixpkgs-fmt
-    nix-tree
-    nodePackages.bash-language-server
-    pass
-    restic
-    ripgrep
-    rnix-lsp
-    rust-analyzer
-    rustup
-    shellcheck
-    tmux
-    tokei
-    tree
-  ]
-  ++ (if pkgs.stdenv.isDarwin then [iterm2
-                                    pinentry_mac
-                                    terminal-notifier]
-      else [])
-  ++ work-config.packages;
+  home.packages =
+    [lein_jdk11] ++
+    (with pkgs; [
+      act
+      actionlint
+      alejandra
+      aspell
+      aspellDicts.en
+      babashka
+      bashInteractive
+      bash-completion
+      clojure-lsp
+      clojure
+      emacs
+      fd
+      git
+      gnupg
+      go
+      go-bindata
+      gopls
+      htop
+      jdk11
+      jq
+      languagetool
+      (nerdfonts.override { fonts = [ "Hack" "RobotoMono" ]; })
+      nixpkgs-fmt
+      nix-tree
+      nodePackages.bash-language-server
+      pass
+      postgresql_13
+      redis
+      restic
+      ripgrep
+      rnix-lsp
+      rust-analyzer
+      rustup
+      shellcheck
+      sshuttle
+      tmux
+      tokei
+      tree
+
+      # macOS apps
+      iterm2
+      pinentry_mac
+      terminal-notifier
+    ])
+    ++ (with appliance-config; [
+      contentFilesUpload
+      desync
+      tg-signed-json
+      tg-update-client
+      tgRash
+      preq
+      swims-openpgp
+    ]);
 
   programs.git = {
     enable = true;
