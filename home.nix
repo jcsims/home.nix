@@ -16,7 +16,8 @@ rec {
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
   home.username = "jcsims";
-  home.homeDirectory = "/Users/jcsims";
+  home.homeDirectory = (if pkgs.stdenv.isDarwin then "/Users/jcsims"
+                                                else "/home/jcsims");
 
   nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
     "elasticsearch"
@@ -64,12 +65,12 @@ rec {
       tmux
       tokei
       tree
-
-      # macOS apps
-      iterm2
-      pinentry_mac
-      terminal-notifier
-    ])
+    ]) ++ (if pkgs.stdenv.isDarwin then [iterm2
+                                         pinentry_mac
+                                         terminal-notifier]
+           else [alacritty
+                 gcc
+                 pinentry-qt])
     ++ (with appliance-config; [
       contentFilesUpload
       desync
@@ -161,8 +162,9 @@ rec {
       max-cache-ttl 7200
     '' + (if pkgs.stdenv.isDarwin then ''
       pinentry-program ${pkgs.pinentry_mac}/Applications/pinentry-mac.app/Contents/MacOS/pinentry-mac
-    '' else
-      "");
+    '' else ''
+      pinentry-program ${pkgs.pinentry-qt}bin/pinentry-qt
+    '');
 
   home.sessionPath = ["$HOME/bin"
                       "$HOME/go/bin"
