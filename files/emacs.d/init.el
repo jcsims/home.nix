@@ -580,7 +580,6 @@ canceled tasks."
   ("M-SPC" . cycle-spacing)
   ("C-c e e" . (lambda () (interactive) (find-nix-file "files/emacs.d/init.el")))
   ("C-c e h" . (lambda () (interactive) (find-nix-file "home.nix")))
-  ("C-c e w" . (lambda () (interactive) (find-nix-file "work.nix")))
   :hook ((text-mode org-mode markdown-mode) . turn-on-auto-fill))
 
 (use-package tramp
