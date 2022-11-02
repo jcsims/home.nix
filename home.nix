@@ -52,6 +52,8 @@ rec {
       nixpkgs-fmt
       nix-tree
       nodePackages.bash-language-server
+      nodePackages.typescript
+      nodePackages.typescript-language-server
       pass
       postgresql_13
       redis
