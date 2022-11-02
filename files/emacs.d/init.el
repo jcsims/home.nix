@@ -510,6 +510,7 @@ canceled tasks."
 ;; Used for async package updating in paradox
 (use-package async)
 (use-package paradox
+  :disabled
   :after (auth-source epa-file epg exec-path-from-shell)
   :commands (paradox-list-packages)
   :config
