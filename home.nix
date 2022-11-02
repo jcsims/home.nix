@@ -67,12 +67,14 @@ rec {
       tmux
       tokei
       tree
-    ]) ++ (if pkgs.stdenv.isDarwin then [iterm2
-                                         pinentry_mac
-                                         terminal-notifier]
-           else [alacritty
-                 gcc
-                 pinentry-qt])
+    ]) ++ (if pkgs.stdenv.isDarwin then (with pkgs; [iterm2
+                                                     pinentry_mac
+                                                     terminal-notifier])
+           else (with pkgs; [alacritty
+                             gcc
+                             pinentry-qt
+                             mattermost-desktop
+                             tailscale]))
     ++ (with appliance-config; [
       contentFilesUpload
       desync
