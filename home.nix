@@ -240,7 +240,7 @@ rec {
     enableBashIntegration = true;
   };
 
-  programs.skim = {
+  programs.fzf = {
     enable = true;
     enableBashIntegration = true;
   };
