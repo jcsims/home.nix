@@ -55,9 +55,6 @@
       source "$HOME/.localrc"
     fi
 
-    # Configure bash-completion
-    source ${bash-completion}/etc/profile.d/bash_completion.sh
-
     # This helps bash-completion work, since bash-completion will look here for
     # other installed completions. Other packages that include bash completion
     # scripts will link them here.
