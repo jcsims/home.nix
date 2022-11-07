@@ -17,6 +17,6 @@ do
     if ! [[ -e ~/.nix-profile/Applications/${app#~/nix-apps/} ]]
     then
         echo "$app is getting removed"
-        rm -ir -- "$app"
+        rm -rf -- "$app"
     fi
 done
