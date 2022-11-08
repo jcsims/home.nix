@@ -3,8 +3,9 @@
 
 let
   appliance-config = (import (builtins.fetchGit {
-    url = "git@github.threatbuild.com:threatgrid/appliance.git";
-    rev = "d1c4dae4798c5cc48b04d5ec92a8773ef049ad66";
+    url = "git@github.threatbuild.com:stell/appliance.git";
+    rev = "2e631536588a7cf15a6e6918df8736602d57d0bd";
+    allRefs = true;
   })) { };
 
   lein_jdk11 = pkgs.leiningen.override {
@@ -24,7 +25,10 @@ rec {
   ];
 
   home.packages =
-    [lein_jdk11] ++
+    [lein_jdk11
+     appliance-config.dev-tools-build
+     appliance-config.dev-tools-automation
+     appliance-config.tgRash] ++
     (with pkgs; [
       act
       actionlint
@@ -74,16 +78,7 @@ rec {
                              gcc
                              pinentry-qt
                              mattermost-desktop
-                             tailscale]))
-    ++ (with appliance-config; [
-      contentFilesUpload
-      desync
-      tg-signed-json
-      tg-update-client
-      tgRash
-      preq
-      swims-openpgp
-    ]);
+                             tailscale]));
 
   programs.git = {
     enable = true;
