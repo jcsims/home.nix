@@ -237,9 +237,11 @@ rec {
     enableBashIntegration = true;
   };
 
-  programs.fzf = {
+  programs.skim = {
     enable = true;
     enableBashIntegration = true;
+    # This fixes the broken screen clearing that was added here: https://github.com/lotabout/skim/pull/472
+    defaultOptions = ["--no-clear-start"];
   };
 
   programs.starship =  {
