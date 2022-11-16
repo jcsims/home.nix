@@ -71,6 +71,7 @@ rec {
       tmux
       tokei
       tree
+      vulnix
     ]) ++ (if pkgs.stdenv.isDarwin then (with pkgs; [iterm2
                                                      pinentry_mac
                                                      terminal-notifier])
