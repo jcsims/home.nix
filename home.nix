@@ -1,12 +1,15 @@
 # This repo is cloned at $HOME/.config/nixpkgs to work with home-manager.
-{ config, pkgs, lib, ... }:
-
-let
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}: let
   appliance-config = (import (builtins.fetchGit {
     url = "git@github.threatbuild.com:stell/appliance.git";
     rev = "2e631536588a7cf15a6e6918df8736602d57d0bd";
     allRefs = true;
-  })) { };
+  })) {};
 
   lein_jdk11 = pkgs.leiningen.override {
     jdk = pkgs.jdk11;
@@ -15,25 +18,28 @@ let
   emacs_no_native = pkgs.emacs.override {
     nativeComp = false;
   };
-
-in
-rec {
+in rec {
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
   home.username = "jcsims";
-  home.homeDirectory = (if pkgs.stdenv.isDarwin then "/Users/jcsims"
-                                                else "/home/jcsims");
+  home.homeDirectory =
+    if pkgs.stdenv.isDarwin
+    then "/Users/jcsims"
+    else "/home/jcsims";
 
-  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
-    "elasticsearch"
-  ];
+  nixpkgs.config.allowUnfreePredicate = pkg:
+    builtins.elem (lib.getName pkg) [
+      "elasticsearch"
+    ];
 
   home.packages =
-    [lein_jdk11
-     appliance-config.dev-tools-build
-     appliance-config.dev-tools-automation
-     appliance-config.tgRash] ++
-    (with pkgs; [
+    [
+      lein_jdk11
+      appliance-config.dev-tools-build
+      appliance-config.dev-tools-automation
+      appliance-config.tgRash
+    ]
+    ++ (with pkgs; [
       act
       actionlint
       alejandra
@@ -56,7 +62,7 @@ rec {
       jdk11
       jq
       languagetool
-      (nerdfonts.override { fonts = [ "Hack" "RobotoMono" ]; })
+      (nerdfonts.override {fonts = ["Hack" "RobotoMono"];})
       nixpkgs-fmt
       nix-tree
       nodePackages.bash-language-server
@@ -76,14 +82,24 @@ rec {
       tokei
       tree
       vulnix
-    ]) ++ (if pkgs.stdenv.isDarwin then (with pkgs; [iterm2
-                                                     pinentry_mac
-                                                     terminal-notifier])
-           else (with pkgs; [alacritty
-                             gcc
-                             pinentry-qt
-                             mattermost-desktop
-                             tailscale]));
+    ])
+    ++ (
+      if pkgs.stdenv.isDarwin
+      then
+        (with pkgs; [
+          iterm2
+          pinentry_mac
+          terminal-notifier
+        ])
+      else
+        (with pkgs; [
+          alacritty
+          gcc
+          pinentry-qt
+          mattermost-desktop
+          tailscale
+        ])
+    );
 
   programs.git = {
     enable = true;
@@ -161,22 +177,35 @@ rec {
     disable-ccid = true;
   };
 
-  home.file.".gnupg/gpg-agent.conf".text = ''
+  home.file.".gnupg/gpg-agent.conf".text =
+    ''
       default-cache-ttl 600
       max-cache-ttl 7200
-    '' + (if pkgs.stdenv.isDarwin then ''
-      pinentry-program ${pkgs.pinentry_mac}/Applications/pinentry-mac.app/Contents/MacOS/pinentry-mac
-    '' else ''
-      pinentry-program ${pkgs.pinentry-qt}bin/pinentry-qt
-    '');
+    ''
+    + (
+      if pkgs.stdenv.isDarwin
+      then ''
+        pinentry-program ${pkgs.pinentry_mac}/Applications/pinentry-mac.app/Contents/MacOS/pinentry-mac
+      ''
+      else ''
+        pinentry-program ${pkgs.pinentry-qt}bin/pinentry-qt
+      ''
+    );
 
-  home.sessionPath = ["$HOME/bin"
-                      "$HOME/go/bin"
-                      "$HOME/.cargo/bin"] ++
-  (if pkgs.stdenv.isDarwin then
-    ["/opt/homebrew/bin"
-     "/opt/homebrew/sbin"]
-   else []);
+  home.sessionPath =
+    [
+      "$HOME/bin"
+      "$HOME/go/bin"
+      "$HOME/.cargo/bin"
+    ]
+    ++ (
+      if pkgs.stdenv.isDarwin
+      then [
+        "/opt/homebrew/bin"
+        "/opt/homebrew/sbin"
+      ]
+      else []
+    );
 
   home.sessionVariables = {
     CLICOLOR = 1;
@@ -188,18 +217,18 @@ rec {
   # Manage a bunch of files
   home.file."bin/e" = {
     text = ''
-    #!/usr/bin/env bash
+      #!/usr/bin/env bash
 
-    emacsclient -t -a "" $@
+      emacsclient -t -a "" $@
     '';
     executable = true;
   };
 
   home.file."bin/ec" = {
     text = ''
-    #!/usr/bin/env bash
+      #!/usr/bin/env bash
 
-    emacsclient -c -a "" $@
+      emacsclient -c -a "" $@
     '';
     executable = true;
   };
@@ -230,7 +259,7 @@ rec {
   home.file.".functions/_c.bash".source = ./files/_c.bash;
 
   # Set up bash
-  programs.bash = (import ./bash.nix { bash-completion = pkgs.bash-completion; });
+  programs.bash = import ./bash.nix {bash-completion = pkgs.bash-completion;};
 
   programs.bat = {
     enable = true;
@@ -249,7 +278,7 @@ rec {
     defaultOptions = ["--no-clear-start"];
   };
 
-  programs.starship =  {
+  programs.starship = {
     enable = true;
     enableBashIntegration = true;
     settings = {
