@@ -21,6 +21,26 @@
         "type": "github"
       }
     },
+    "hue": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1668377153,
+        "narHash": "sha256-lRmTVmDsseXUhd0gB9J43tUQevzKiDdZ1Um3DcBlTgY=",
+        "owner": "SierraSoftworks",
+        "repo": "hue",
+        "rev": "4f597d972ab553208074ba19b9aaaa442fa8e43c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "SierraSoftworks",
+        "repo": "hue",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1669542132,
@@ -40,6 +60,7 @@
     "root": {
       "inputs": {
         "home-manager": "home-manager",
+        "hue": "hue",
         "nixpkgs": "nixpkgs"
       }
     },

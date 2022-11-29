@@ -19,6 +19,7 @@
   emacs_no_native = pkgs.emacs.override {
     nativeComp = false;
   };
+  hue = specialArgs.extraPackages.hue;
 in rec {
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
@@ -34,7 +35,7 @@ in rec {
     ];
 
   home.packages =
-    specialArgs.extraPackages
+    (lib.attrValues specialArgs.extraPackages)
     ++ [
       lein_jdk11
       appliance-config.dev-tools-build
@@ -259,6 +260,21 @@ in rec {
   home.file.".authinfo.gpg".source = ./files/authinfo.gpg;
   home.file.".functions/c.bash".source = ./files/c.bash;
   home.file.".functions/_c.bash".source = ./files/_c.bash;
+
+  home.file."bin/set-meeting-light" = {
+    executable = true;
+    text = ''
+      #!/usr/bin/env bash
+
+      if ${pkgs.coreutils}/bin/timeout 5 ${hue}/bin/hue list > /dev/null; then
+          if pgrep -q 'Meeting Center'; then
+              ${hue}/bin/hue '#7'=red,20%
+          else
+              ${hue}/bin/hue '#7'=off
+          fi
+      fi
+    '';
+  };
 
   # Set up bash
   programs.bash = import ./bash.nix {bash-completion = pkgs.bash-completion;};
