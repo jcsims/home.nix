@@ -8,16 +8,11 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    hue = {
-      url = "github:SierraSoftworks/hue";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs = {
     nixpkgs,
     home-manager,
-    hue,
     ...
   }: let
     system = "aarch64-darwin";
@@ -33,9 +28,10 @@
       ];
 
       extraSpecialArgs = {
+        # TODO: Needed for pulling in the appliance repo - better way?
         inherit system;
+        # Use this to pull in packages as flakes.
         extraPackages = [
-          hue.packages.${system}.default
         ];
       };
     };
