@@ -289,8 +289,24 @@ in rec {
     };
   };
 
+  # launchd.agents."org-roam.sync" = {
+  #   enable = true;
+  #   config = {
+  #     Label = "org-roam.sync";
+  #     ProgramArguments = ["/Users/jcsims/bin/org-roam-sync"];
+  #     StartCalendarInterval = {
+  #       Hour = 16;
+  #       Minute = 0;
+  #     };
+  #     StandardErrorPath = /tmp/org-roam.sync.stderr;
+  #     StandardOutPath = /tmp/org-roam.sync.stdout;
+  #     WorkingDirectory = "${home.homeDirectory}/org-roam";
+  #   };
+  # };
+
   # Install a local HTML version of the docs. Can be opened with `home-manager-help`
   manual.html.enable = true;
+
   # This helps bash-completion work, since bash-completion will look here for
   # other installed completions. Other packages that include bash completion
   # scripts will link them here.
