@@ -3,13 +3,13 @@
   config,
   pkgs,
   lib,
+  system,
   ...
 }: let
   appliance-config = (import (builtins.fetchGit {
-    url = "git@github.threatbuild.com:stell/appliance.git";
-    rev = "2e631536588a7cf15a6e6918df8736602d57d0bd";
-    allRefs = true;
-  })) {};
+    url = "git@github.threatbuild.com:threatgrid/appliance.git";
+    rev = "5c570e63d0f869c2b2689f8ff6418775a5c545b2";
+  })) {system = system;};
 
   lein_jdk11 = pkgs.leiningen.override {
     jdk = pkgs.jdk11;
@@ -289,6 +289,8 @@ in rec {
     };
   };
 
+  # Install a local HTML version of the docs. Can be opened with `home-manager-help`
+  manual.html.enable = true;
   # This helps bash-completion work, since bash-completion will look here for
   # other installed completions. Other packages that include bash completion
   # scripts will link them here.
