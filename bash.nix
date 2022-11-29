@@ -1,5 +1,4 @@
-{ bash-completion }:
-{
+{bash-completion}: {
   enable = true;
   historyControl = ["erasedups"];
   historyFile = "$HOME/.bash_history";
@@ -46,10 +45,10 @@
     bind '"\e[D": backward-char'
     bind '"\e\e[D": backward-word'
     bind '"\e\e[C": forward-word'
-    '';
+  '';
 
   # extra stuff in .bashrc
-  bashrcExtra  = ''
+  bashrcExtra = ''
     if [[ -a ~/.localrc ]]
     then
       source "$HOME/.localrc"
@@ -61,5 +60,5 @@
     export XDG_DATA_DIRS="$HOME/.nix-profile/share:''${XDG_DATA_DIRS:-/usr/local/share:/usr/share}"
 
     for f in $HOME/.functions/*; do source "$f"; done
-    '';
+  '';
 }

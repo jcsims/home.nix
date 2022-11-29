@@ -4,6 +4,7 @@
   pkgs,
   lib,
   system,
+  specialArgs,
   ...
 }: let
   appliance-config = (import (builtins.fetchGit {
@@ -33,7 +34,8 @@ in rec {
     ];
 
   home.packages =
-    [
+    specialArgs.extraPackages
+    ++ [
       lein_jdk11
       appliance-config.dev-tools-build
       appliance-config.dev-tools-automation
