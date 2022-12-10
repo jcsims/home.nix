@@ -9,7 +9,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     hue = {
-      url = "github:SierraSoftworks/hue";
+      url = "github:SierraSoftworks/hue?rev=4f597d972ab553208074ba19b9aaaa442fa8e43c";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };

@@ -38,6 +38,7 @@
       "original": {
         "owner": "SierraSoftworks",
         "repo": "hue",
+        "rev": "4f597d972ab553208074ba19b9aaaa442fa8e43c",
         "type": "github"
       }
     },
