@@ -108,7 +108,7 @@ in rec {
     enable = true;
     userName = "Chris Sims";
     userEmail = "chris@jcsi.ms";
-    attributes = ["*.gpg filter=gpg diff=gpg"];
+    #attributes = ["*.gpg filter=gpg diff=gpg"];
     # difftastic doesn't yet handle gpg diffs on the command-line with
     # this config
     #difftastic.enable = true;
