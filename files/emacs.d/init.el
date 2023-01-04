@@ -857,7 +857,8 @@ Passes ARG onto `zap-to-char` or `backward-kill-word` if used."
 
 (use-package rustic
   :hook (rustic-mode . (lambda ()
-			 (setq indent-tabs-mode nil))))
+			 (setq indent-tabs-mode nil)))
+  :config (setq rustic-lsp-client 'eglot))
 
 (use-package flycheck-rust
   :after rust-mode
