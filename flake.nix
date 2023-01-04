@@ -14,32 +14,51 @@
     };
   };
 
-  outputs = {
-    nixpkgs,
-    home-manager,
-    hue,
-    ...
-  }: let
-    system = "aarch64-darwin";
-    pkgs = nixpkgs.legacyPackages.${system};
-  in {
-    homeConfigurations.jcsims = home-manager.lib.homeManagerConfiguration {
-      inherit pkgs;
+  outputs =
+    { nixpkgs
+    , home-manager
+    , hue
+    , ...
+    }:
+    let
+      system = "aarch64-darwin";
+      pkgs = nixpkgs.legacyPackages.${system};
+    in
+    {
+      homeConfigurations = {
+        personal = home-manager.lib.homeManagerConfiguration {
+          inherit pkgs;
 
-      # Specify your home configuration modules here, for example,
-      # the path to your home.nix.
-      modules = [
-        ./home.nix
-      ];
+          # Specify your home configuration modules here, for example,
+          # the path to your home.nix.
+          modules = [
+            ./home.nix
+          ];
 
-      extraSpecialArgs = {
-        # TODO: Needed for pulling in the appliance repo - better way?
-        inherit system;
-        # Use this to pull in packages as flakes.
-        extraPackages = {
-          hue = hue.packages.${system}.default;
+          extraSpecialArgs = {
+            # Use this to pull in packages as flakes.
+            extraPackages = { };
+          };
+        };
+        work = home-manager.lib.homeManagerConfiguration {
+          inherit pkgs;
+
+          # Specify your home configuration modules here, for example,
+          # the path to your home.nix.
+          modules = [
+            ./home.nix
+            ./work.nix
+          ];
+
+          extraSpecialArgs = {
+            # TODO: Needed for pulling in the appliance repo - better way?
+            inherit system;
+            # Use this to pull in packages as flakes.
+            extraPackages = {
+              hue = hue.packages.${system}.default;
+            };
+          };
         };
       };
     };
-  };
 }

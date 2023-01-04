@@ -7,11 +7,6 @@
   specialArgs,
   ...
 }: let
-  appliance-config = (import (builtins.fetchGit {
-    url = "git@github.threatbuild.com:threatgrid/appliance.git";
-    rev = "5c570e63d0f869c2b2689f8ff6418775a5c545b2";
-  })) {system = system;};
-
   lein_jdk11 = pkgs.leiningen.override {
     jdk = pkgs.jdk11;
   };
@@ -19,7 +14,6 @@
   emacs_no_native = pkgs.emacs.override {
     nativeComp = false;
   };
-  hue = specialArgs.extraPackages.hue;
 in rec {
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
@@ -29,22 +23,12 @@ in rec {
     then "/Users/jcsims"
     else "/home/jcsims";
 
-  nixpkgs.config.allowUnfreePredicate = pkg:
-    builtins.elem (lib.getName pkg) [
-      "elasticsearch"
-    ];
-
   home.packages =
     (lib.attrValues specialArgs.extraPackages)
     ++ [
       lein_jdk11
-      appliance-config.dev-tools-build
-      appliance-config.dev-tools-automation
-      appliance-config.tgRash
     ]
     ++ (with pkgs; [
-      act
-      actionlint
       alejandra
       aspell
       aspellDicts.en
@@ -53,34 +37,25 @@ in rec {
       bash-completion
       clojure-lsp
       clojure
-      elasticsearch7
       emacs_no_native
+      exercism
       fd
       git
       gnupg
-      go
-      go-bindata
-      gopls
       htop
       jdk11
       jq
       languagetool
-      (nerdfonts.override {fonts = ["Hack" "RobotoMono"];})
+      (nerdfonts.override {fonts = ["Hack"];})
       nixpkgs-fmt
       nix-tree
       nodePackages.bash-language-server
-      nodePackages.typescript
-      nodePackages.typescript-language-server
       pass
-      postgresql_13
-      redis
-      restic
       ripgrep
       rnix-lsp
       rust-analyzer
       rustup
       shellcheck
-      sshuttle
       tmux
       tokei
       tree
@@ -261,21 +236,6 @@ in rec {
   home.file.".functions/c.bash".source = ./files/c.bash;
   home.file.".functions/_c.bash".source = ./files/_c.bash;
 
-  home.file."bin/set-meeting-light" = {
-    executable = true;
-    text = ''
-      #!/usr/bin/env bash
-
-      if ${pkgs.coreutils}/bin/timeout 5 ${hue}/bin/hue list > /dev/null; then
-          if osascript -e 'tell application "System Events" to get name of (processes where background only is false)' | grep 'Meeting Center' > /dev/null; then
-              ${hue}/bin/hue '#7'=red,20%
-          else
-              ${hue}/bin/hue '#7'=off
-          fi
-      fi
-    '';
-  };
-
   # Set up bash
   programs.bash = import ./bash.nix {bash-completion = pkgs.bash-completion;};
 
@@ -306,21 +266,6 @@ in rec {
       python.disabled = true;
     };
   };
-
-  # launchd.agents."org-roam.sync" = {
-  #   enable = true;
-  #   config = {
-  #     Label = "org-roam.sync";
-  #     ProgramArguments = ["/Users/jcsims/bin/org-roam-sync"];
-  #     StartCalendarInterval = {
-  #       Hour = 16;
-  #       Minute = 0;
-  #     };
-  #     StandardErrorPath = /tmp/org-roam.sync.stderr;
-  #     StandardOutPath = /tmp/org-roam.sync.stdout;
-  #     WorkingDirectory = "${home.homeDirectory}/org-roam";
-  #   };
-  # };
 
   # Install a local HTML version of the docs. Can be opened with `home-manager-help`
   manual.html.enable = true;
