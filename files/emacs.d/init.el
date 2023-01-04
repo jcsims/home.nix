@@ -153,6 +153,7 @@
 			 ("@uma" . ?u)
 			 ("@ed" . ?e)
 			 ("@francois" . ?f)
+			 ("@kingsley" . ?k)
 			 (:newline)
 			 ("important" . ?i)
 			 ("urgent" . ?r)
