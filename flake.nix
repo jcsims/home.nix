@@ -14,52 +14,60 @@
     };
   };
 
-  outputs =
-    { nixpkgs
-    , home-manager
-    , hue
-    , ...
-    }:
-    let
-      system = "aarch64-darwin";
-      pkgs = nixpkgs.legacyPackages.${system};
-    in
-    {
-      homeConfigurations = {
-        personal = home-manager.lib.homeManagerConfiguration {
-          inherit pkgs;
+  outputs = {
+    nixpkgs,
+    home-manager,
+    hue,
+    ...
+  }: let
+    system = "aarch64-darwin";
+    pkgs = nixpkgs.legacyPackages.${system};
+  in {
+    homeConfigurations = {
+      personal = home-manager.lib.homeManagerConfiguration {
+        inherit pkgs;
 
-          # Specify your home configuration modules here, for example,
-          # the path to your home.nix.
-          modules = [
-            ./base.nix
-            ./home.nix
-          ];
+        # Specify your home configuration modules here, for example,
+        # the path to your home.nix.
+        modules = [
+          ./base.nix
+          ./home.nix
+        ];
 
-          extraSpecialArgs = {
-            # Use this to pull in packages as flakes.
-            extraPackages = { };
-          };
+        extraSpecialArgs = rec {
+          # Use this to pull in packages as flakes.
+          extraPackages = {exercism = pkgs.exercism;};
+          username = "jcsims";
+          homedir =
+            if pkgs.stdenv.isDarwin
+            then "/Users/${username}"
+            else "/home/${username}";
         };
-        work = home-manager.lib.homeManagerConfiguration {
-          inherit pkgs;
+      };
+      work = home-manager.lib.homeManagerConfiguration {
+        inherit pkgs;
 
-          # Specify your home configuration modules here, for example,
-          # the path to your home.nix.
-          modules = [
-            ./base.nix
-            ./work.nix
-          ];
+        # Specify your home configuration modules here, for example,
+        # the path to your home.nix.
+        modules = [
+          ./base.nix
+          ./work.nix
+        ];
 
-          extraSpecialArgs = {
-            # TODO: Needed for pulling in the appliance repo - better way?
-            inherit system;
-            # Use this to pull in packages as flakes.
-            extraPackages = {
-              hue = hue.packages.${system}.default;
-            };
+        extraSpecialArgs = rec {
+          # TODO: Needed for pulling in the appliance repo - better way?
+          inherit system;
+          # Use this to pull in packages as flakes.
+          extraPackages = {
+            hue = hue.packages.${system}.default;
           };
+          username = "chrsims";
+          homedir =
+            if pkgs.stdenv.isDarwin
+            then "/Users/${username}"
+            else "/home/${username}";
         };
       };
     };
+  };
 }
