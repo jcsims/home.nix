@@ -32,6 +32,7 @@
           # Specify your home configuration modules here, for example,
           # the path to your home.nix.
           modules = [
+            ./base.nix
             ./home.nix
           ];
 
@@ -46,7 +47,7 @@
           # Specify your home configuration modules here, for example,
           # the path to your home.nix.
           modules = [
-            ./home.nix
+            ./base.nix
             ./work.nix
           ];
 
