@@ -17,10 +17,10 @@
 in rec {
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
-  home.username = "jcsims";
+  home.username = "chrsims";
   home.homeDirectory =
     if pkgs.stdenv.isDarwin
-    then "/Users/jcsims"
+    then "/Users/chrsims"
     else "/home/jcsims";
 
   home.packages =
