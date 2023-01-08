@@ -142,10 +142,16 @@
 
 ;; Quick access to a few files
 (defvar org-dir "~/org/")
-(defvar jcs/org-roam-dir (file-truename "~/org-roam"))
+(defvar jcs/work-file (expand-file-name "work.org" org-dir))
+(defvar jcs/meetings-file (expand-file-name "meetings.org" org-dir))
+(defvar jcs/inbox-file (expand-file-name "inbox.org" org-dir))
+(defvar jcs/notes-file (expand-file-name "notes.org" org-dir))
+;;(defvar jcs/org-roam-dir (file-truename "~/org-roam"))
 
 (use-package org
   :custom
+  (org-refile-use-outline-path 'file)
+  (org-refile-allow-creating-parent-nodes 'confirm)
   (org-priority-default ?C)
   (org-priority-lowest ?D)
   (org-tag-alist (quote (("@alex" . ?a)
@@ -175,7 +181,13 @@
 	;; Display images in org by default
 	org-startup-with-inline-images t
 	;; Try to keep image widths in emacs to a sane value (measured in pixels)
-	org-image-actual-width 1000)
+	org-image-actual-width 1000
+	org-agenda-files (list jcs/work-file
+                               jcs/inbox-file
+                               jcs/meetings-file)
+	org-refile-targets '((jcs/work-file . (:maxlevel . 2))
+			     (jcs/meetings-file . (:level . 1))
+			     (jcs/notes-file . (:level . 2))))
   (setq org-todo-keywords
 	(quote ((sequence "TODO(t)" "DOING(o)" "|" "DONE(d)")
 		(sequence "DELEGATED(e@/!)" "WAITING(w@/!)" "BLOCKED(b@/!)" "HAMMOCK(h@/!)" "|" "CANCELLED(c@/!)"))))
@@ -201,9 +213,8 @@ same directory as the org-buffer and insert a link to this file."
       (make-directory (file-name-directory filename)))
 					; take screenshot
     (if (eq system-type 'darwin)
-	(call-process "screencapture" nil nil nil "-i" filename))
-    (if (eq system-type 'gnu/linux)
-	(call-process "import" nil nil nil filename))
+	(call-process "screencapture" nil nil nil "-i" filename)
+      (call-process "import" nil nil nil filename))
     ;; insert into file if correctly taken
     (if (file-exists-p filename)
 	(insert (concat "[[file:" filename "]]")))
@@ -222,8 +233,19 @@ same directory as the org-buffer and insert a link to this file."
 		(org-export-string-as region 'md t '(:with-toc nil))))
 	  (gui-set-selection 'CLIPBOARD markdown))))
 
+  (defun jcs/open-org-file (filename)
+    "Open FILENAME in the defined `org-dir'."
+    (find-file (expand-file-name filename org-dir)))
+
+  (defun jcs/open-inbox () (interactive) (jcs/open-org-file "inbox.org"))
+  (defun jcs/open-work () (interactive) (jcs/open-org-file "work.org"))
+  (defun jcs/open-meetings () (interactive) (jcs/open-org-file "meetings.org"))
+
   :bind (("C-c l" . org-store-link)
-	 ("C-c a" . org-agenda)))
+	 ("C-c a" . org-agenda)
+	 ("C-c e i" . jcs/open-inbox)
+	 ("C-c e w" . jcs/open-work)
+	 ("C-c e m" . jcs/open-meetings)))
 
 (use-package org-tempo :ensure org)
 
@@ -232,6 +254,7 @@ same directory as the org-buffer and insert a link to this file."
 (use-package ox-md :ensure org)
 
 (use-package org-roam
+  :disabled
   :after org
   :init (setq org-roam-v2-ack t)
   :custom (org-roam-directory jcs/org-roam-dir)
@@ -245,7 +268,8 @@ same directory as the org-buffer and insert a link to this file."
 	 ("C-c o d" . org-roam-dailies-goto-today)
 	 ("C-c o p" . org-roam-dailies-goto-previous-note)
 	 ("C-c o n" . org-roam-dailies-goto-next-note)
-	 ("C-c o j" . org-roam-dailies-capture-today))
+	 ("C-c o j" . org-roam-dailies-capture-today)
+	 ("C-c o w" . (lambda () (interactive) (find-file (expand-file-name "20230104152728-work.org" org-roam-directory)))))
   :hook ((find-file . vulpea-project-update-tag)
 	 (before-save . vulpea-project-update-tag))
   :config
@@ -324,13 +348,20 @@ canceled tasks."
 				 (elasticsearch . t)
 				 (restclient . t))))
 
+(use-package org-capture
+  :ensure org
+  :init
+  :bind ("C-c c" . org-capture)
+  :config
+  (setq org-capture-templates
+        '(("t" "Todo [inbox]" entry
+           (file "inbox.org")
+           "* TODO %i%?"))))
+
 (use-package org-agenda
   :ensure org
   :after org
   :config
-  ;; TODO: Use a `let*` binding here and turn on lexical scoping for
-  ;; this file.
-  ;; Use the current window to open the agenda
   (setq org-agenda-window-setup 'current-window
 	org-agenda-block-separator nil
 	org-agenda-tags-column -80
@@ -384,24 +415,24 @@ canceled tasks."
 	  (s-truncate len (s-pad-right len " " result))
 	result)))
 
-  (defun vulpea-project-files ()
-    "Return a list of org-roam files containing the 'project' tag."
-    (seq-uniq
-     (seq-map
-      #'car
-      (org-roam-db-query
-       [:select [nodes:file]
-		:from tags
-		:left-join nodes
-		:on (= tags:node-id nodes:id)
-		:where (like tag (quote "%\"project\"%"))]))))
+  ;; (defun vulpea-project-files ()
+  ;;   "Return a list of org-roam files containing the 'project' tag."
+  ;;   (seq-uniq
+  ;;    (seq-map
+  ;;     #'car
+  ;;     (org-roam-db-query
+  ;;      [:select [nodes:file]
+  ;; 		:from tags
+  ;; 		:left-join nodes
+  ;; 		:on (= tags:node-id nodes:id)
+  ;; 		:where (like tag (quote "%\"project\"%"))]))))
 
-  (defun vulpea-agenda-files-update (&rest _)
-    "Update the value of `org-agenda-files' based on 'project' tag."
-    (setq org-agenda-files (vulpea-project-files)))
+  ;; (defun vulpea-agenda-files-update (&rest _)
+  ;;   "Update the value of `org-agenda-files' based on 'project' tag."
+  ;;   (setq org-agenda-files (vulpea-project-files)))
 
-  (advice-add 'org-agenda :before #'vulpea-agenda-files-update)
-  (advice-add 'org-todo-list :before #'vulpea-agenda-files-update)
+  ;; (advice-add 'org-agenda :before #'vulpea-agenda-files-update)
+  ;; (advice-add 'org-todo-list :before #'vulpea-agenda-files-update)
 
   (defun jcs/tomorrow ()
     "Returns a timestamp representing midnight of the next day."
@@ -432,10 +463,13 @@ canceled tasks."
       (if (eq result part) dont-skip skip)))
 
   (setq org-agenda-custom-commands
-	'(("c" "Agenda and tasks"
+	`(("c" "Agenda and tasks"
 	   ((agenda ""
 		    ((org-agenda-skip-function
 		      '(org-agenda-skip-if nil '(todo done)))))
+	    (todo ""
+                  ((org-agenda-overriding-header "To Refile")
+                   (org-agenda-files (list ,jcs/inbox-file))))
 	    (todo "BLOCKED"
 		  ((org-agenda-overriding-header "Blocked")
 		   (org-agenda-skip-function
@@ -453,7 +487,7 @@ canceled tasks."
 	    (todo "DELEGATED"
 		  ((org-agenda-overriding-header "Delegated")
 		   (org-agenda-skip-function
-		     '(jcs/org-skip-function 'agenda))))
+		    '(jcs/org-skip-function 'agenda))))
 	    (todo "HAMMOCK"
 		  ((org-agenda-overriding-header "Hammock")
 		   (org-agenda-skip-function
@@ -581,7 +615,7 @@ canceled tasks."
   :bind
   ("M-SPC" . cycle-spacing)
   ("C-c e e" . (lambda () (interactive) (find-nix-file "files/emacs.d/init.el")))
-  ("C-c e h" . (lambda () (interactive) (find-nix-file "home.nix")))
+  ("C-c e h" . (lambda () (interactive) (find-nix-file "base.nix")))
   :hook ((text-mode org-mode markdown-mode) . turn-on-auto-fill))
 
 (use-package tramp
