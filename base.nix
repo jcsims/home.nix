@@ -265,6 +265,22 @@ in rec {
   # Install a local HTML version of the docs. Can be opened with `home-manager-help`
   manual.html.enable = true;
 
+  # launchd.agents."org-roam.sync" = {
+  #   enable = true;
+  #   config = {
+  #     Label = "org-roam.sync";
+  #     Program = specialArgs.homedir/bin/org-roam-sync;
+  #     StandardErrorPath = /tmp/org-roam.sync.stderr;
+  #     StandardOutPath = /tmp/org-roam.sync.stdout;
+  #     StartCalendarInterval = [{
+  #       Hour = 16;
+  #       Minute = 0;
+  #     }];
+  #     WorkingDirectory = "${specialArgs.homedir}}/org-roam";
+  #   };
+  # };
+
+
   # This helps bash-completion work, since bash-completion will look here for
   # other installed completions. Other packages that include bash completion
   # scripts will link them here.
