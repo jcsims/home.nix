@@ -15,7 +15,9 @@
       '(("gnu" . "https://elpa.gnu.org/packages/")
 	("nongnu" . "https://elpa.nongnu.org/nongnu/")
 	("melpa" . "https://melpa.org/packages/")))
-(package-initialize)
+(if (require 'borg-elpa nil t)
+    (borg-elpa-initialize)
+  (package-initialize))
 
 ;; Setup use-package
 (unless (package-installed-p 'use-package)

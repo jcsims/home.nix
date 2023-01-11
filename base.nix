@@ -51,6 +51,7 @@ in rec {
       rust-analyzer
       rustup
       shellcheck
+      texinfo # Used by borg to build docs
       tmux
       tokei
       tree
