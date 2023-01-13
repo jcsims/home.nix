@@ -870,7 +870,8 @@ Passes ARG onto `zap-to-char` or `backward-kill-word` if used."
 	  sh-mode
 	  nix-mode)
 	 . eglot-ensure)
-  :custom (eglot-autoshutdown t)
+  :config (setq eglot-autoshutdown t
+		eglot-confirm-server-initiated-edits nil)
   :bind (:map eglot-mode-map
 	      ("C-M-." . xref-find-references)))
 
