@@ -263,9 +263,6 @@ in rec {
     };
   };
 
-  # Install a local HTML version of the docs. Can be opened with `home-manager-help`
-  manual.html.enable = true;
-
   # launchd.agents."org-roam.sync" = {
   #   enable = true;
   #   config = {
