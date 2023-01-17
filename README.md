@@ -21,3 +21,8 @@ some appliance-team-specific tools).
 5. If you install Mac application packages via `home-manager`, then make sure
    you use something like `check-nix-apps` that's included in this repo, to make
    them available to whatever launcher you use.
+6. To realize changes in your environment, rebuild and switch to the new
+   generation with: `home-manager switch --flake ~/.config/nixpkgs#work` (or
+   whatever you end up calling the attribute that you use).
+7. To update the flake pins, invoke `nix flake update` in this directory. This
+   will update to the latest version of the `inputs` in `flake.nix`.
