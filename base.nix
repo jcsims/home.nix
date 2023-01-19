@@ -41,6 +41,7 @@ in rec {
       jdk11
       jq
       languagetool
+      neil
       (nerdfonts.override {fonts = ["Hack"];})
       nixpkgs-fmt
       nix-tree
