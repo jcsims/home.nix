@@ -35,7 +35,7 @@ in rec {
       go-bindata
       gopls
       postgresql_13
-      python39Packages.jedi-language-server
+      python310Packages.jedi-language-server
       redis
     ]);
 
