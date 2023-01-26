@@ -264,6 +264,83 @@ in rec {
     };
   };
 
+  programs.alacritty = {
+    enable = true;
+    settings = {
+      scrolling.history = 20000;
+      font = {
+        size = 12;
+        normal.family = "Hack Nerd Font";
+        bold.family = "Hack Nerd Font";
+        italic.family = "Hack Nerd Font";
+        bold_italic.family = "Hack Nerd Font";
+      };
+      mouse_bindings = [
+        {
+          mouse = "Middle";
+          mode = "~Vi";
+          action = "PasteSelection";
+        }
+      ];
+      key_bindings = [
+        { key = "PageUp";         mods = "Shift";   mode = "~Alt";        action = "ScrollPageUp";}
+        { key = "PageDown";       mods = "Shift";   mode = "~Alt";        action = "ScrollPageDown";}
+        { key = "K";              mods = "Command"; mode = "~Vi|~Search"; chars = "\x0c";}
+        { key = "K";              mods = "Command"; mode = "~Vi|~Search"; action = "ClearHistory";}
+        { key = "Key0";           mods = "Command";                       action = "ResetFontSize";}
+        { key = "Equals";         mods = "Command";                       action = "IncreaseFontSize";}
+        { key = "Plus";           mods = "Command";                       action = "IncreaseFontSize";}
+        { key = "NumpadAdd";      mods = "Command";                       action = "IncreaseFontSize";}
+        { key = "Minus";          mods = "Command";                       action = "DecreaseFontSize";}
+        { key = "NumpadSubtract"; mods = "Command";                       action = "DecreaseFontSize";}
+        { key = "V";              mods = "Command";                       action = "Paste";}
+        { key = "C";              mods = "Command";                       action = "Copy";}
+        { key = "C";              mods = "Command"; mode = "Vi|~Search";  action = "ClearSelection";}
+        { key = "H";              mods = "Command";                       action = "Hide";}
+        { key = "H";              mods = "Command|Alt";                   action = "HideOtherApplications";}
+        { key = "M";              mods = "Command";                       action = "Minimize";}
+        { key = "Q";              mods = "Command";                       action = "Quit";}
+        { key = "W";              mods = "Command";                       action = "Quit";}
+        { key = "N";              mods = "Command";                       action = "CreateNewWindow";}
+        { key = "F";              mods = "Command|Control";               action = "ToggleFullscreen";}
+        { key = "F";              mods = "Command"; mode = "~Search";     action = "SearchForward";}
+        { key = "B";              mods = "Command"; mode = "~Search";     action = "SearchBackward";}
+      ];
+      draw_bold_text_with_bright_colors = true;
+      colors = {
+        primary = {
+          background = "#282a36";
+          foreground = "#eff0eb";
+        };
+        cursor.cursor = "#97979b";
+        selection = {
+          text = "#282a36";
+          background = "#feffff";
+        };
+        normal = {
+          black = "#282a36";
+          red = "#ff5c57";
+          green = "#5af78e";
+          yellow = "#f3f99d";
+          blue = "#57c7ff";
+          magenta = "#ff6ac1";
+          cyan = "#9aedfe";
+          white = "#f1f1f0";
+        };
+        bright = {
+          black = "#686868";
+          red = "#ff5c57";
+          green = "#5af78e";
+          yellow = "#f3f99d";
+          blue = "#57c7ff";
+          magenta = "#ff6ac1";
+          cyan = "#9aedfe";
+          white = "#eff0eb";
+        };
+      };
+    };
+  };
+
   # launchd.agents."org-roam.sync" = {
   #   enable = true;
   #   config = {
