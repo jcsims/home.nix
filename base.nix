@@ -282,28 +282,123 @@ in rec {
         }
       ];
       key_bindings = [
-        { key = "PageUp";         mods = "Shift";   mode = "~Alt";        action = "ScrollPageUp";}
-        { key = "PageDown";       mods = "Shift";   mode = "~Alt";        action = "ScrollPageDown";}
-        { key = "K";              mods = "Command"; mode = "~Vi|~Search"; chars = "\x0c";}
-        { key = "K";              mods = "Command"; mode = "~Vi|~Search"; action = "ClearHistory";}
-        { key = "Key0";           mods = "Command";                       action = "ResetFontSize";}
-        { key = "Equals";         mods = "Command";                       action = "IncreaseFontSize";}
-        { key = "Plus";           mods = "Command";                       action = "IncreaseFontSize";}
-        { key = "NumpadAdd";      mods = "Command";                       action = "IncreaseFontSize";}
-        { key = "Minus";          mods = "Command";                       action = "DecreaseFontSize";}
-        { key = "NumpadSubtract"; mods = "Command";                       action = "DecreaseFontSize";}
-        { key = "V";              mods = "Command";                       action = "Paste";}
-        { key = "C";              mods = "Command";                       action = "Copy";}
-        { key = "C";              mods = "Command"; mode = "Vi|~Search";  action = "ClearSelection";}
-        { key = "H";              mods = "Command";                       action = "Hide";}
-        { key = "H";              mods = "Command|Alt";                   action = "HideOtherApplications";}
-        { key = "M";              mods = "Command";                       action = "Minimize";}
-        { key = "Q";              mods = "Command";                       action = "Quit";}
-        { key = "W";              mods = "Command";                       action = "Quit";}
-        { key = "N";              mods = "Command";                       action = "CreateNewWindow";}
-        { key = "F";              mods = "Command|Control";               action = "ToggleFullscreen";}
-        { key = "F";              mods = "Command"; mode = "~Search";     action = "SearchForward";}
-        { key = "B";              mods = "Command"; mode = "~Search";     action = "SearchBackward";}
+        {
+          key = "PageUp";
+          mods = "Shift";
+          mode = "~Alt";
+          action = "ScrollPageUp";
+        }
+        {
+          key = "PageDown";
+          mods = "Shift";
+          mode = "~Alt";
+          action = "ScrollPageDown";
+        }
+        {
+          key = "K";
+          mods = "Command";
+          mode = "~Vi|~Search";
+          chars = "\x0c";
+        }
+        {
+          key = "K";
+          mods = "Command";
+          mode = "~Vi|~Search";
+          action = "ClearHistory";
+        }
+        {
+          key = "Key0";
+          mods = "Command";
+          action = "ResetFontSize";
+        }
+        {
+          key = "Equals";
+          mods = "Command";
+          action = "IncreaseFontSize";
+        }
+        {
+          key = "Plus";
+          mods = "Command";
+          action = "IncreaseFontSize";
+        }
+        {
+          key = "NumpadAdd";
+          mods = "Command";
+          action = "IncreaseFontSize";
+        }
+        {
+          key = "Minus";
+          mods = "Command";
+          action = "DecreaseFontSize";
+        }
+        {
+          key = "NumpadSubtract";
+          mods = "Command";
+          action = "DecreaseFontSize";
+        }
+        {
+          key = "V";
+          mods = "Command";
+          action = "Paste";
+        }
+        {
+          key = "C";
+          mods = "Command";
+          action = "Copy";
+        }
+        {
+          key = "C";
+          mods = "Command";
+          mode = "Vi|~Search";
+          action = "ClearSelection";
+        }
+        {
+          key = "H";
+          mods = "Command";
+          action = "Hide";
+        }
+        {
+          key = "H";
+          mods = "Command|Alt";
+          action = "HideOtherApplications";
+        }
+        {
+          key = "M";
+          mods = "Command";
+          action = "Minimize";
+        }
+        {
+          key = "Q";
+          mods = "Command";
+          action = "Quit";
+        }
+        {
+          key = "W";
+          mods = "Command";
+          action = "Quit";
+        }
+        {
+          key = "N";
+          mods = "Command";
+          action = "CreateNewWindow";
+        }
+        {
+          key = "F";
+          mods = "Command|Control";
+          action = "ToggleFullscreen";
+        }
+        {
+          key = "F";
+          mods = "Command";
+          mode = "~Search";
+          action = "SearchForward";
+        }
+        {
+          key = "B";
+          mods = "Command";
+          mode = "~Search";
+          action = "SearchBackward";
+        }
       ];
       draw_bold_text_with_bright_colors = true;
       colors = {
@@ -354,7 +449,6 @@ in rec {
   #     WorkingDirectory = "${specialArgs.homedir}}/org-roam";
   #   };
   # };
-
 
   # This helps bash-completion work, since bash-completion will look here for
   # other installed completions. Other packages that include bash completion
