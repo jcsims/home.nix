@@ -4,6 +4,7 @@
   inputs = {
     # Specify the source of Home Manager and Nixpkgs.
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-22.11";
+    unstable.url = "github:NixOS/nixpkgs";
     home-manager = {
       url = "github:nix-community/home-manager/release-22.11";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -18,10 +19,12 @@
     nixpkgs,
     home-manager,
     hue,
+    unstable,
     ...
   }: let
     system = "aarch64-darwin";
     pkgs = nixpkgs.legacyPackages.${system};
+    unstable_pkgs = unstable.legacyPackages.${system};
   in {
     homeConfigurations = {
       personal = home-manager.lib.homeManagerConfiguration {
@@ -36,7 +39,12 @@
 
         extraSpecialArgs = rec {
           # Use this to pull in packages as flakes.
-          extraPackages = {exercism = pkgs.exercism;};
+          extraPackages = {
+            exercism = pkgs.exercism;
+            # Pull in a newer babashka so I can get > 1.0.168:
+            # https://github.com/babashka/process/commit/9e19562e108381be7bced275a9065dc182ec1c62
+            babashka = unstable_pkgs.babashka;
+          };
           username = "jcsims";
           homedir =
             if pkgs.stdenv.isDarwin
@@ -60,6 +68,9 @@
           # Use this to pull in packages as flakes.
           extraPackages = {
             hue = hue.packages.${system}.default;
+            # Pull in a newer babashka so I can get > 1.0.168:
+            # https://github.com/babashka/process/commit/9e19562e108381be7bced275a9065dc182ec1c62
+            babashka = unstable_pkgs.babashka;
           };
           username = "chrsims";
           homedir =

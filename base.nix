@@ -28,7 +28,6 @@ in rec {
       alejandra
       aspell
       aspellDicts.en
-      babashka
       bashInteractive
       bash-completion
       clojure-lsp
