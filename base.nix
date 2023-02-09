@@ -43,6 +43,7 @@ in rec {
       neil
       (nerdfonts.override {fonts = ["Hack"];})
       nixpkgs-fmt
+      nix-diff
       nix-tree
       nodePackages.bash-language-server
       pass
