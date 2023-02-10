@@ -15,11 +15,6 @@ in rec {
   home.username = "chrsims";
   home.homeDirectory = "/Users/chrsims";
 
-  nixpkgs.config.allowUnfreePredicate = pkg:
-    builtins.elem (lib.getName pkg) [
-      "elasticsearch"
-    ];
-
   home.packages =
     (lib.attrValues specialArgs.extraPackages)
     ++ [

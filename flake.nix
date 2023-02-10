@@ -45,6 +45,7 @@
             # https://github.com/babashka/process/commit/9e19562e108381be7bced275a9065dc182ec1c62
             babashka = unstable_pkgs.babashka;
           };
+          unfree-packages = [];
           username = "jcsims";
           homedir =
             if pkgs.stdenv.isDarwin
@@ -72,6 +73,7 @@
             # https://github.com/babashka/process/commit/9e19562e108381be7bced275a9065dc182ec1c62
             babashka = unstable_pkgs.babashka;
           };
+          unfree-packages = ["elasticsearch"];
           username = "chrsims";
           homedir =
             if pkgs.stdenv.isDarwin
