@@ -120,7 +120,6 @@
 
 ;; Font
 (if (eq system-type 'gnu/linux)
-    ;; provided in the AUR by `nerd-font-hack`
     (set-frame-font "Hack Nerd Font 9")
   (set-frame-font "Hack Nerd Font 12"))
 
