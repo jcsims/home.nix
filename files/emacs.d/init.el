@@ -147,7 +147,7 @@
 (defvar jcs/meetings-file (expand-file-name "meetings.org" org-dir))
 (defvar jcs/inbox-file (expand-file-name "inbox.org" org-dir))
 (defvar jcs/notes-file (expand-file-name "notes.org" org-dir))
-;;(defvar jcs/org-roam-dir (file-truename "~/org-roam"))
+(defvar jcs/org-roam-dir (file-truename "~/org-roam"))
 
 (use-package org
   :custom
@@ -255,7 +255,7 @@ same directory as the org-buffer and insert a link to this file."
 (use-package ox-md :ensure org)
 
 (use-package org-roam
-  :disabled
+  ;;:disabled
   :after org
   :init (setq org-roam-v2-ack t)
   :custom (org-roam-directory jcs/org-roam-dir)
@@ -416,24 +416,24 @@ canceled tasks."
 	  (s-truncate len (s-pad-right len " " result))
 	result)))
 
-  ;; (defun vulpea-project-files ()
-  ;;   "Return a list of org-roam files containing the 'project' tag."
-  ;;   (seq-uniq
-  ;;    (seq-map
-  ;;     #'car
-  ;;     (org-roam-db-query
-  ;;      [:select [nodes:file]
-  ;; 		:from tags
-  ;; 		:left-join nodes
-  ;; 		:on (= tags:node-id nodes:id)
-  ;; 		:where (like tag (quote "%\"project\"%"))]))))
+  (defun vulpea-project-files ()
+    "Return a list of org-roam files containing the 'project' tag."
+    (seq-uniq
+     (seq-map
+      #'car
+      (org-roam-db-query
+       [:select [nodes:file]
+		:from tags
+		:left-join nodes
+		:on (= tags:node-id nodes:id)
+		:where (like tag (quote "%\"project\"%"))]))))
 
-  ;; (defun vulpea-agenda-files-update (&rest _)
-  ;;   "Update the value of `org-agenda-files' based on 'project' tag."
-  ;;   (setq org-agenda-files (vulpea-project-files)))
+  (defun vulpea-agenda-files-update (&rest _)
+    "Update the value of `org-agenda-files' based on 'project' tag."
+    (setq org-agenda-files (vulpea-project-files)))
 
-  ;; (advice-add 'org-agenda :before #'vulpea-agenda-files-update)
-  ;; (advice-add 'org-todo-list :before #'vulpea-agenda-files-update)
+  (advice-add 'org-agenda :before #'vulpea-agenda-files-update)
+  (advice-add 'org-todo-list :before #'vulpea-agenda-files-update)
 
   (defun jcs/tomorrow ()
     "Returns a timestamp representing midnight of the next day."
@@ -468,9 +468,9 @@ canceled tasks."
 	   ((agenda ""
 		    ((org-agenda-skip-function
 		      '(org-agenda-skip-if nil '(todo done)))))
-	    (todo ""
-                  ((org-agenda-overriding-header "To Refile")
-                   (org-agenda-files (list ,jcs/inbox-file))))
+	    ;; (todo ""
+            ;;       ((org-agenda-overriding-header "To Refile")
+            ;;        (org-agenda-files (list ,jcs/inbox-file))))
 	    (todo "BLOCKED"
 		  ((org-agenda-overriding-header "Blocked")
 		   (org-agenda-skip-function
