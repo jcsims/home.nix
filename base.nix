@@ -250,11 +250,10 @@ in rec {
     enableBashIntegration = true;
   };
 
-  programs.skim = {
+  programs.fzf = {
     enable = true;
     enableBashIntegration = true;
-    # This fixes the broken screen clearing that was added here: https://github.com/lotabout/skim/pull/472
-    defaultOptions = ["--no-clear-start"];
+    tmux.enableShellIntegration = true;
   };
 
   programs.starship = {
