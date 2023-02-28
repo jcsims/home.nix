@@ -753,6 +753,7 @@ Passes ARG onto `zap-to-char` or `backward-kill-word` if used."
 
 (use-package dockerfile-mode
   :mode "Dockerfile")
+
 (use-package yaml-mode
   :mode (("\\.yml\\'" . yaml-mode)
 	 ("\\.sls\\'" . yaml-mode)))
