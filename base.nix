@@ -250,10 +250,15 @@ in rec {
     enableBashIntegration = true;
   };
 
-  programs.fzf = {
+  # programs.fzf = {
+  #   enable = true;
+  #   enableBashIntegration = true;
+  #   tmux.enableShellIntegration = true;
+  # };
+
+  programs.atuin = {
     enable = true;
     enableBashIntegration = true;
-    tmux.enableShellIntegration = true;
   };
 
   programs.starship = {
@@ -264,6 +269,7 @@ in rec {
       java.disabled = true;
       nodejs.disabled = true;
       python.disabled = true;
+      jobs.disabled = true;
     };
   };
 
