@@ -441,6 +441,11 @@ in rec {
     };
   };
 
+  programs.vscode = {
+    enable = true;
+    package = specialArgs.unstable_pkgs.vscode;
+  };
+
   # launchd.agents."org-roam.sync" = {
   #   enable = true;
   #   config = {

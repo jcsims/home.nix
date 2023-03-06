@@ -46,6 +46,7 @@
         ];
 
         extraSpecialArgs = rec {
+          inherit unstable_pkgs;
           # Use this to pull in packages as flakes.
           extraPackages = {
             exercism = pkgs.exercism;
@@ -71,6 +72,7 @@
         ];
 
         extraSpecialArgs = rec {
+          inherit unstable_pkgs;
           # TODO: Needed for pulling in the appliance repo - better way?
           inherit system;
           # Use this to pull in packages as flakes.
@@ -79,7 +81,6 @@
             # Pull in a newer babashka so I can get > 1.0.168:
             # https://github.com/babashka/process/commit/9e19562e108381be7bced275a9065dc182ec1c62
             babashka = unstable_pkgs.babashka;
-            vscode = unstable_pkgs.vscode;
           };
           username = "chrsims";
           homedir =
