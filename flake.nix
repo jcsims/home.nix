@@ -72,8 +72,9 @@
             # Pull in a newer babashka so I can get > 1.0.168:
             # https://github.com/babashka/process/commit/9e19562e108381be7bced275a9065dc182ec1c62
             babashka = unstable_pkgs.babashka;
+            vscode = unstable_pkgs.vscode;
           };
-          unfree-packages = ["elasticsearch"];
+          unfree-packages = ["elasticsearch" "vscode"];
           username = "chrsims";
           homedir =
             if pkgs.stdenv.isDarwin
