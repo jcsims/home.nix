@@ -19,10 +19,6 @@ in rec {
   # paths it should manage.
   home.username = specialArgs.username;
   home.homeDirectory = specialArgs.homedir;
-
-  nixpkgs.config.allowUnfreePredicate = pkg:
-    builtins.elem (lib.getName pkg) specialArgs.unfree-packages;
-
   home.packages =
     (lib.attrValues specialArgs.extraPackages)
     ++ [

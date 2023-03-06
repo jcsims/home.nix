@@ -23,8 +23,16 @@
     ...
   }: let
     system = "aarch64-darwin";
-    pkgs = nixpkgs.legacyPackages.${system};
-    unstable_pkgs = unstable.legacyPackages.${system};
+    pkgs = import nixpkgs {
+      inherit system;
+      config.allowUnfreePredicate = pkg:
+        builtins.elem (nixpkgs.lib.getName pkg) ["elasticsearch"];
+    };
+    unstable_pkgs = import unstable {
+      inherit system;
+      config.allowUnfreePredicate = pkg:
+        builtins.elem (nixpkgs.lib.getName pkg) ["vscode"];
+    };
   in {
     homeConfigurations = {
       personal = home-manager.lib.homeManagerConfiguration {
@@ -45,7 +53,6 @@
             # https://github.com/babashka/process/commit/9e19562e108381be7bced275a9065dc182ec1c62
             babashka = unstable_pkgs.babashka;
           };
-          unfree-packages = [];
           username = "jcsims";
           homedir =
             if pkgs.stdenv.isDarwin
@@ -74,7 +81,6 @@
             babashka = unstable_pkgs.babashka;
             vscode = unstable_pkgs.vscode;
           };
-          unfree-packages = ["elasticsearch" "vscode"];
           username = "chrsims";
           homedir =
             if pkgs.stdenv.isDarwin
