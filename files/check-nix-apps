@@ -4,11 +4,11 @@ do
     if ! [[ -e ~/nix-apps/${app#~/.nix-profile/Applications/} ]]
     then
         echo installing new app "${app#~/.nix-profile/Applications/}"
-        rsync -qLr -- "$app" ~/nix-apps
-    elif ! diff -qr $app ~/nix-apps/${app#~/.nix-profile/Applications/} 1> /dev/null
+        cp -Rl -- "$app" ~/nix-apps
+    elif ! diff -qr "$app" ~/nix-apps/"${app#~/.nix-profile/Applications/}" 1> /dev/null
     then
         echo updating "${app#~/.nix-profile/Applications/}"
-        rsync -qLr --delete -- "$app" ~/nix-apps
+	cp -Rl -- "$app" ~/nix-apps
     fi
 done
 
@@ -17,6 +17,6 @@ do
     if ! [[ -e ~/.nix-profile/Applications/${app#~/nix-apps/} ]]
     then
         echo "$app is getting removed"
-        rm -rf -- "$app"
+        rm -- "$app"
     fi
 done
