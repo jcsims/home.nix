@@ -23,15 +23,15 @@
     ...
   }: let
     system = "aarch64-darwin";
+    unfree-pkgs = pkg:
+        builtins.elem (nixpkgs.lib.getName pkg) ["elasticsearch" "vscode"];
     pkgs = import nixpkgs {
       inherit system;
-      config.allowUnfreePredicate = pkg:
-        builtins.elem (nixpkgs.lib.getName pkg) ["elasticsearch"];
+      config.allowUnfreePredicate = unfree-pkgs;
     };
     unstable_pkgs = import unstable {
       inherit system;
-      config.allowUnfreePredicate = pkg:
-        builtins.elem (nixpkgs.lib.getName pkg) ["vscode"];
+      config.allowUnfreePredicate = unfree-pkgs;
     };
   in {
     homeConfigurations = {
