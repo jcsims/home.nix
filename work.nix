@@ -25,9 +25,11 @@ in rec {
     ++ (with pkgs; [
       act
       actionlint
+      delve
       elasticsearch7
       go
       go-bindata
+      go-tools
       gopls
       postgresql_13
       python310Packages.jedi-language-server
