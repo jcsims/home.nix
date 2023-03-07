@@ -247,15 +247,10 @@ in rec {
     enableBashIntegration = true;
   };
 
-  # programs.fzf = {
-  #   enable = true;
-  #   enableBashIntegration = true;
-  #   tmux.enableShellIntegration = true;
-  # };
-
-  programs.atuin = {
+  programs.fzf = {
     enable = true;
     enableBashIntegration = true;
+    tmux.enableShellIntegration = true;
   };
 
   programs.starship = {
