@@ -37,6 +37,7 @@ in rec {
       git
       gnupg
       htop
+      iosevka
       jdk11
       jq
       languagetool
