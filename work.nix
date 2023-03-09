@@ -32,7 +32,7 @@ in rec {
       go-tools
       gopls
       postgresql_13
-      python310Packages.jedi-language-server
+      python3Packages.python-lsp-server
       redis
     ]);
 
