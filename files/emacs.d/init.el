@@ -743,7 +743,10 @@ Passes ARG onto `zap-to-char` or `backward-kill-word` if used."
 (use-package git-timemachine)
 
 (use-package paredit
-  :hook (emacs-lisp-mode . paredit-mode))
+  :hook (emacs-lisp-mode . paredit-mode)
+  :bind (:map paredit-mode-map
+	      ("RET" . nil)))
+
 
 (use-package paredit-everywhere
   :hook (prog-mode . paredit-everywhere-mode))
