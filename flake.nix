@@ -43,6 +43,7 @@
         modules = [
           ./base.nix
           ./home.nix
+          ./mac-gui.nix
         ];
 
         extraSpecialArgs = rec {
@@ -61,7 +62,7 @@
           username = "jcsims";
         };
       };
-      work = home-manager.lib.homeManagerConfiguration {
+      work-laptop = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
 
         # Specify your home configuration modules here, for example,
@@ -69,6 +70,7 @@
         modules = [
           ./base.nix
           ./work.nix
+          ./mac-gui.nix
         ];
 
         extraSpecialArgs = rec {
