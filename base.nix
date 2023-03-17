@@ -10,10 +10,6 @@
   lein_jdk11 = pkgs.leiningen.override {
     jdk = pkgs.jdk11;
   };
-
-  emacs_no_native = pkgs.emacs.override {
-    nativeComp = false;
-  };
 in rec {
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
@@ -32,7 +28,6 @@ in rec {
       bash-completion
       clojure-lsp
       clojure
-      emacs_no_native
       fd
       git
       gnupg
