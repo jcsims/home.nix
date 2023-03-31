@@ -7,7 +7,7 @@
 }: let
   appliance-config = (import (builtins.fetchGit {
     url = "git@github.threatbuild.com:threatgrid/appliance.git";
-    rev = "5c570e63d0f869c2b2689f8ff6418775a5c545b2";
+    rev = "0d95f6d7e338a779c38afb55309f171ea3932257";
   })) {system = system;};
 
   hue = specialArgs.extraPackages.hue;

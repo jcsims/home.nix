@@ -244,7 +244,7 @@ in rec {
   };
 
   programs.alacritty = {
-    enable = true;
+    enable = false;
     settings = {
       scrolling.history = 20000;
       font = {
@@ -416,7 +416,7 @@ in rec {
   };
 
   programs.vscode = {
-    enable = true;
+    enable = false;
     package = specialArgs.unstable_pkgs.vscode;
   };
 
