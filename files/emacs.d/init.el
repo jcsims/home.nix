@@ -747,7 +747,6 @@ Passes ARG onto `zap-to-char` or `backward-kill-word` if used."
   :bind (:map paredit-mode-map
 	      ("RET" . nil)))
 
-
 (use-package paredit-everywhere
   :hook (prog-mode . paredit-everywhere-mode))
 
@@ -778,6 +777,7 @@ Passes ARG onto `zap-to-char` or `backward-kill-word` if used."
   (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh))
 
 (use-package anzu
+  :disabled
   :config
   (global-anzu-mode)
   (global-set-key [remap query-replace-regexp] 'anzu-query-replace-regexp)
