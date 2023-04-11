@@ -51,6 +51,7 @@ in rec {
       tmux
       tokei
       tree
+      tree-sitter
       vulnix
       xz
     ]);
