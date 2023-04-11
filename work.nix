@@ -12,9 +12,6 @@
 
   hue = specialArgs.extraPackages.hue;
 in rec {
-  home.username = "jcsims";
-  home.homeDirectory = "/Users/jcsims";
-
   home.packages =
     (lib.attrValues specialArgs.extraPackages)
     ++ [
