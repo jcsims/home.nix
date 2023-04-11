@@ -84,7 +84,7 @@
             # https://github.com/babashka/process/commit/9e19562e108381be7bced275a9065dc182ec1c62
             babashka = unstable_pkgs.babashka;
           };
-          username = "chrsims";
+          username = "jcsims";
           homedir =
             if pkgs.stdenv.isDarwin
             then "/Users/${username}"
