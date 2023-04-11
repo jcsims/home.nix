@@ -494,9 +494,6 @@ canceled tasks."
 		   (org-agenda-skip-function
 		    '(jcs/org-skip-function 'agenda)))))))))
 
-(use-package orglink
-  :config (global-orglink-mode))
-
 (use-package autorevert
   :ensure f
   :config
@@ -537,26 +534,6 @@ canceled tasks."
 	`(("." . ,(no-littering-expand-var-file-name "backup/")))
 	auto-save-file-name-transforms
 	`((".*" ,(no-littering-expand-var-file-name "auto-save/") t))))
-
-;; Handles ssh-agent and gpg-agent configuration from `keychain`
-(use-package keychain-environment
-  :if (eq system-type 'gnu/linux)
-  :config (keychain-refresh-environment))
-
-;; Used for async package updating in paradox
-(use-package async)
-(use-package paradox
-  :disabled
-  :after (auth-source epa-file epg exec-path-from-shell)
-  :commands (paradox-list-packages)
-  :config
-  (setq paradox-execute-asynchronously t
-	paradox-github-token (cadr (auth-source-user-and-password
-				    "api.github.com" "jcsims^paradox")))
-  (paradox-enable))
-
-(use-package macrostep
-  :bind ("C-c m" . macrostep-expand))
 
 (use-package exec-path-from-shell
   :if (memq window-system '(mac ns x))
@@ -711,16 +688,6 @@ Passes ARG onto `zap-to-char` or `backward-kill-word` if used."
 	completion-category-defaults nil
 	completion-category-overrides '((file (styles . (partial-completion))))))
 
-(use-package consult
-  :disabled
-  :demand ;; never want to lazy-load this package
-  :bind (("M-y" . consult-yank-from-kill-ring)
-	 ([remap isearch-forward-regexp] . consult-line))
-  :config
-  ;; Make the default selection the symbol that point is on already.
-  (consult-customize consult-line
-		     :initial (thing-at-point 'symbol)))
-
 (use-package marginalia
   :init (marginalia-mode))
 
@@ -762,19 +729,6 @@ Passes ARG onto `zap-to-char` or `backward-kill-word` if used."
 
 (use-package which-key
   :config (which-key-mode))
-
-;; Some keybinds for this mode:
-;; `diff-hl-diff-goto-hunk'  C-x v =
-;; `diff-hl-revert-hunk'     C-x v n
-;; `diff-hl-previous-hunk'   C-x v [
-;; `diff-hl-next-hunk'       C-x v ]
-(use-package diff-hl
-  :config
-  ;;(setq diff-hl-draw-borders nil)
-  (global-diff-hl-mode)
-  (diff-hl-dired-mode)
-  (add-hook 'magit-pre-refresh-hook 'diff-hl-magit-pre-refresh)
-  (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh))
 
 (use-package anzu
   :disabled
@@ -829,8 +783,6 @@ Passes ARG onto `zap-to-char` or `backward-kill-word` if used."
   (setq cider-repl-display-help-banner nil
 	nrepl-log-messages nil))
 
-(use-package systemd :if (eq system-type 'gnu/linux))
-
 (use-package browse-url
   :ensure f
   ;; browse-url decides not to use xdg-open if you don't use one of a
@@ -840,16 +792,8 @@ Passes ARG onto `zap-to-char` or `backward-kill-word` if used."
 
 (use-package wgrep)
 
-(use-package json-snatcher
-  :config (setq jsons-path-printer 'jsons-print-path-jq))
-
-(use-package jsonian)
-
-(use-package jq-mode)
-
 ;; LSP
 (use-package lsp-mode
-  :disabled
   :hook ((rust-mode
 	  clojure-mode
 	  go-mode
@@ -867,7 +811,7 @@ Passes ARG onto `zap-to-char` or `backward-kill-word` if used."
   :commands lsp)
 
 (use-package eglot
-  ;;:disabled
+  :disabled
   :hook ((rust-mode
 	  clojure-mode
 	  go-mode
@@ -888,7 +832,6 @@ Passes ARG onto `zap-to-char` or `backward-kill-word` if used."
 	      ("M-p" . flymake-goto-prev-error)))
 
 (use-package lsp-ui
-  :disabled
   :after lsp-mode
   :commands lsp-ui-mode
   :bind (:map lsp-ui-mode-map
@@ -907,9 +850,6 @@ Passes ARG onto `zap-to-char` or `backward-kill-word` if used."
 (use-package flycheck-rust
   :after rust-mode
   :hook (flycheck-mode . flycheck-rust-setup))
-
-(use-package yasnippet
-  :config (yas-global-mode 1))
 
 (use-package savehist
   :ensure f
@@ -941,21 +881,8 @@ Passes ARG onto `zap-to-char` or `backward-kill-word` if used."
 	 ("C-S-<right>" . buf-move-right)
 	 ("C-S-<left>" . buf-move-left)))
 
-(use-package groovy-mode
-  :hook (groovy-mode . (lambda ()
-			 (setq indent-tabs-mode nil)
-			 (setq tab-width 2)))
-  :custom (groovy-indent-offset 2))
-
 (use-package hl-todo
   :config (global-hl-todo-mode))
-
-(use-package pkgbuild-mode
-  :if (eq system-type 'gnu/linux)
-  :custom (pkgbuild-update-sums-on-save nil))
-
-(use-package vlf
-  :config (require 'vlf-setup))
 
 (use-package newcomment
   :ensure f
@@ -971,17 +898,9 @@ Passes ARG onto `zap-to-char` or `backward-kill-word` if used."
   :bind (:map nix-mode-map
 	      ("C-c C-f" . nixpkgs-fmt-buffer)))
 
-(use-package hideshow
-  :ensure f
-  :hook (prog-mode . hs-minor-mode))
-
 (use-package winner
   :ensure f
   :config (winner-mode))
-
-(use-package go-mode
-  :hook (go-mode . (lambda ()
-		     (setq tab-width 2))))
 
 (use-package hippie-expand
   :ensure f
