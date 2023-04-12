@@ -924,6 +924,10 @@ Passes ARG onto `zap-to-char` or `backward-kill-word` if used."
 						meeting-dir))
 	(message "No meeting files for today.")))))
 
+;; no-littering will set a common directory for undo-tree history files
+(use-package undo-tree
+  :config (global-undo-tree-mode))
+
 ;; Local personalization
 (let ((file (expand-file-name (concat (user-real-login-name) ".el")
 			      user-emacs-directory)))
