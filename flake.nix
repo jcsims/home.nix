@@ -85,7 +85,7 @@
               babashka = unstable_pkgs.babashka;
               emacs = unstable_pkgs.emacs;
             };
-            username = "chrsims";
+            username = "jcsims";
             homedir = "/Users/${username}";
           };
         };
