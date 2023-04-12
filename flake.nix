@@ -83,6 +83,7 @@
               # Pull in a newer babashka so I can get > 1.0.168:
               # https://github.com/babashka/process/commit/9e19562e108381be7bced275a9065dc182ec1c62
               babashka = unstable_pkgs.babashka;
+              emacs = unstable_pkgs.emacs;
             };
             username = "chrsims";
             homedir = "/Users/${username}";
