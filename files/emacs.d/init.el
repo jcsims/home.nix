@@ -54,11 +54,7 @@
 ;; Sentences can end with a single space.
 (setq sentence-end-double-space nil)
 
-(use-package no-littering
-  :config
-  (require 'files)
-  (setq auto-save-file-name-transforms
-	`((".*" ,(no-littering-expand-var-file-name "auto-save/") t))))
+(use-package no-littering)
 
 (use-package auth-source
   :ensure f
