@@ -792,7 +792,6 @@ Passes ARG onto `zap-to-char` or `backward-kill-word` if used."
 (use-package lsp-mode
   :hook ((rust-mode
 	  clojure-mode
-	  go-mode
 	  python-mode
 	  sh-mode
 	  nix-mode)
@@ -810,7 +809,6 @@ Passes ARG onto `zap-to-char` or `backward-kill-word` if used."
   :disabled
   :hook ((rust-mode
 	  clojure-mode
-	  go-mode
 	  python-mode
 	  sh-mode
 	  nix-mode)
