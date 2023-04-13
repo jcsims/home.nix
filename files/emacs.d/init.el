@@ -929,6 +929,13 @@ Passes ARG onto `zap-to-char` or `backward-kill-word` if used."
 (use-package undo-tree
   :config (global-undo-tree-mode))
 
+;; tree-sitter bindings
+;; TODO: In Emacs 29+, use the built-in version instead.
+(use-package tree-sitter
+  :config (global-tree-sitter-mode)
+  :hook (tree-sitter-after-on . tree-sitter-hl-mode))
+(use-package tree-sitter-langs)
+
 ;; Local personalization
 (let ((file (expand-file-name (concat (user-real-login-name) ".el")
 			      user-emacs-directory)))
