@@ -57,6 +57,7 @@
               # https://github.com/babashka/process/commit/9e19562e108381be7bced275a9065dc182ec1c62
               babashka = unstable_pkgs.babashka;
               neovim = unstable_pkgs.neovim;
+              emacs = unstable_pkgs.emacs;
             };
             username = "jcsims";
             homedir = "/Users/${username}";
