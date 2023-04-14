@@ -89,15 +89,14 @@ in rec {
       ".DS_Store"
 
       # Emacs
-      "*.elc"
-      "auto-save-list"
-      "tramp"
-      ".\#*"
       "*-autoloads.el"
-      "*.info"
-      "flycheck_*.el"
       "*-pkg.el"
-      "*-autoloads.el"
+      "*.elc"
+      "*.info"
+      ".\#*"
+      "auto-save-list"
+      "flycheck_*.el"
+      "tramp"
 
       # Clojure/Emacs
       ".clj-kondo"
