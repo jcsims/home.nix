@@ -616,8 +616,7 @@ canceled tasks."
   :if (display-graphic-p)
   :config
   (setq atomic-chrome-url-major-mode-alist
-	'(("github\\.com" . gfm-mode)
-	  ("github\\.threatbuild\\.com" . gfm-mode)))
+	'(("github\\.com" . gfm-mode)))
   (atomic-chrome-start-server))
 
 ;; Work-specific code - should be encrypted!
@@ -702,6 +701,8 @@ Passes ARG onto `zap-to-char` or `backward-kill-word` if used."
 			  'magit-insert-stashes
 			  'append))
 
+(use-package forge)
+
 (use-package git-modes)
 
 (use-package git-timemachine)
@@ -728,7 +729,6 @@ Passes ARG onto `zap-to-char` or `backward-kill-word` if used."
   :config (which-key-mode))
 
 (use-package anzu
-  :disabled
   :config
   (global-anzu-mode)
   (global-set-key [remap query-replace-regexp] 'anzu-query-replace-regexp)
@@ -865,10 +865,7 @@ Passes ARG onto `zap-to-char` or `backward-kill-word` if used."
 	 :map emacs-lisp-mode-map
 	 ("C-c C-d" . helpful-at-point)))
 
-(use-package git-link
-  :config
-  (add-to-list 'git-link-remote-alist
-	       '("github\\.threatbuild\\.com" git-link-github)))
+(use-package git-link)
 
 (use-package buffer-move
   :bind (("C-S-<up>" . buf-move-up)
@@ -901,7 +898,8 @@ Passes ARG onto `zap-to-char` or `backward-kill-word` if used."
   :ensure f
   :bind (([remap dabbrev-expand] . hippie-expand)))
 
-(use-package dash)
+(use-package dash
+  :config (global-dash-fontify-mode))
 (use-package s)
 (use-package obsidian
   :demand t

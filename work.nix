@@ -5,32 +5,12 @@
   specialArgs,
   ...
 }: let
-  appliance-config = (import (builtins.fetchGit {
-    url = "git@github.threatbuild.com:threatgrid/appliance.git";
-    rev = "0d95f6d7e338a779c38afb55309f171ea3932257";
-  })) {system = system;};
-
-  hue = specialArgs.extraPackages.hue;
+    hue = specialArgs.extraPackages.hue;
 in rec {
   home.packages =
     (lib.attrValues specialArgs.extraPackages)
-    ++ [
-      appliance-config.dev-tools-build
-      appliance-config.dev-tools-automation
-      appliance-config.tgRash
-    ]
     ++ (with pkgs; [
-      act
-      actionlint
-      delve
-      elasticsearch7
-      go
-      go-bindata
-      go-tools
-      gopls
-      postgresql_13
       python3Packages.python-lsp-server
-      redis
     ]);
 
   home.file."bin/set-meeting-light" = {
