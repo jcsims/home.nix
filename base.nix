@@ -202,11 +202,6 @@ in rec {
     executable = true;
   };
 
-  home.file.".emacs.d" = {
-    source = ./files/emacs.d;
-    recursive = true;
-  };
-
   home.file.".tmux.conf".source = ./files/tmux.conf;
   home.file.".authinfo.gpg".source = ./files/authinfo.gpg;
   home.file.".functions/c.bash".source = ./files/c.bash;
