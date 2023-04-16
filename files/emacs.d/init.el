@@ -127,11 +127,6 @@
   :custom (sml/theme 'automatic)
   :config (sml/setup))
 
-;; Allow for seamless gpg interaction
-(use-package epa-file
-  :ensure f
-  :config (epa-file-enable))
-
 (use-package windmove
   :config (windmove-default-keybindings '(super meta)))
 
