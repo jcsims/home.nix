@@ -235,8 +235,16 @@ in rec {
   };
 
   programs.alacritty = {
-    enable = false;
+    enable = true;
+    package = specialArgs.unstable_pkgs.alacritty;
     settings = {
+      window = {
+        option_as_alt = "OnlyLeft";
+        padding = {
+          x = 2;
+          y = 2;
+        };
+      };
       scrolling.history = 20000;
       font = {
         size = 12;
