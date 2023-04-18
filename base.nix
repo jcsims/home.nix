@@ -69,20 +69,12 @@ in rec {
     };
     includes = [
       {
-        path = "~/code/tg/.gitconfig";
-        condition = "gitdir:~/code/tg/";
+        path = "~/code/patch/.gitconfig";
+        condition = "gitdir:~/code/patch/";
       }
       {
         path = "~/code/.gitconfig";
         condition = "gitdir:~/code";
-      }
-      {
-        path = "~/dev/tg/.gitconfig";
-        condition = "gitdir:~/dev/tg/";
-      }
-      {
-        path = "~/dev/.gitconfig";
-        condition = "gitdir:~/dev/";
       }
     ];
     ignores = [
@@ -113,6 +105,7 @@ in rec {
       rebase.autostash = true;
       status.submoduleSummary = true;
       diff.gpg.textconv = "gpg --no-tty --decrypt";
+      github.user = "jcsims";
     };
   };
 
@@ -151,6 +144,7 @@ in rec {
       "$HOME/bin"
       "$HOME/go/bin"
       "$HOME/.cargo/bin"
+      "$HOME/code/patch/patch/bin"
     ]
     ++ (
       if pkgs.stdenv.isDarwin
