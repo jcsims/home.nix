@@ -1,16 +1,17 @@
 # This repo is cloned at $HOME/.config/nixpkgs to work with home-manager.
-{
-  config,
-  pkgs,
-  lib,
-  system,
-  specialArgs,
-  ...
-}: let
+{ config
+, pkgs
+, lib
+, system
+, specialArgs
+, ...
+}:
+let
   lein_jdk11 = pkgs.leiningen.override {
     jdk = pkgs.jdk11;
   };
-in rec {
+in
+rec {
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
   home.username = specialArgs.username;
@@ -36,7 +37,7 @@ in rec {
       jq
       languagetool
       neil
-      (nerdfonts.override {fonts = ["Hack"];})
+      (nerdfonts.override { fonts = [ "Hack" ]; })
       nixpkgs-fmt
       nix-diff
       nix-tree
@@ -152,7 +153,7 @@ in rec {
         "/opt/homebrew/bin"
         "/opt/homebrew/sbin"
       ]
-      else []
+      else [ ]
     );
 
   home.sessionVariables = {
@@ -202,7 +203,7 @@ in rec {
   home.file.".functions/_c.bash".source = ./files/_c.bash;
 
   # Set up bash
-  programs.bash = import ./bash.nix {bash-completion = pkgs.bash-completion;};
+  programs.bash = import ./bash.nix { bash-completion = pkgs.bash-completion; };
 
   programs.bat = {
     enable = true;
@@ -218,7 +219,7 @@ in rec {
     enable = true;
     enableBashIntegration = true;
     # This fixes the broken screen clearing that was added here: https://github.com/lotabout/skim/pull/472
-    defaultOptions = ["--no-clear-start"];
+    defaultOptions = [ "--no-clear-start" ];
     #tmux.enableShellIntegration = true;
   };
 
