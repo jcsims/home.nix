@@ -123,6 +123,11 @@
 	nrepl-log-messages nil
         cider-known-endpoints '(("patch" "localhost" "12345"))))
 
+(use-package chatgpt-shell
+  :config (setq chatgpt-shell-openai-key
+                (lambda ()
+                  (auth-source-pick-first-password :host "api.openai.com"))))
+
 (use-package clojure-mode
   :after (paredit)
   :mode (("\\.edn\\'" . clojure-mode))
