@@ -409,6 +409,9 @@ the commit as well."
     (set-face-attribute 'smerge-refined-removed nil :extend t)
     (set-face-attribute 'smerge-refined-added   nil :extend t)))
 
+;; Recommended by magit in emacs < 29
+(use-package sqlite3)
+
 (use-package symbol-overlay
   :bind (:map mode-specific-map
               ("h h" . symbol-overlay-put)
