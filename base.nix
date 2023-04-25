@@ -145,7 +145,8 @@ rec {
       "$HOME/bin"
       "$HOME/go/bin"
       "$HOME/.cargo/bin"
-      "$HOME/code/patch/patch/bin"
+      "$HOME/code/work/patch/bin"
+      "$HOME/.local/bin" # pipx install path
     ]
     ++ (
       if pkgs.stdenv.isDarwin
@@ -180,6 +181,11 @@ rec {
       emacsclient -c -a "" $@
     '';
     executable = true;
+  };
+
+  home.file.".emacs.d" = {
+    source = ./files/emacs.d;
+    recursive = true;
   };
 
   home.file.".aspell.conf".text = ''

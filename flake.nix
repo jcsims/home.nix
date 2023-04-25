@@ -46,18 +46,14 @@
             ./base.nix
             ./home.nix
             ./mac-gui.nix
+            ./work.nix
           ];
 
           extraSpecialArgs = rec {
             inherit unstable_pkgs;
             # Use this to pull in packages as flakes.
             extraPackages = {
-              exercism = pkgs.exercism;
-              # Pull in a newer babashka so I can get > 1.0.168:
-              # https://github.com/babashka/process/commit/9e19562e108381be7bced275a9065dc182ec1c62
-              neovim = unstable_pkgs.neovim;
-              emacs = unstable_pkgs.emacs;
-            };
+              hue = hue.packages.${system}.default;};
             username = "jcsims";
             homedir = "/Users/${username}";
           };
@@ -80,10 +76,6 @@
             # Use this to pull in packages as flakes.
             extraPackages = {
               hue = hue.packages.${system}.default;
-              # Pull in a newer babashka so I can get > 1.0.168:
-              # https://github.com/babashka/process/commit/9e19562e108381be7bced275a9065dc182ec1c62
-              neovim = unstable_pkgs.neovim;
-              emacs = unstable_pkgs.emacs;
             };
             username = "jcsims";
             homedir = "/Users/${username}";

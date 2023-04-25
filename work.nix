@@ -1,16 +1,25 @@
-{
-  pkgs,
-  lib,
-  system,
-  specialArgs,
-  ...
-}: let
-    hue = specialArgs.extraPackages.hue;
-in rec {
+{ pkgs
+, lib
+, system
+, specialArgs
+, ...
+}:
+let
+  hue = specialArgs.extraPackages.hue;
+  unstable = specialArgs.unstable_pkgs;
+in
+rec {
   home.packages =
     (lib.attrValues specialArgs.extraPackages)
     ++ (with pkgs; [
+      unstable.azure-cli
+      babashka
+      clojure
+      go
+      unstable.graphite-cli
+      unstable.pipx
       python3Packages.python-lsp-server
+      sops
     ]);
 
   home.file."bin/set-meeting-light" = {
