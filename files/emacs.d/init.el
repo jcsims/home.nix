@@ -313,8 +313,7 @@ the commit as well."
   :config
   (setq minions-prominent-modes '(eglot-mode
                                   flycheck-mode
-                                  flymake-mode
-                                  lsp-mode))
+                                  flymake-mode))
   (minions-mode))
 
 (use-package multiple-cursors
@@ -383,10 +382,17 @@ the commit as well."
   (org-priority-default ?C)
   (org-priority-lowest ?D)
   (org-tag-alist (quote (("@peter" . ?p)
-			 (:newline)
-			 ("important" . ?i)
-			 ("urgent" . ?r)
-			 ("delegated" . ?d))))
+                         ("@whelan" . ?w)
+                         ("@ryan" . ?r)
+                         ("@rangel" . ?R)
+                         ("@greg" . ?g)
+                         ("@gunner" . ?G)
+                         ("@bill" . ?b)
+                         ("@ajith" . ?a)
+                         ("@spencer" . ?s)
+                         ("@justin" . ?j)
+                         (:newline)
+                         ("delegated" . ?d))))
 
   :config
   (setq org-hide-leading-stars t
@@ -691,6 +697,8 @@ canceled tasks."
   (add-hook 'prog-mode-hook 'indicate-buffer-boundaries-left)
   (add-hook 'prog-mode-hook 'esk-local-comment-auto-fill))
 
+(use-package protobuf-mode)
+
 (use-package recentf
   :ensure f
   :demand t
@@ -758,6 +766,9 @@ canceled tasks."
   (global-tree-sitter-mode))
 
 (use-package tree-sitter-langs)
+
+(use-package treemacs
+  :config (treemacs-resize-icons 16))
 
 (use-package vertico
   :init
