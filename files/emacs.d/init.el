@@ -276,32 +276,7 @@
   (add-hook 'lisp-interaction-mode-hook 'indent-spaces-mode))
 
 (use-package magit
-  :defer t
-  :commands (magit-add-section-hook magit-get-current-branch)
-  :bind (("C-c g"   . magit-status)
-         ("C-c M-g" . magit-dispatch))
-  :config
-  (magit-add-section-hook 'magit-status-sections-hook
-                          'magit-insert-modules
-                          'magit-insert-stashes
-                          'append)
-  (defun jcs/magit-commit-template (&rest _)
-    "Ensure that commits on an issue- branch have the issue name in
-the commit as well."
-    (let ((prefix (magit-get-current-branch)))
-      (if (string-prefix-p "issue-" prefix)
-          (let* ((issue-number (string-replace "issue-" "" prefix))
-                 (issue-marker (concat "(#" issue-number ")")))
-            (progn
-              (goto-char (point-min))
-              (if (not (search-forward issue-marker (line-end-position) t))
-                  (progn
-                    (goto-char (point-min))
-                    (move-end-of-line nil)
-                    (insert " " issue-marker)
-                    (goto-char (point-min)))
-                (goto-char (point-min))))))))
-  (add-hook 'git-commit-mode-hook 'jcs/magit-commit-template)
+  :bind (("C-c g"   . magit-status))
   :custom
   (magit-branch-prefer-remote-upstream t)
   (magit-save-repository-buffers 'dontask))
