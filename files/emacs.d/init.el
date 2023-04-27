@@ -225,6 +225,7 @@
                                        cider-repl-mode)))
 
 (use-package flymake
+  :ensure f
   :bind (:map flymake-mode-map
               ("M-n" . flymake-goto-next-error)
               ("M-p" . flymake-goto-prev-error)))
@@ -306,6 +307,7 @@ the commit as well."
   (magit-save-repository-buffers 'dontask))
 
 (use-package man
+  :ensure f
   :defer t
   :config (setq Man-width 80))
 
@@ -379,7 +381,7 @@ the commit as well."
 
 ;; org-babel
 (use-package ob
-  :ensure org
+  :ensure f
   :after org
   :config
   (org-babel-do-load-languages 'org-babel-load-languages
@@ -390,6 +392,7 @@ the commit as well."
 
 
 (use-package org
+  :ensure f
   :custom
   (org-refile-use-outline-path 'file)
   (org-refile-allow-creating-parent-nodes 'confirm)
@@ -493,7 +496,7 @@ same directory as the org-buffer and insert a link to this file."
          ("C-c e m" . jcs/open-meetings)))
 
 (use-package org-capture
-  :ensure org
+  :ensure f
   :init
   :bind ("C-c c" . org-capture)
   :config
@@ -505,7 +508,7 @@ same directory as the org-buffer and insert a link to this file."
 (use-package org-mac-link)
 
 (use-package org-agenda
-  :ensure org
+  :ensure f
   :after (org)
   :config
   (setq org-agenda-window-setup 'current-window
@@ -646,7 +649,7 @@ canceled tasks."
           (expand-file-name (file-name-as-directory org-roam-directory))
           (file-name-as-directory buffer-file-name)))))
 
-(use-package org-tempo :ensure org)
+(use-package org-tempo :ensure f)
 
 (use-package paredit
   :hook (emacs-lisp-mode . paredit-mode)
@@ -658,6 +661,7 @@ canceled tasks."
   :hook (prog-mode . paredit-everywhere-mode))
 
 (use-package paren
+  :ensure f
   :config (show-paren-mode))
 
 ;; TODO: Try out pixel-scroll-precision-mode
