@@ -33,6 +33,7 @@ rec {
       git
       gnupg
       htop
+      iosevka-comfy.comfy
       jdk11
       jq
       languagetool

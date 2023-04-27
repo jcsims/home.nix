@@ -50,7 +50,8 @@
 ;; Font
 (if (eq system-type 'gnu/linux)
     (set-frame-font "Hack Nerd Font 9")
-  (set-frame-font "Hack Nerd Font 12"))
+  ;;(set-frame-font "Hack Nerd Font 12")
+  (set-frame-font "Iosevka Comfy 14"))
 
 (use-package color-theme-sanityinc-tomorrow
   :config (load-theme 'sanityinc-tomorrow-eighties t))
