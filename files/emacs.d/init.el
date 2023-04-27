@@ -28,8 +28,8 @@
 
 (require 'package)
 (add-to-list 'package-archives
-               (cons "melpa" "https://melpa.org/packages/")
-               t)
+             (cons "melpa" "https://melpa.org/packages/")
+             t)
 
 (eval-and-compile ;; `use-package'
   (unless (package-installed-p 'use-package)
@@ -99,8 +99,8 @@
 (use-package cider
   :after (clojure-mode paredit)
   :bind (:map clojure-mode-map
-	      ("C-c i" . cider-inspect-last-result)
-	      ("M-s-." . cider-find-var))
+              ("C-c i" . cider-inspect-last-result)
+              ("M-s-." . cider-find-var))
   :custom
   (cider-save-file-on-load t)
   (cider-repl-use-pretty-printing t)
@@ -241,10 +241,10 @@
 
 (use-package helpful
   :bind (("C-h f" . helpful-callable)
-	 ("C-h v" . helpful-variable)
-	 ("C-h k" . helpful-key)
-	 :map emacs-lisp-mode-map
-	 ("C-c C-d" . helpful-at-point)))
+         ("C-h v" . helpful-variable)
+         ("C-h k" . helpful-key)
+         :map emacs-lisp-mode-map
+         ("C-c C-d" . helpful-at-point)))
 
 (use-package hippie-exp
   :ensure f
@@ -345,21 +345,21 @@ the commit as well."
     "Open an Obsidian meeting note from today."
     (interactive)
     (let* ((today-string (format-time-string "%Y-%m-%d"))
-	   (meeting-dir (expand-file-name "meetings" obsidian-directory))
-	   (choices (->> (directory-files-recursively meeting-dir "\.*.md$")
-			 (seq-filter #'obsidian-file-p)
-			 (seq-map (lambda (f) (file-relative-name f meeting-dir)))
-			 (seq-filter (lambda (f) (s-starts-with? today-string f))))))
+           (meeting-dir (expand-file-name "meetings" obsidian-directory))
+           (choices (->> (directory-files-recursively meeting-dir "\.*.md$")
+                         (seq-filter #'obsidian-file-p)
+                         (seq-map (lambda (f) (file-relative-name f meeting-dir)))
+                         (seq-filter (lambda (f) (s-starts-with? today-string f))))))
       (if choices
-	  (obsidian-find-file (expand-file-name (completing-read "Select file: " choices)
-						meeting-dir))
-	(message "No meeting files for today.")))))
+          (obsidian-find-file (expand-file-name (completing-read "Select file: " choices)
+                                                meeting-dir))
+        (message "No meeting files for today.")))))
 
 (use-package orderless
   :init
   (setq completion-styles '(orderless)
-	completion-category-defaults nil
-	completion-category-overrides '((file (styles . (partial-completion))))))
+        completion-category-defaults nil
+        completion-category-overrides '((file (styles . (partial-completion))))))
 
 (defvar org-dir (file-truename "~/org"))
 (defvar jcs/org-roam-dir (file-truename "~/org-roam"))
@@ -370,10 +370,10 @@ the commit as well."
   :after org
   :config
   (org-babel-do-load-languages 'org-babel-load-languages
-			       '((clojure . t)
-				 (shell . t)
-				 (sql . t)
-				 (emacs-lisp . t))))
+                               '((clojure . t)
+                                 (shell . t)
+                                 (sql . t)
+                                 (emacs-lisp . t))))
 
 
 (use-package org
@@ -432,16 +432,17 @@ same directory as the org-buffer and insert a link to this file."
            (make-temp-name
             (concat (file-name-nondirectory (buffer-file-name))
                     "_imgs/"
-                    (format-time-string "%Y%m%d_%H%M%S_")) ) ".png"))
+                    (format-time-string "%Y%m%d_%H%M%S_")) )
+           ".png"))
     (unless (file-exists-p (file-name-directory filename))
       (make-directory (file-name-directory filename)))
-					; take screenshot
+                                        ; take screenshot
     (if (eq system-type 'darwin)
-	(call-process "screencapture" nil nil nil "-i" filename)
+        (call-process "screencapture" nil nil nil "-i" filename)
       (call-process "import" nil nil nil filename))
     ;; insert into file if correctly taken
     (if (file-exists-p filename)
-	(insert (concat "[[file:" filename "]]")))
+        (insert (concat "[[file:" filename "]]")))
     (org-display-inline-images))
 
   ;; Borrowed from http://mbork.pl/2021-05-02_Org-mode_to_Markdown_via_the_clipboard
@@ -449,13 +450,13 @@ same directory as the org-buffer and insert a link to this file."
     "Copy the region (in Org) to the system clipboard as Markdown."
     (interactive)
     (if (use-region-p)
-	(let* ((region
-		(buffer-substring-no-properties
-		 (region-beginning)
-		 (region-end)))
-	       (markdown
-		(org-export-string-as region 'md t '(:with-toc nil))))
-	  (gui-set-selection 'CLIPBOARD markdown))))
+        (let* ((region
+                (buffer-substring-no-properties
+                 (region-beginning)
+                 (region-end)))
+               (markdown
+                (org-export-string-as region 'md t '(:with-toc nil))))
+          (gui-set-selection 'CLIPBOARD markdown))))
 
   :bind (("C-c l" . org-store-link)
 	 ("C-c a" . org-agenda)))
@@ -555,15 +556,15 @@ same directory as the org-buffer and insert a link to this file."
            (scheduled-time (org-get-scheduled-time (point)))
            (result
             (or (and scheduled-time
-		     ;; This makes sure that tasks scheduled for a future date
-		     ;; (and not a future timestamp), which have a scheduled
-		     ;; time that's equivalent to midnight, are skipped unless
-		     ;; they're actually scheduled for today.
+                     ;; This makes sure that tasks scheduled for a future date
+                     ;; (and not a future timestamp), which have a scheduled
+                     ;; time that's equivalent to midnight, are skipped unless
+                     ;; they're actually scheduled for today.
                      (time-less-p (time-add (jcs/tomorrow) -1) scheduled-time)
-                     'future-scheduled)	; This is scheduled for a future date
+                     'future-scheduled) ; This is scheduled for a future date
                 (and (org-entry-is-done-p) ; This entry is done and should probably be ignored
                      'done)
-                'agenda)))	       ; Everything else should go in the agenda
+                'agenda)))             ; Everything else should go in the agenda
       (if (eq result part) dont-skip skip)))
 
   (setq org-agenda-custom-commands
@@ -632,11 +633,11 @@ TODO entries marked as done are ignored, meaning this function
 returns nil if current buffer contains only completed or
 canceled tasks."
     (org-element-map
-	(org-element-parse-buffer 'headline)
-	'headline
+        (org-element-parse-buffer 'headline)
+        'headline
       (lambda (headline)
-	(eq (org-element-property :todo-type headline)
-	    'todo))
+        (eq (org-element-property :todo-type headline)
+            'todo))
       nil
       'first-match))
 
