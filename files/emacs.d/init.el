@@ -674,6 +674,10 @@ canceled tasks."
   (add-hook 'prog-mode-hook 'indicate-buffer-boundaries-left)
   (add-hook 'prog-mode-hook 'esk-local-comment-auto-fill))
 
+(use-package project
+  :ensure f
+  :custom (project-vc-extra-root-markers '(".dir-locals.el")))
+
 (use-package protobuf-mode)
 
 (use-package recentf
