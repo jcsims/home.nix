@@ -108,21 +108,29 @@
   (cider-auto-jump-to-error 'errors-only)
   ;; Remove 'deprecated since LSP does that as well
   (cider-font-lock-dynamically '(macro core))
-  ;; Let LSP handle eldoc
-  (cider-eldoc-display-for-symbol-at-point nil)
-  (cider-use-xref nil)
   :config
-  (add-hook 'clojure-mode-hook 'cider-mode)
   (add-hook 'cider-repl-mode-hook 'paredit-mode)
-  (add-hook 'cider-repl-mode-hook 'cider-company-enable-fuzzy-completion)
-  (add-hook 'cider-mode-hook 'cider-company-enable-fuzzy-completion)
   ;; kill REPL buffers for a project as well
   (add-to-list 'project-kill-buffer-conditions
-	       '(derived-mode . cider-repl-mode)
-	       t)
+               '(derived-mode . cider-repl-mode)
+               t)
   (setq cider-repl-display-help-banner nil
-	nrepl-log-messages nil
-        cider-known-endpoints '(("patch" "localhost" "12345"))))
+        nrepl-log-messages nil
+        ;; Let LSP handle eldoc
+        cider-eldoc-display-for-symbol-at-point nil
+        cider-known-endpoints '(("patch" "localhost" "12345")))
+  ;; Borrowed from https://manueluberti.eu//2023/03/25/clojure-lsp.html
+  (defun mu-cider-disable-eldoc ()
+    "Let LSP handle ElDoc instead of CIDER."
+    (remove-hook 'eldoc-documentation-functions #'cider-eldoc t))
+
+  (add-hook 'cider-mode-hook #'mu-cider-disable-eldoc)
+
+  (defun mu-cider-disable-completion ()
+    "Let LSP handle completion instead of CIDER."
+    (remove-hook 'completion-at-point-functions #'cider-complete-at-point t))
+
+  (add-hook 'cider-mode-hook #'mu-cider-disable-completion))
 
 (use-package chatgpt-shell
   :config (setq chatgpt-shell-openai-key
@@ -186,7 +194,8 @@
   :bind (:map eglot-mode-map
               ("C-M-." . xref-find-references)
               ("C-c l f" . eglot-format)
-              ("C-c l a" . eglot-code-actions)))
+              ("C-c l a" . eglot-code-actions))
+  :custom (eglot-connect-timeout 60))
 
 (use-package eldoc
   :ensure f
