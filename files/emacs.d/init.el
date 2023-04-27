@@ -371,6 +371,10 @@ the commit as well."
         completion-category-overrides '((file (styles . (partial-completion))))))
 
 (defvar org-dir (file-truename "~/org"))
+(defvar jcs/work-file (expand-file-name "work.org" org-dir))
+(defvar jcs/meetings-file (expand-file-name "meetings.org" org-dir))
+(defvar jcs/inbox-file (expand-file-name "inbox.org" org-dir))
+(defvar jcs/notes-file (expand-file-name "notes.org" org-dir))
 (defvar jcs/org-roam-dir (file-truename "~/org-roam"))
 
 ;; org-babel
@@ -406,24 +410,30 @@ the commit as well."
 
   :config
   (setq org-hide-leading-stars t
-	org-hide-emphasis-markers t ;; Hide things like `*` for bold, etc.
-	org-directory org-dir
-	org-log-done 'time
-	org-log-into-drawer t
-	org-startup-indented t
-	org-startup-folded t
-	org-src-fontify-natively t
-	org-use-fast-todo-selection t
-	org-outline-path-complete-in-steps nil
-	;; Don't ask every time before evaluating an org source block
-	org-confirm-babel-evaluate nil
-	;; Display images in org by default
-	org-startup-with-inline-images t
-	;; Try to keep image widths in emacs to a sane value (measured in pixels)
-	org-image-actual-width 1000)
+        org-hide-emphasis-markers t ;; Hide things like `*` for bold, etc.
+        org-directory org-dir
+        org-log-done 'time
+        org-log-into-drawer t
+        org-startup-indented t
+        org-startup-folded t
+        org-src-fontify-natively t
+        org-use-fast-todo-selection t
+        org-outline-path-complete-in-steps nil
+        ;; Don't ask every time before evaluating an org source block
+        org-confirm-babel-evaluate nil
+        ;; Display images in org by default
+        org-startup-with-inline-images t
+        ;; Try to keep image widths in emacs to a sane value (measured in pixels)
+        org-image-actual-width 1000
+        org-agenda-files (list jcs/work-file
+                               jcs/inbox-file
+                               jcs/meetings-file)
+        org-refile-targets '((jcs/work-file . (:maxlevel . 2))
+                             (jcs/meetings-file . (:level . 1))
+                             (jcs/notes-file . (:level . 2))))
   (setq org-todo-keywords
-	(quote ((sequence "TODO(t)" "DOING(o)" "|" "DONE(d)")
-		(sequence "DELEGATED(e@/!)" "WAITING(w@/!)" "BLOCKED(b@/!)" "HAMMOCK(h@/!)" "|" "CANCELLED(c@/!)"))))
+        (quote ((sequence "TODO(t)" "DOING(o)" "|" "DONE(d)")
+                (sequence "DELEGATED(e@/!)" "WAITING(w@/!)" "BLOCKED(b@/!)" "HAMMOCK(h@/!)" "|" "CANCELLED(c@/!)"))))
 
   ;; These tend to modify files, so save after doing it
   (advice-add 'org-refile :after 'org-save-all-org-buffers)
@@ -467,86 +477,41 @@ same directory as the org-buffer and insert a link to this file."
                 (org-export-string-as region 'md t '(:with-toc nil))))
           (gui-set-selection 'CLIPBOARD markdown))))
 
+  (defun jcs/open-org-file (filename)
+    "Open FILENAME in the defined `org-dir'."
+    (find-file (expand-file-name filename org-dir)))
+
+  (defun jcs/open-inbox () (interactive) (jcs/open-org-file "inbox.org"))
+  (defun jcs/open-work () (interactive) (jcs/open-org-file "work.org"))
+  (defun jcs/open-meetings () (interactive) (jcs/open-org-file "meetings.org"))
+
+
   :bind (("C-c l" . org-store-link)
-	 ("C-c a" . org-agenda)))
+         ("C-c a" . org-agenda)
+         ("C-c e i" . jcs/open-inbox)
+         ("C-c e w" . jcs/open-work)
+         ("C-c e m" . jcs/open-meetings)))
+
+(use-package org-capture
+  :ensure org
+  :init
+  :bind ("C-c c" . org-capture)
+  :config
+  (setq org-capture-templates
+        '(("t" "Todo [inbox]" entry
+           (file "inbox.org")
+           "* TODO %i%?"))))
 
 (use-package org-mac-link)
 
 (use-package org-agenda
   :ensure org
-  :after (org vulpea)
+  :after (org)
   :config
   (setq org-agenda-window-setup 'current-window
-	org-agenda-block-separator nil
-	org-agenda-tags-column -80
-	org-agenda-show-future-repeats nil)
-
-  ;; Stolen from
-  ;; https://d12frosted.io/posts/2020-06-24-task-management-with-roam-vol2.html
-  ;; This ensures that the label prior to the TODO in the agenda is
-  ;; readable and sane. This is especially useful using org-roam,
-  ;; since the filenames are prefixed with a timestamp, making the
-  ;; usual pattern (the filename) useless.
-  (setq org-agenda-prefix-format
-	'((agenda . " %i %(vulpea-agenda-category 12)%?-12t% s")
-	  (todo . " %i %(vulpea-agenda-category 12) ")
-	  (tags . " %i %(vulpea-agenda-category 12) ")
-	  (search . " %i %(vulpea-agenda-category 12) ")))
-
-  (defun vulpea-agenda-category (&optional len)
-    "Get category of item at point for agenda.
-
-     Category is defined by one of the following items:
-
-     - CATEGORY property
-     - TITLE keyword
-     - TITLE property
-     - filename without directory and extension
-
-     When LEN is a number, resulting string is padded right with
-     spaces and then truncated with ... on the right if result is
-     longer than LEN.
-
-     Usage example:
-
-       (setq org-agenda-prefix-format
-	     '((agenda . \" %(vulpea-agenda-category) %?-12t %12s\")))
-
-     Refer to `org-agenda-prefix-format' for more information."
-    (let* ((file-name (when buffer-file-name
-			(file-name-sans-extension
-			 (file-name-nondirectory buffer-file-name))))
-	   (title (vulpea-buffer-prop-get "title"))
-	   (category (org-get-category))
-	   (result
-	    (or (if (and
-		     title
-		     (string-equal category file-name))
-		    title
-		  category)
-		"")))
-      (if (numberp len)
-	  (s-truncate len (s-pad-right len " " result))
-	result)))
-
-  (defun vulpea-project-files ()
-    "Return a list of org-roam files containing the 'project' tag."
-    (seq-uniq
-     (seq-map
-      #'car
-      (org-roam-db-query
-       [:select [nodes:file]
-		:from tags
-		:left-join nodes
-		:on (= tags:node-id nodes:id)
-		:where (like tag (quote "%\"project\"%"))]))))
-
-  (defun vulpea-agenda-files-update (&rest _)
-    "Update the value of `org-agenda-files' based on 'project' tag."
-    (setq org-agenda-files (vulpea-project-files)))
-
-  (advice-add 'org-agenda :before #'vulpea-agenda-files-update)
-  (advice-add 'org-todo-list :before #'vulpea-agenda-files-update)
+        org-agenda-block-separator nil
+        org-agenda-tags-column -80
+        org-agenda-show-future-repeats nil)
 
   (defun jcs/tomorrow ()
     "Returns a timestamp representing midnight of the next day."
@@ -577,54 +542,55 @@ same directory as the org-buffer and insert a link to this file."
       (if (eq result part) dont-skip skip)))
 
   (setq org-agenda-custom-commands
-	`(("c" "Agenda and tasks"
-	   ((agenda ""
-		    ((org-agenda-skip-function
-		      '(org-agenda-skip-if nil '(todo done)))))
-	    ;; (todo ""
-            ;;       ((org-agenda-overriding-header "To Refile")
-            ;;        (org-agenda-files (list ,jcs/inbox-file))))
-	    (todo "BLOCKED"
-		  ((org-agenda-overriding-header "Blocked")
-		   (org-agenda-skip-function
-		    '(jcs/org-skip-function 'agenda))))
-	    (todo "DOING"
-		  ((org-agenda-overriding-header "In Progress")))
-	    (todo "TODO"
-		  ((org-agenda-overriding-header "Todo")
-		   (org-agenda-skip-function
-		    '(jcs/org-skip-function 'agenda))))
-	    (todo "WAITING"
-		  ((org-agenda-overriding-header "Waiting")
-		   (org-agenda-skip-function
-		    '(jcs/org-skip-function 'agenda))))
-	    (todo "DELEGATED"
-		  ((org-agenda-overriding-header "Delegated")
-		   (org-agenda-skip-function
-		    '(jcs/org-skip-function 'agenda))))
-	    (todo "HAMMOCK"
-		  ((org-agenda-overriding-header "Hammock")
-		   (org-agenda-skip-function
-		    '(jcs/org-skip-function 'agenda)))))))))
+        `(("c" "Agenda and tasks"
+           ((agenda ""
+                    ((org-agenda-skip-function
+                      '(org-agenda-skip-if nil '(todo done)))))
+            (todo ""
+                  ((org-agenda-overriding-header "To Refile")
+                   (org-agenda-files (list ,jcs/inbox-file))))
+            (todo "BLOCKED"
+                  ((org-agenda-overriding-header "Blocked")
+                   (org-agenda-skip-function
+                    '(jcs/org-skip-function 'agenda))))
+            (todo "DOING"
+                  ((org-agenda-overriding-header "In Progress")))
+            (todo "TODO"
+                  ((org-agenda-overriding-header "Todo")
+                   (org-agenda-skip-function
+                    '(jcs/org-skip-function 'agenda))))
+            (todo "WAITING"
+                  ((org-agenda-overriding-header "Waiting")
+                   (org-agenda-skip-function
+                    '(jcs/org-skip-function 'agenda))))
+            (todo "DELEGATED"
+                  ((org-agenda-overriding-header "Delegated")
+                   (org-agenda-skip-function
+                    '(jcs/org-skip-function 'agenda))))
+            (todo "HAMMOCK"
+                  ((org-agenda-overriding-header "Hammock")
+                   (org-agenda-skip-function
+                    '(jcs/org-skip-function 'agenda)))))))))
 
 (use-package org-roam
+  :disabled
   :after (org vulpea)
   :init (setq org-roam-v2-ack t)
   :custom (org-roam-directory jcs/org-roam-dir)
   :bind (("C-c o l" . org-roam-buffer-toggle)
-	 ("C-c o f" . org-roam-node-find)
-	 ("C-c o g" . org-roam-graph)
-	 ("C-c o i" . org-roam-node-insert)
-	 ("C-c o c" . org-roam-capture)
-	 ("C-c o r" . org-roam-refile)
-	 ;; Dailies
-	 ("C-c o d" . org-roam-dailies-goto-today)
-	 ("C-c o p" . org-roam-dailies-goto-previous-note)
-	 ("C-c o n" . org-roam-dailies-goto-next-note)
-	 ("C-c o j" . org-roam-dailies-capture-today)
-	 ("C-c o w" . (lambda () (interactive) (find-file (expand-file-name "20230104152728-work.org" org-roam-directory)))))
+         ("C-c o f" . org-roam-node-find)
+         ("C-c o g" . org-roam-graph)
+         ("C-c o i" . org-roam-node-insert)
+         ("C-c o c" . org-roam-capture)
+         ("C-c o r" . org-roam-refile)
+         ;; Dailies
+         ("C-c o d" . org-roam-dailies-goto-today)
+         ("C-c o p" . org-roam-dailies-goto-previous-note)
+         ("C-c o n" . org-roam-dailies-goto-next-note)
+         ("C-c o j" . org-roam-dailies-capture-today)
+         ("C-c o w" . (lambda () (interactive) (find-file (expand-file-name "20230104152728-work.org" org-roam-directory)))))
   :hook ((find-file . vulpea-project-update-tag)
-	 (before-save . vulpea-project-update-tag))
+         (before-save . vulpea-project-update-tag))
   :config
   (org-roam-db-autosync-mode)
   (advice-add 'org-roam-refile :after 'org-save-all-org-buffers)
@@ -656,29 +622,29 @@ canceled tasks."
   (defun vulpea-project-update-tag ()
     "Update PROJECT tag in the current buffer."
     (when (and (not (active-minibuffer-window))
-	       (org-roam-buffer-p))
+               (org-roam-buffer-p))
       (save-excursion
-	(goto-char (point-min))
-	(let* ((tags (vulpea-buffer-tags-get))
-	       (original-tags tags))
-	  (if (vulpea-project-p)
-	      (setq tags (cons "project" tags))
-	    (setq tags (remove "project" tags)))
+        (goto-char (point-min))
+        (let* ((tags (vulpea-buffer-tags-get))
+               (original-tags tags))
+          (if (vulpea-project-p)
+              (setq tags (cons "project" tags))
+            (setq tags (remove "project" tags)))
 
-	  ;; Remove duplicates
-	  (setq tags (seq-uniq tags))
+          ;; Remove duplicates
+          (setq tags (seq-uniq tags))
 
-	  ;; Update tags in the buffer if they've changed
-	  (when (or (seq-difference tags original-tags)
-		    (seq-difference original-tags tags))
-	    (apply #'vulpea-buffer-tags-set tags))))))
+          ;; Update tags in the buffer if they've changed
+          (when (or (seq-difference tags original-tags)
+                    (seq-difference original-tags tags))
+            (apply #'vulpea-buffer-tags-set tags))))))
 
   (defun org-roam-buffer-p ()
     "Return non-nil of the currently visited buffer is an org-roam buffer."
     (and buffer-file-name
-	 (string-prefix-p
-	  (expand-file-name (file-name-as-directory org-roam-directory))
-	  (file-name-as-directory buffer-file-name)))))
+         (string-prefix-p
+          (expand-file-name (file-name-as-directory org-roam-directory))
+          (file-name-as-directory buffer-file-name)))))
 
 (use-package org-tempo :ensure org)
 
@@ -806,7 +772,7 @@ Passes ARG onto `zap-to-char` or `backward-kill-word` if used."
 
 (use-package vundo)
 
-(use-package vulpea)
+(use-package vulpea :disabled)
 
 (use-package wgrep)
 
