@@ -108,6 +108,7 @@
   (cider-auto-jump-to-error 'errors-only)
   ;; Remove 'deprecated since LSP does that as well
   (cider-font-lock-dynamically '(macro core))
+  (cider-xref-fn-depth 90)
   :config
   (add-hook 'cider-repl-mode-hook 'paredit-mode)
   ;; kill REPL buffers for a project as well
