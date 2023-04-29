@@ -255,11 +255,11 @@ rec {
       };
       scrolling.history = 20000;
       font = {
-        size = 12;
-        normal.family = "Hack Nerd Font";
-        bold.family = "Hack Nerd Font";
-        italic.family = "Hack Nerd Font";
-        bold_italic.family = "Hack Nerd Font";
+        size = 14;
+        normal.family = "Iosevka Comfy";
+        bold.family = "Iosevka Comfy";
+        italic.family = "Iosevka Comfy";
+        bold_italic.family = "Iosevka Comfy";
       };
       mouse_bindings = [
         {
