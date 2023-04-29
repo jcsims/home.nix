@@ -12,6 +12,7 @@ rec {
   home.packages =
     (lib.attrValues specialArgs.extraPackages)
     ++ (with pkgs; [
+      unstable.apacheKafka
       unstable.azure-cli
       babashka
       clojure
