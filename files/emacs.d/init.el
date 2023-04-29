@@ -656,7 +656,19 @@ canceled tasks."
 
 (use-package project
   :ensure f
-  :custom (project-vc-extra-root-markers '(".dir-locals.el")))
+  :custom
+  (project-vc-extra-root-markers '(".dir-locals.el"))
+  ;; In some oddly-formed projects, .gitignore patterns aren't picked up by
+  ;; project (and finding files and searching get polluted).
+  ;; TODO: Find out why that's the case!
+  ;; In the meantime, ignore these paths that I basically never want to get
+  ;; search results or fuzzy-find files from.
+  (project-vc-ignores '(".clj-kondo/.cache"
+                        ".cpcache"
+                        ".lsp/.cache"))
+  :config (add-to-list 'project-switch-commands '(magit-project-status "Magit") t)
+  :bind (:map project-prefix-map
+         ("m" . magit-project-status)))
 
 (use-package protobuf-mode)
 
