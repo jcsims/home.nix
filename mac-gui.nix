@@ -1,8 +1,10 @@
-{pkgs, specialArgs, ...}: {
+{ pkgs, specialArgs, ... }:
+let unstable = specialArgs.unstable_pkgs;
+in
+{
   home.packages = with pkgs; [
-    specialArgs.unstable_pkgs.emacs
-    iterm2
-    specialArgs.unstable_pkgs.neovim
+    unstable.emacs
+    unstable.iterm2
     pinentry_mac
     terminal-notifier
   ];
