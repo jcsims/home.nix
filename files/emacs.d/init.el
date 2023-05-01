@@ -319,7 +319,6 @@
 
 (use-package obsidian
   :demand t
-  :after (dash elgrep s)
   :config
   (obsidian-specify-path "~/notes/patch")
   (global-obsidian-mode)
