@@ -193,6 +193,19 @@ rec {
     data-dir ${specialArgs.homedir}/.nix-profile/lib/aspell
   '';
 
+  home.file.".mackup.cfg".text = ''
+    [storage]
+    engine = icloud
+
+    [applications_to_sync]
+    calibre
+    istat-menus
+    zoom
+
+    [applications_to_ignore]
+    ssh
+  '';
+
   home.file.".psqlrc".text = ''
     \set COMP_KEYWORD_CASE upper
     \x auto
