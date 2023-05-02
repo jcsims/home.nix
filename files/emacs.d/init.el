@@ -453,7 +453,7 @@ same directory as the org-buffer and insert a link to this file."
 (use-package org-mac-link)
 
 (use-package org-agenda
-  :ensure org
+  :ensure f
   :after (org vulpea)
   :config
   (setq org-agenda-window-setup 'current-window
