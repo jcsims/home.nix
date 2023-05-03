@@ -281,12 +281,6 @@ rec {
   #   };
   # };
 
-  # This helps bash-completion work, since bash-completion will look here for
-  # other installed completions. Other packages that include bash completion
-  # scripts will link them here.
-  # N.B. this only works on Linux...
-  #xdg.systemDirs.data = [ "~/.nix-profile/share" ];
-
   # This value determines the Home Manager release that your
   # configuration is compatible with. This helps avoid breakage
   # when a new Home Manager release introduces backwards
