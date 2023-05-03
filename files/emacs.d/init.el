@@ -103,7 +103,7 @@
 (use-package cider
   :pin melpa-stable
   :after (clojure-mode paredit)
-  :bind (:map clojure-mode-map
+  :bind (:map cider-mode-map
               ("C-c i" . cider-inspect-last-result)
               ("M-s-." . cider-find-var))
   :custom
@@ -113,6 +113,8 @@
   (cider-auto-jump-to-error 'errors-only)
   ;; Remove 'deprecated since LSP does that as well
   (cider-font-lock-dynamically '(macro core))
+  ;; Make sure that cider doesn't overwrite xref keybindings, but let LSP handle
+  ;; everything.
   (cider-xref-fn-depth 90)
   :config
   (add-hook 'cider-repl-mode-hook 'paredit-mode)
