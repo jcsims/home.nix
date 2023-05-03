@@ -191,6 +191,7 @@
   (global-display-line-numbers-mode))
 
 (use-package eglot
+  :disabled
   :hook ((rust-mode
           clojure-mode
           python-mode
@@ -284,6 +285,24 @@
     (setq indent-tabs-mode nil))
   (add-hook 'lisp-interaction-mode-hook 'indent-spaces-mode))
 
+(use-package lsp-mode
+  :hook
+  ((rust-mode
+    clojure-mode
+    python-mode
+    sh-mode
+    nix-mode)
+   . lsp-deferred)
+  (lsp-mode . lsp-enable-which-key-integration)
+  :config
+  (setq read-process-output-max (* 1024 1024))
+  ;;(setq lsp-enable-indentation nil)
+  ;; Using a locally-built version
+  ;;:custom (lsp-clojure-custom-server-command
+  ;;"/Users/jcsims/code/clojure-lsp/clojure-lsp")
+  :custom (lsp-rust-analyzer-cargo-watch-command "clippy")
+  :commands lsp)
+
 (use-package magit
   :bind (("C-c g"   . magit-status))
   :custom
@@ -309,7 +328,8 @@
   :config
   (setq minions-prominent-modes '(eglot-mode
                                   flycheck-mode
-                                  flymake-mode))
+                                  flymake-mode
+                                  lsp-mode))
   (minions-mode))
 
 (use-package multiple-cursors
