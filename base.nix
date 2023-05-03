@@ -146,7 +146,6 @@ rec {
       "$HOME/bin"
       "$HOME/go/bin"
       "$HOME/.cargo/bin"
-      "$HOME/code/work/patch/bin"
       "$HOME/.local/bin" # pipx install path
     ]
     ++ (
@@ -265,6 +264,9 @@ rec {
     enable = false;
     package = specialArgs.unstable_pkgs.vscode;
   };
+
+  programs.direnv.enable = true;
+  programs.direnv.nix-direnv.enable = true;
 
   # launchd.agents."org-roam.sync" = {
   #   enable = true;
