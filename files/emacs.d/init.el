@@ -702,9 +702,7 @@ canceled tasks."
   (project-vc-ignores '(".clj-kondo/.cache"
                         ".cpcache"
                         ".lsp/.cache"))
-  :config (add-to-list 'project-switch-commands '(magit-project-status "Magit") t)
-  :bind (:map project-prefix-map
-         ("m" . magit-project-status)))
+  :config (add-to-list 'project-switch-commands '(magit-project-status "Magit" ?m) t))
 
 (use-package protobuf-mode)
 
