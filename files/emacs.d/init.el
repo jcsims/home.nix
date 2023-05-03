@@ -724,7 +724,7 @@ canceled tasks."
   ;; TODO: Find out why that's the case!
   ;; In the meantime, ignore these paths that I basically never want to get
   ;; search results or fuzzy-find files from.
-  (project-vc-ignores '(".clj-kondo/.cache"
+  (project-vc-ignores '(".clj-kondo"
                         ".cpcache"
                         ".lsp/.cache"))
   :config (add-to-list 'project-switch-commands '(magit-project-status "Magit" ?m) t))
