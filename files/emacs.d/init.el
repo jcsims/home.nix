@@ -300,7 +300,9 @@
   ;; Using a locally-built version
   ;;:custom (lsp-clojure-custom-server-command
   ;;"/Users/jcsims/code/clojure-lsp/clojure-lsp")
-  :custom (lsp-rust-analyzer-cargo-watch-command "clippy")
+  :custom
+  (lsp-rust-analyzer-cargo-watch-command "clippy")
+  (lsp-headerline-breadcrumb-enable-diagnostics nil)
   :commands lsp)
 
 (use-package magit
