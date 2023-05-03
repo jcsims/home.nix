@@ -216,6 +216,12 @@ rec {
     executable = true;
   };
 
+  home.file.".config/clojure-lsp/config.edn".text = ''
+    {:dependency-scheme  "jar"
+     :java {:jdk-source-uri "file://${specialArgs.homedir}/.nix-profile/lib/src.zip"}}
+
+  '';
+
   home.file.".tmux.conf".source = ./files/tmux.conf;
   home.file.".authinfo.gpg".source = ./files/authinfo.gpg;
   home.file.".functions/c.bash".source = ./files/c.bash;
