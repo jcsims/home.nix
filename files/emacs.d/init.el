@@ -41,6 +41,9 @@
   (setq use-package-verbose t
         use-package-always-ensure t))
 
+(use-package gcmh
+  :config (gcmh-mode))
+
 (use-package dash
   :config (global-dash-fontify-mode))
 
