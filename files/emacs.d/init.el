@@ -27,9 +27,8 @@
     (load custom-file)))
 
 (require 'package)
-(add-to-list 'package-archives
-             (cons "melpa" "https://melpa.org/packages/")
-             t)
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+(add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/") t)
 
 (eval-and-compile ;; `use-package'
   (unless (package-installed-p 'use-package)
@@ -99,6 +98,7 @@
   (global-auto-revert-mode))
 
 (use-package cider
+  :pin melpa-stable
   :after (clojure-mode paredit)
   :bind (:map clojure-mode-map
               ("C-c i" . cider-inspect-last-result)
@@ -141,6 +141,7 @@
                   (auth-source-pick-first-password :host "api.openai.com"))))
 
 (use-package clojure-mode
+  :pin melpa-stable
   :after (paredit)
   :mode (("\\.edn\\'" . clojure-mode))
   :config (add-hook 'clojure-mode-hook 'paredit-mode))
