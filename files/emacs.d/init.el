@@ -707,7 +707,7 @@ canceled tasks."
 
 (use-package prog-mode
   :ensure f
-  :config (global-prettify-symbols-mode)
+  :config
   (defun indicate-buffer-boundaries-left ()
     (setq indicate-buffer-boundaries 'left))
   (defun esk-local-comment-auto-fill ()
