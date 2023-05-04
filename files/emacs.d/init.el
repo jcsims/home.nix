@@ -882,13 +882,13 @@ Passes ARG onto `zap-to-char` or `backward-kill-word` if used."
             t))
 
 
-(progn ;     personalize
+(progn                                  ; personalize
 
-  (setq sentence-end-double-space nil ;; Sentences can end with a single space.
-        select-enable-primary t ;; Use the clipboard for yank and kill
+  (setq sentence-end-double-space nil   ; Sentences can end with a single space.
+        select-enable-primary t         ; Use the clipboard for yank and kill
         save-interprogram-paste-before-kill t
         scroll-preserve-screen-position 'always
-        scroll-error-top-bottom t               ; Scroll similar to vim
+        scroll-error-top-bottom t       ; Scroll similar to vim
         user-full-name "Chris Sims"
         user-mail-address "chris@jcsi.ms"
         use-short-answers t)
