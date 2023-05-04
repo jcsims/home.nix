@@ -304,6 +304,15 @@
   (lsp-headerline-breadcrumb-enable-diagnostics nil)
   :commands lsp)
 
+(use-package lsp-ui
+   :after lsp-mode
+   :commands lsp-ui-mode
+   :bind (:map lsp-ui-mode-map
+              ("C-M-." . xref-find-references)
+              ([remap xref-find-references] . lsp-ui-peek-find-references))
+   :custom
+   (lsp-ui-doc-use-webkit nil))
+
 (use-package magit
   :bind (("C-c g"   . magit-status))
   :custom
