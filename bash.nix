@@ -1,4 +1,4 @@
-{bash-completion}: {
+{bash-completion, complete-alias}: {
   enable = true;
   historyControl = ["erasedups"];
   historyFile = "$HOME/.bash_history";
@@ -8,11 +8,8 @@
   # sessionVariables = {};
   shellAliases = {
     cat = "bat";
-    grep = "grep --color=auto";
-    ls = "ls --color=auto";
     reload = "exec bash";
     stay-awake = "caffeinate -di";
-    tree = "tree -C";
     alert = "terminal-notifier -activate 'com.googlecode.iterm2' -message \"$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')\"";
 
     # Git aliases
@@ -25,6 +22,9 @@
     gco = "git checkout";
     ga = "git add";
     gs = "git status -sb";
+
+    # Kubernetes
+    k = "kubectl";
   };
   # Code for initializing interactive shells
   initExtra = ''
@@ -45,6 +45,10 @@
     bind '"\e[D": backward-char'
     bind '"\e\e[D": backward-word'
     bind '"\e\e[C": forward-word'
+
+    # Attempt to add completions for _all_ aliases
+    source ${complete-alias}/bin/complete_alias
+    complete -F _complete_alias "''${!BASH_ALIASES[@]}"
   '';
 
   # extra stuff in .bashrc

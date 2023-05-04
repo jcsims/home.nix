@@ -29,6 +29,7 @@ rec {
       bash-completion
       clojure-lsp
       clojure
+      complete-alias # Aliases want completion, too!
       fd
       git
       gnupg
@@ -228,7 +229,10 @@ rec {
   home.file.".functions/_c.bash".source = ./files/_c.bash;
 
   # Set up bash
-  programs.bash = import ./bash.nix { bash-completion = pkgs.bash-completion; };
+  programs.bash = import ./bash.nix {
+    bash-completion = pkgs.bash-completion;
+    complete-alias = pkgs.complete-alias;
+  };
 
   programs.bat = {
     enable = true;
