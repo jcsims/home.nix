@@ -979,6 +979,31 @@ format. With PREFIX, copy to kill ring."
 
     (global-set-key (kbd "C-c t") 'jcs/epoch-at-point))
 
+  (progn
+    (defun jcs/decode-jwt-at-point ()
+      "Decode JWT at point into a temporary buffer."
+      (interactive)
+      (let* ((jwt-buffer "*jwt*")
+             (jwt (thing-at-point 'symbol 'no-properties))
+             (claims (-map #'base64-decode-string
+                           (-take 2 (s-split "\\." jwt))))
+             (json-encoding-pretty-print t))
+        (with-temp-buffer-window jwt-buffer nil nil
+          (with-current-buffer jwt-buffer
+            ;; TODO: bind `q` to `quit-window` in this buffer. I don't think I
+            ;; want to use `local-set-key` because of this:
+            ;; > The binding goes in the current buffer's local map, which in most
+            ;; > cases is shared with all other buffers in the same major mode.
+            ;; This would affect all `js-mode` buffers if e.g. I set the buffer mode
+            ;; to `js-mode` instead of `special-mode`.
+            (-each claims
+              (lambda (claim)
+                (insert (json-encode (json-read-from-string claim)))))
+            (js-mode)
+            (switch-to-buffer jwt-buffer))))))
+
+  (global-set-key (kbd "C-c j") 'jcs/decode-jwt-at-point))
+
 
   (let ((file (expand-file-name (concat (user-real-login-name) ".el")
                                 user-emacs-directory)))
