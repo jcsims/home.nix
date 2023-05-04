@@ -18,6 +18,8 @@ rec {
       clojure
       go
       unstable.graphite-cli
+      kubectl
+      kubelogin
       unstable.pipx
       python3Packages.python-lsp-server
       sops
