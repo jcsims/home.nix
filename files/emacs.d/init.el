@@ -965,6 +965,20 @@ Passes ARG onto `zap-to-char` or `backward-kill-word` if used."
       (whitespace-cleanup))
     (global-set-key (kbd "C-c n") 'cleanup-buffer))
 
+  (progn
+    (defun jcs/epoch-at-point (prefix)
+      "Convert the epoch timestamp at point into a human-readable
+format. With PREFIX, copy to kill ring."
+      (interactive "P")
+      (let* ((time-at-point (thing-at-point 'word 'no-properties))
+             (time (seconds-to-time (string-to-number time-at-point)))
+             (human-readable (format-time-string "%FT%T" time)))
+        (when prefix
+          (kill-new human-readable))
+        (message human-readable)))
+
+    (global-set-key (kbd "C-c t") 'jcs/epoch-at-point))
+
 
   (let ((file (expand-file-name (concat (user-real-login-name) ".el")
                                 user-emacs-directory)))
