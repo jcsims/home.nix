@@ -258,10 +258,15 @@ rec {
     enableBashIntegration = true;
     settings = {
       add_newline = false;
+      git_status.disabled = true;
       java.disabled = true;
       nodejs.disabled = true;
       python.disabled = true;
-      jobs.disabled = true;
+      kubernetes = {
+        context_aliases = {k8s-ue-1 = "patch";};
+        detect_folders = ["backend"];
+        disabled = false;
+      };
     };
   };
 
