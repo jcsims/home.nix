@@ -33,6 +33,7 @@ rec {
       fd
       git
       gnupg
+      gnuplot # Used by maelstrom
       htop
       iosevka-comfy.comfy
       jdk11
