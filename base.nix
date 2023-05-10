@@ -73,8 +73,8 @@ rec {
     };
     includes = [
       {
-        path = "~/code/patch/.gitconfig";
-        condition = "gitdir:~/code/patch/";
+        path = "~/code/work/.gitconfig";
+        condition = "gitdir:~/code/work/";
       }
       {
         path = "~/code/.gitconfig";
