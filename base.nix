@@ -48,7 +48,6 @@ rec {
       pass
       ripgrep
       rnix-lsp
-      rust-analyzer
       rustup
       shellcheck
       texinfo # Used by borg to build docs
