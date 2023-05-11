@@ -15,6 +15,7 @@ rec {
       azure-cli
       babashka
       clojure
+      etcd_3_5
       go
       graphite-cli
       kubectl
