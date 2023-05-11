@@ -907,9 +907,9 @@ Passes ARG onto `zap-to-char` or `backward-kill-word` if used."
   (global-set-key (kbd "<insert>") nil)
 
   (defun find-nix-file (filepath)
-    "Find the FILEPATH under ~/.config/nixpkgs."
+    "Find the FILEPATH under ~/.config/home-manager."
     (interactive)
-    (find-file (expand-file-name filepath "~/.config/nixpkgs/")))
+    (find-file (expand-file-name filepath "~/.config/home-manager/")))
 
   ;; Some helpful accessors for commonly-found files.
   (global-set-key (kbd "C-c e e") (lambda () (interactive) (find-nix-file "files/emacs.d/init.el")))
