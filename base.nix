@@ -273,12 +273,6 @@ rec {
   home.file.".config/alacritty/alacritty.yml".source = ./files/alacritty.yml;
   programs.alacritty = {
     enable = true;
-    package = specialArgs.unstable_pkgs.alacritty;
-  };
-
-  programs.vscode = {
-    enable = false;
-    package = specialArgs.unstable_pkgs.vscode;
   };
 
   programs.direnv.enable = true;

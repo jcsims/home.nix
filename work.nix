@@ -6,21 +6,20 @@
 }:
 let
   hue = specialArgs.extraPackages.hue;
-  unstable = specialArgs.unstable_pkgs;
 in
 rec {
   home.packages =
     (lib.attrValues specialArgs.extraPackages)
     ++ (with pkgs; [
-      unstable.apacheKafka
-      unstable.azure-cli
+      apacheKafka
+      azure-cli
       babashka
       clojure
       go
-      unstable.graphite-cli
+      graphite-cli
       kubectl
       kubelogin
-      unstable.pipx
+      pipx
       python3Packages.python-lsp-server
       sops
     ]);

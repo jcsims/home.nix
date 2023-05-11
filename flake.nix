@@ -3,10 +3,9 @@
 
   inputs = {
     # Specify the source of Home Manager and Nixpkgs.
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-22.11";
-    unstable.url = "github:NixOS/nixpkgs";
+    nixpkgs.url = "github:NixOS/nixpkgs";
     home-manager = {
-      url = "github:nix-community/home-manager/release-22.11";
+      url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     hue = {
@@ -19,26 +18,15 @@
     { nixpkgs
     , home-manager
     , hue
-    , unstable
     , ...
     }:
     let
       system = "aarch64-darwin";
-      unfree-pkgs = pkg:
-        builtins.elem (nixpkgs.lib.getName pkg) [ "elasticsearch" "vscode" ];
-      pkgs = import nixpkgs {
-        inherit system;
-        config.allowUnfreePredicate = unfree-pkgs;
-      };
-      unstable_pkgs = import unstable {
-        inherit system;
-        config.allowUnfreePredicate = unfree-pkgs;
-      };
     in
     {
       homeConfigurations = {
         personal = home-manager.lib.homeManagerConfiguration {
-          inherit pkgs;
+          pkgs = nixpkgs.legacyPackages.${system};
 
           # Specify your home configuration modules here, for example,
           # the path to your home.nix.
@@ -50,7 +38,6 @@
           ];
 
           extraSpecialArgs = rec {
-            inherit unstable_pkgs;
             # Use this to pull in packages as flakes.
             extraPackages = {
               hue = hue.packages.${system}.default;};
@@ -59,7 +46,7 @@
           };
         };
         work-laptop = home-manager.lib.homeManagerConfiguration {
-          inherit pkgs;
+          pkgs = nixpkgs.legacyPackages.${system};
 
           # Specify your home configuration modules here, for example,
           # the path to your home.nix.
@@ -70,9 +57,6 @@
           ];
 
           extraSpecialArgs = rec {
-            inherit unstable_pkgs;
-            # TODO: Needed for pulling in the appliance repo - better way?
-            inherit system;
             # Use this to pull in packages as flakes.
             extraPackages = {
               hue = hue.packages.${system}.default;
@@ -82,7 +66,7 @@
           };
         };
         nix-dev = home-manager.lib.homeManagerConfiguration {
-          pkgs = nixpkgs;
+          pkgs = nixpkgs.legacyPackages."x86_64-linux";
 
           modules = [
             ./base.nix
