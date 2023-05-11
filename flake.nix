@@ -45,7 +45,7 @@
             homedir = "/Users/${username}";
           };
         };
-        work-laptop = home-manager.lib.homeManagerConfiguration {
+        work = home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.${system};
 
           # Specify your home configuration modules here, for example,
