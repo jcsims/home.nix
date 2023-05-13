@@ -241,6 +241,7 @@
               ("M-p" . flymake-goto-prev-error)))
 
 (use-package flyspell
+  :disabled
   :ensure f
   :config
   (add-hook 'text-mode-hook 'flyspell-mode)
@@ -275,6 +276,9 @@
 
 (progn ;    `isearch'
   (setq isearch-allow-scroll t))
+
+(use-package jinx
+  :config (global-jinx-mode))
 
 (use-package lisp-mode
   :ensure f

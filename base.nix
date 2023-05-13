@@ -30,6 +30,7 @@ rec {
       clojure-lsp
       clojure
       complete-alias # Aliases want completion, too!
+      enchant.dev # jinx module build
       fd
       git
       gnupg
@@ -46,6 +47,7 @@ rec {
       nix-tree
       nodePackages.bash-language-server
       pass
+      pkg-config # jinx module build
       ripgrep
       rnix-lsp
       rustup
