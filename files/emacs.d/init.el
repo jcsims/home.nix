@@ -248,8 +248,7 @@
   (add-hook 'prog-mode-hook 'flyspell-prog-mode)
   (setq ispell-program-name "aspell"))
 
-(use-package forge
-  :after (magit))
+(use-package forge)
 
 (use-package git-link)
 
@@ -807,11 +806,12 @@ canceled tasks."
 ;; tree-sitter bindings
 ;; TODO: In Emacs 29+, use the built-in version instead.
 (use-package tree-sitter
+  :disabled
   :config
   (add-hook 'tree-sitter-after-on-hook 'tree-sitter-hl-mode)
   (global-tree-sitter-mode))
 
-(use-package tree-sitter-langs)
+(use-package tree-sitter-langs :disabled)
 
 (use-package treemacs
   :config (treemacs-resize-icons 16))

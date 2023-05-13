@@ -12,21 +12,27 @@
       url = "github:SierraSoftworks/hue?rev=4f597d972ab553208074ba19b9aaaa442fa8e43c";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    emacs-overlay.url = "github:Nix-Community/emacs-overlay";
   };
 
   outputs =
     { nixpkgs
     , home-manager
     , hue
+    , emacs-overlay
     , ...
     }:
     let
       system = "aarch64-darwin";
+      pkgs = import nixpkgs {
+        system = "aarch64-darwin";
+        overlays = [ (import emacs-overlay) ];
+      };
     in
     {
       homeConfigurations = {
         personal = home-manager.lib.homeManagerConfiguration {
-          pkgs = nixpkgs.legacyPackages.${system};
+          inherit pkgs;
 
           # Specify your home configuration modules here, for example,
           # the path to your home.nix.
@@ -40,13 +46,14 @@
           extraSpecialArgs = rec {
             # Use this to pull in packages as flakes.
             extraPackages = {
-              hue = hue.packages.${system}.default;};
+              hue = hue.packages.${system}.default;
+            };
             username = "jcsims";
             homedir = "/Users/${username}";
           };
         };
         work = home-manager.lib.homeManagerConfiguration {
-          pkgs = nixpkgs.legacyPackages.${system};
+          inherit pkgs;
 
           # Specify your home configuration modules here, for example,
           # the path to your home.nix.
