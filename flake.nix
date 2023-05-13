@@ -72,24 +72,6 @@
             homedir = "/Users/${username}";
           };
         };
-        nix-dev = home-manager.lib.homeManagerConfiguration {
-          pkgs = nixpkgs.legacyPackages."x86_64-linux";
-
-          modules = [
-            ./base.nix
-            ./work.nix
-          ];
-
-          extraSpecialArgs = rec {
-            system = "x86_64-linux";
-            # Use this to pull in packages as flakes.
-            extraPackages = {
-              emacs-nox = nixpkgs.emacs-nox;
-            };
-            username = "jcsims";
-            homedir = "/home/${username}";
-          };
-        };
       };
     };
 }
