@@ -79,8 +79,8 @@
 (use-package smart-mode-line
   :custom (sml/theme 'automatic)
   :config
-  (add-to-list 'sml/replacer-regexp-list '("^~/code/patch/" ":patch:") t)
-  (add-to-list 'sml/replacer-regexp-list '("^~/.config/nixpgs/" ":home-manager:") t)
+  (add-to-list 'sml/replacer-regexp-list '("^~/code/work/patch" ":patch:") t)
+  (add-to-list 'sml/replacer-regexp-list '("^~/.config/home-manager/" ":home-manager:") t)
   (sml/setup))
 
 (progn ;     startup
