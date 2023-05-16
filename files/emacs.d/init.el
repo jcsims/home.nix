@@ -207,7 +207,6 @@
   (global-display-line-numbers-mode))
 
 (use-package eglot
-  :disabled
   :hook ((rust-mode
           clojure-mode
           python-mode
@@ -216,7 +215,8 @@
          . eglot-ensure)
   :config (setq eglot-autoshutdown t
                 eglot-confirm-server-initiated-edits nil
-                read-process-output-max (* 1024 1024))
+                read-process-output-max (* 1024 1024)
+                eglot-extend-to-xref t)
   :bind (:map eglot-mode-map
               ("C-M-." . xref-find-references)
               ("C-c l f" . eglot-format)
@@ -292,6 +292,10 @@
 (progn ;    `isearch'
   (setq isearch-allow-scroll t))
 
+;; Enable emacs to open jar files. This plays nicely with eglot.
+(use-package jarchive
+  :config (jarchive-setup))
+
 (use-package jinx
   :config (global-jinx-mode))
 
@@ -305,6 +309,7 @@
   (add-hook 'lisp-interaction-mode-hook 'indent-spaces-mode))
 
 (use-package lsp-mode
+  :disabled
   :hook
   ((rust-mode
     clojure-mode
@@ -321,11 +326,16 @@
   :custom
   (lsp-rust-analyzer-cargo-watch-command "clippy")
   (lsp-headerline-breadcrumb-enable-diagnostics nil)
-  :commands lsp)
+  :commands lsp
+  :bind (:map lsp-mode-map
+              ("C-c l f" . lsp-format-buffer)
+              ("C-c l a" . lsp-execute-code-action)))
 
 (use-package lsp-ui
+  :disabled
   :after lsp-mode
   :commands lsp-ui-mode
+  :custom (lsp-ui-peek-show-directory nil)
   :bind (:map lsp-ui-mode-map
               ("C-M-." . xref-find-references)
               ([remap xref-find-references] . lsp-ui-peek-find-references))
