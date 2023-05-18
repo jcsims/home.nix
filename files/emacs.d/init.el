@@ -292,7 +292,9 @@
   :config (global-hl-todo-mode))
 
 (progn ;    `isearch'
-  (setq isearch-allow-scroll t))
+  (setq isearch-allow-scroll t
+        ;; Show a count of matches in the minibuffer (and which one you're at).
+        isearch-lazy-count t))
 
 ;; Enable emacs to open jar files. This plays nicely with eglot.
 (use-package jarchive
