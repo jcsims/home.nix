@@ -532,12 +532,14 @@ same directory as the org-buffer and insert a link to this file."
   (defun jcs/open-inbox () (interactive) (jcs/open-org-file "inbox.org"))
   (defun jcs/open-work () (interactive) (jcs/open-org-file "work.org"))
   (defun jcs/open-meetings () (interactive) (jcs/open-org-file "meetings.org"))
+  (defun jcs/open-notes () (interactive) (jcs/open-org-file "notes.org"))
 
   :bind (("C-c l" . org-store-link)
          ("C-c a" . org-agenda)
          ("C-c e i" . jcs/open-inbox)
          ("C-c e w" . jcs/open-work)
-         ("C-c e m" . jcs/open-meetings)))
+         ("C-c e m" . jcs/open-meetings)
+         ("C-c e n" . jcs/open-notes)))
 
 (use-package org-agenda
   :ensure f
