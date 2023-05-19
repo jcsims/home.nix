@@ -263,6 +263,7 @@ rec {
       java.disabled = true;
       nodejs.disabled = true;
       python.disabled = true;
+      gcloud.disabled = true;
       kubernetes = {
         context_aliases = {k8s-ue-1 = "patch";};
         detect_folders = ["backend"];
