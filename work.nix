@@ -16,6 +16,7 @@ rec {
       babashka
       clojure
       etcd_3_5
+      google-cloud-sdk # `gcloud` CLI tool
       go
       graphite-cli
       kubectl
