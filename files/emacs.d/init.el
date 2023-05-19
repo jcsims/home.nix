@@ -215,7 +215,8 @@
   :bind (:map eglot-mode-map
               ("C-M-." . xref-find-references)
               ("C-c l f" . eglot-format)
-              ("C-c l a" . eglot-code-actions))
+              ("C-c l a" . eglot-code-actions)
+              ("C-c l r" . eglot-rename))
   :custom (eglot-connect-timeout 60))
 
 (use-package eldoc
@@ -858,7 +859,9 @@ Passes ARG onto `zap-to-char` or `backward-kill-word` if used."
         scroll-error-top-bottom t       ; Scroll similar to vim
         user-full-name "Chris Sims"
         user-mail-address "chris@jcsi.ms"
-        use-short-answers t)
+        use-short-answers t
+        ;; Prevent eldoc from using so much of the minibuffer
+        max-mini-window-height 0.1)
 
   ;; Always use UTF-8
   (set-terminal-coding-system 'utf-8)
