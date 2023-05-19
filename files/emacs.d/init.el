@@ -90,13 +90,6 @@
 
 ;;; Long tail
 
-(use-package anzu
-  :disabled
-  :config
-  (global-anzu-mode)
-  (global-set-key [remap query-replace-regexp] 'anzu-query-replace-regexp)
-  (global-set-key [remap query-replace] 'anzu-query-replace))
-
 (use-package atomic-chrome
   :if (display-graphic-p)
   :config
