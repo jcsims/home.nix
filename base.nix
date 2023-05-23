@@ -36,7 +36,6 @@ rec {
       gnupg
       gnuplot # Used by maelstrom
       htop
-      iosevka-comfy.comfy
       jdk11
       jq
       languagetool
@@ -66,9 +65,6 @@ rec {
     userName = "Chris Sims";
     userEmail = "chris@jcsi.ms";
     #attributes = ["*.gpg filter=gpg diff=gpg"];
-    # difftastic doesn't yet handle gpg diffs on the command-line with
-    # this config
-    #difftastic.enable = true;
     aliases = {
       recent = "branch --sort=-committerdate --format=\"%(committerdate:relative)%09%(refname:short)\"";
     };
@@ -251,7 +247,6 @@ rec {
     enableBashIntegration = true;
     # This fixes the broken screen clearing that was added here: https://github.com/lotabout/skim/pull/472
     defaultOptions = [ "--no-clear-start" ];
-    #tmux.enableShellIntegration = true;
   };
 
   programs.starship = {
@@ -279,21 +274,6 @@ rec {
 
   programs.direnv.enable = true;
   programs.direnv.nix-direnv.enable = true;
-
-  # launchd.agents."org-roam.sync" = {
-  #   enable = true;
-  #   config = {
-  #     Label = "org-roam.sync";
-  #     Program = specialArgs.homedir/bin/org-roam-sync;
-  #     StandardErrorPath = /tmp/org-roam.sync.stderr;
-  #     StandardOutPath = /tmp/org-roam.sync.stdout;
-  #     StartCalendarInterval = [{
-  #       Hour = 16;
-  #       Minute = 0;
-  #     }];
-  #     WorkingDirectory = "${specialArgs.homedir}}/org-roam";
-  #   };
-  # };
 
   # This value determines the Home Manager release that your
   # configuration is compatible with. This helps avoid breakage
