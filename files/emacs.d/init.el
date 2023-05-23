@@ -200,11 +200,11 @@
   (global-display-line-numbers-mode))
 
 (use-package eglot
-  :hook ((rust-mode
-          clojure-mode
+  :hook ((clojure-mode
+          nix-mode
           python-mode
-          sh-mode
-          nix-mode)
+          rust-mode
+          sh-mode)
          . eglot-ensure)
   :config (setq eglot-autoshutdown t
                 eglot-confirm-server-initiated-edits nil
@@ -290,7 +290,8 @@
         ;; Show a count of matches in the minibuffer (and which one you're at).
         isearch-lazy-count t))
 
-;; Enable emacs to open jar files. This plays nicely with eglot.
+;; Enable emacs to open jar files. This is essential with eglot for reading
+;; dependency sources!
 (use-package jarchive
   :config (jarchive-setup))
 
