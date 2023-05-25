@@ -72,6 +72,29 @@
             homedir = "/Users/${username}";
           };
         };
+	nuc = home-manager.lib.homeManagerConfiguration {
+          pkgs = import nixpkgs {
+            system = "x86_64-linux";
+	    overlays = [ (import emacs-overlay) ];
+	  };
+
+          # Specify your home configuration modules here, for example,
+          # the path to your home.nix.
+          modules = [
+            ./base.nix
+            ./work.nix
+          ];
+
+          extraSpecialArgs = rec {
+            # Use this to pull in packages as flakes.
+            extraPackages = {
+              hue = hue.packages."x86_64-linux".default;
+            };
+            username = "jcsims";
+            homedir = "/home/${username}";
+          };
+        };
+
       };
     };
 }
