@@ -260,8 +260,6 @@
   (add-hook 'prog-mode-hook 'flyspell-prog-mode)
   (setq ispell-program-name "aspell"))
 
-(use-package forge)
-
 (use-package git-link)
 
 (use-package git-timemachine)
