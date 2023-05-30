@@ -447,7 +447,6 @@
                          ("@bill" . ?b)
                          ("@ajith" . ?a)
                          ("@spencer" . ?s)
-                         ("@justin" . ?j)
                          (:newline)
                          ("delegated" . ?d))))
 
