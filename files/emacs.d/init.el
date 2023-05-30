@@ -294,6 +294,8 @@
   :config (jarchive-setup))
 
 (use-package jinx
+  :bind (:map jinx-mode-map
+             ("C-." . jinx-correct))
   :config (global-jinx-mode))
 
 (use-package lisp-mode
