@@ -57,24 +57,36 @@
     (set-frame-font "Hack Nerd Font 9")
   (set-frame-font "Hack Nerd Font 12"))
 
-(use-package color-theme-sanityinc-tomorrow
-  :config
-  (defvar jcs-active-theme 'sanityinc-tomorrow-eighties)
-  (defvar jcs-dark-theme 'sanityinc-tomorrow-eighties)
-  (defvar jcs-light-theme 'sanityinc-tomorrow-day)
-  (defun toggle-dark-light-theme ()
+(progn                                  ;theme
+  (defvar jcs-active-theme)
+  (defvar jcs-dark-theme)
+  (defvar jcs-light-theme)
+
+  (use-package color-theme-sanityinc-tomorrow
+    :disabled
+    :config
+    (setq jcs-active-theme 'sanityinc-tomorrow-eighties
+          jcs-dark-theme 'sanityinc-tomorrow-eighties
+          jcs-light-theme 'sanityinc-tomorrow-day))
+
+  (use-package modus-themes
+    :config
+    (load-theme 'modus-vivendi))
+
+  (defun jcs/toggle-dark-light-theme ()
     "Toggle the current theme between light and dark."
     (interactive)
+    (disable-theme jcs-active-theme)
     (if (eq jcs-active-theme jcs-light-theme)
-        (progn (disable-theme jcs-active-theme)
-               (setq jcs-active-theme jcs-dark-theme)
+        (progn (setq jcs-active-theme jcs-dark-theme)
                (sml/apply-theme 'dark))
-      (progn (disable-theme jcs-active-theme)
-             (setq jcs-active-theme jcs-light-theme)
-             (sml/apply-theme 'light)))
+      (progn (setq jcs-active-theme jcs-light-theme)
+             (sml/apply-theme 'automatic)))
     (load-theme jcs-active-theme t))
+
   ;; Do the initial load.
-  (load-theme jcs-active-theme t))
+  ;;(load-theme jcs-active-theme t)
+  )
 
 (use-package smart-mode-line
   :custom (sml/theme 'automatic)
