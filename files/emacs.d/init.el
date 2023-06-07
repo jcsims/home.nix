@@ -89,6 +89,7 @@
   )
 
 (use-package smart-mode-line
+  :disabled
   :custom (sml/theme 'automatic)
   :config
   (add-to-list 'sml/replacer-regexp-list '("^~/code/work/patch" ":patch:") t)
