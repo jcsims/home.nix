@@ -19,6 +19,8 @@ rec {
       google-cloud-sdk # `gcloud` CLI tool
       go
       graphite-cli
+      grpcurl
+      k9s
       kubectl
       kubelogin
       pipx
