@@ -69,9 +69,15 @@
           jcs-dark-theme 'sanityinc-tomorrow-eighties
           jcs-light-theme 'sanityinc-tomorrow-day))
 
-  (use-package modus-themes
-    :config
-    (load-theme 'modus-vivendi))
+  (use-package modus-themes)
+
+  (use-package circadian
+  :config
+  (setq calendar-latitude 45.7)
+  (setq calendar-longitude -122.7)
+  (setq circadian-themes '((:sunrise . modus-operandi)
+                           (:sunset  . modus-vivendi)))
+  (circadian-setup))
 
   (defun jcs/toggle-dark-light-theme ()
     "Toggle the current theme between light and dark."
