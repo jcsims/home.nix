@@ -1,7 +1,7 @@
 { pkgs, specialArgs, ... }:
 {
   home.packages = with pkgs; [
-    emacsUnstable
+    emacs-unstable
     iterm2
     pinentry_mac
     terminal-notifier
