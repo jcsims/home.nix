@@ -21,8 +21,10 @@ rec {
       graphite-cli
       grpcurl
       k9s
+      kubeconform
       kubectl
       kubelogin
+      kustomize
       pipx
       python3Packages.python-lsp-server
       sops
