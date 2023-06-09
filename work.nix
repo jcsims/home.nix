@@ -28,6 +28,7 @@ rec {
       pipx
       python3Packages.python-lsp-server
       sops
+      yq
     ]);
 
   home.file."bin/set-meeting-light" = {
