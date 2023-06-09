@@ -233,9 +233,9 @@
                 eglot-sync-connect nil)
   :bind (:map eglot-mode-map
               ("C-M-." . xref-find-references)
-              ("C-c l f" . eglot-format)
-              ("C-c l a" . eglot-code-actions)
-              ("C-c l r" . eglot-rename))
+              ("s-l f" . eglot-format)
+              ("s-l a" . eglot-code-actions)
+              ("s-l r" . eglot-rename))
   :custom (eglot-connect-timeout 60))
 
 (use-package eldoc
