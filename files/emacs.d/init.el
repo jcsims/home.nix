@@ -313,6 +313,7 @@
   :config (jarchive-setup))
 
 (use-package jinx
+  :demand t
   :bind (:map jinx-mode-map
              ("C-." . jinx-correct))
   :config (global-jinx-mode))
