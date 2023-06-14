@@ -23,8 +23,11 @@ rec {
       k9s
       kubeconform
       kubectl
+      kubectx
       kubelogin
+      kubernetes-helm
       kustomize
+      mysql
       pipx
       python3Packages.python-lsp-server
       sops
