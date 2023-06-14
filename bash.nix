@@ -25,7 +25,7 @@
 
     # Kubernetes
     k = "kubectl";
-    kns="kubectl config set-context --current --namespace ";
+    kns = "kubectl config set-context --current --namespace ";
   };
   # Code for initializing interactive shells
   initExtra = ''
