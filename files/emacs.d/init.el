@@ -296,6 +296,7 @@
          ("C-c C-d" . helpful-at-point)))
 
 (use-package hippie-exp
+  :disabled
   :ensure f
   :bind (([remap dabbrev-expand] . hippie-expand)))
 
