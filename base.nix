@@ -57,6 +57,7 @@ rec {
       tree
       tree-sitter
       vulnix
+      watch
       xz
     ]);
 
