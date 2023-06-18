@@ -469,7 +469,8 @@
                          ("delegated" . ?d))))
 
   :config
-  (setq org-hide-leading-stars t
+  (setq org-special-ctrl-a/e t
+        org-hide-leading-stars t
         org-hide-emphasis-markers t ;; Hide things like `*` for bold, etc.
         org-pretty-entities t
         org-ellipsis "…"
@@ -533,7 +534,9 @@ same directory as the org-buffer and insert a link to this file."
                 (org-export-string-as region 'md t '(:with-toc nil))))
           (gui-set-selection 'CLIPBOARD markdown))))
   :bind (("C-c l" . org-store-link)
-         ("C-c a" . org-agenda)))
+         ("C-c a" . org-agenda)
+         :map org-mode-map
+         ("C-a" . org-beginning-of-line)))
 
 (use-package org-agenda
   :ensure f
