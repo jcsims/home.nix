@@ -532,8 +532,6 @@ same directory as the org-buffer and insert a link to this file."
   :bind (("C-c l" . org-store-link)
          ("C-c a" . org-agenda)))
 
-(use-package org-mac-link)
-
 (use-package org-agenda
   :ensure f
   :after (org vulpea)
@@ -668,6 +666,8 @@ same directory as the org-buffer and insert a link to this file."
                   ((org-agenda-overriding-header "Hammock")
                    (org-agenda-skip-function
                     '(jcs/org-skip-function 'agenda)))))))))
+
+(use-package org-mac-link)
 
 (use-package org-roam
   :after (org vulpea)
