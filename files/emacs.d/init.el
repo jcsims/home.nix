@@ -471,6 +471,8 @@
   :config
   (setq org-hide-leading-stars t
         org-hide-emphasis-markers t ;; Hide things like `*` for bold, etc.
+        org-pretty-entities t
+        org-ellipsis "…"
         org-directory org-dir
         org-log-done 'time
         org-log-into-drawer t
@@ -669,6 +671,10 @@ same directory as the org-buffer and insert a link to this file."
                     '(jcs/org-skip-function 'agenda)))))))))
 
 (use-package org-mac-link)
+
+(use-package org-modern
+  :after org
+  :config (global-org-modern-mode))
 
 (use-package org-roam
   :after (org vulpea)
