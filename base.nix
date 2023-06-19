@@ -183,10 +183,10 @@ rec {
     executable = true;
   };
 
-  home.file.".emacs.d" = {
-    source = ./files/emacs.d;
-    recursive = true;
-  };
+  # home.file.".emacs.d" = {
+  #   source = ./files/emacs.d;
+  #   recursive = true;
+  # };
 
   home.file.".aspell.conf".text = ''
     data-dir ${specialArgs.homedir}/.nix-profile/lib/aspell
