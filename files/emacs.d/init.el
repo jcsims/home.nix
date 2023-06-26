@@ -28,7 +28,6 @@
 
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
-(add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/") t)
 
 (eval-and-compile ;; `use-package'
   (unless (package-installed-p 'use-package)
@@ -129,8 +128,8 @@
   (global-auto-revert-mode))
 
 (use-package cider
-  :pin melpa-stable
   :after (clojure-mode paredit)
+  :commands (cider-mode)
   :bind (:map cider-mode-map
               ("C-c i" . cider-inspect-last-result)
               ("M-s-." . cider-find-var))
@@ -174,10 +173,11 @@
                   (auth-source-pick-first-password :host "api.openai.com"))))
 
 (use-package clojure-mode
-  :pin melpa-stable
   :after (paredit)
   :mode (("\\.edn\\'" . clojure-mode))
-  :config (add-hook 'clojure-mode-hook 'paredit-mode))
+  :hook
+  (clojure-mode . paredit-mode)
+  (clojure-mode . cider-mode))
 
 (use-package company
   :config
@@ -282,6 +282,8 @@
 (use-package git-link)
 
 (use-package git-timemachine)
+
+(use-package graphql-mode)
 
 (use-package help
   :ensure f
