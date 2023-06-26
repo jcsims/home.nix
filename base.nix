@@ -27,6 +27,7 @@ rec {
       aspellDicts.en
       bashInteractive
       bash-completion
+      cachix
       clojure-lsp
       clojure
       complete-alias # Aliases want completion, too!
