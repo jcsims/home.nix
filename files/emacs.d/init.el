@@ -233,9 +233,12 @@
                 eglot-sync-connect nil)
   :bind (:map eglot-mode-map
               ("C-M-." . xref-find-references)
-              ("s-l f" . eglot-format)
-              ("s-l a" . eglot-code-actions)
-              ("s-l r" . eglot-rename))
+              ;; TODO: Fix these so they don't conflict with Clojure's load-file
+              ;; or org-modes store-link
+              ("C-c l f" . eglot-format)
+              ("C-c l a" . eglot-code-actions)
+              ("C-c l r" . eglot-rename)
+              ("C-c l c n" . eglot-code-action-organize-imports))
   :custom (eglot-connect-timeout 60))
 
 (use-package eldoc
@@ -913,7 +916,7 @@ Passes ARG onto `zap-to-char` or `backward-kill-word` if used."
 
 (use-package windmove
   :ensure f
-  :config (windmove-default-keybindings '(super meta)))
+  :config (windmove-default-keybindings '(control shift)))
 
 (use-package winner
   :ensure f
