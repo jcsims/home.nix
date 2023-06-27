@@ -30,7 +30,6 @@ rec {
       clojure-lsp
       clojure
       complete-alias # Aliases want completion, too!
-      enchant.dev # jinx module build
       fd
       git
       gnupg
