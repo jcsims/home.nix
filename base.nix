@@ -3,9 +3,16 @@
 , lib
 , system
 , specialArgs
+, alacritty-themes
 , ...
 }:
 let
+  alacritty-themes = pkgs.fetchFromGitHub {
+    owner = "alacritty";
+    repo = "alacritty-theme";
+    rev = "914f463390b660e99731f93a6ad9493918cd5d13";
+    sha256 = "sha256-eePvWNTpZVgRp4ql/UCWudtvnuvVKCDHB+sYKeHudM8=";
+  };
   lein_jdk11 = pkgs.leiningen.override {
     jdk = pkgs.jdk11;
   };
@@ -271,6 +278,7 @@ rec {
   };
 
   home.file.".config/alacritty/alacritty.yml".source = ./files/alacritty.yml;
+  home.file.".config/alacritty/themes".source = alacritty-themes;
   programs.alacritty = {
     enable = true;
   };
