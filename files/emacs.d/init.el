@@ -830,6 +830,9 @@ canceled tasks."
     (set-face-attribute 'smerge-refined-removed nil :extend t)
     (set-face-attribute 'smerge-refined-added   nil :extend t)))
 
+(use-package sqlformat
+  :config (setq sqlformat-command 'sql-formatter))
+
 ;; Recommended by magit in emacs < 29
 (use-package sqlite3)
 
