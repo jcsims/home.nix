@@ -31,6 +31,7 @@ rec {
       pipx
       python3Packages.python-lsp-server
       sops
+      tidb
       yq
     ]);
 
