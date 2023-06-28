@@ -153,7 +153,8 @@
         nrepl-log-messages nil
         ;; Let LSP handle eldoc
         cider-eldoc-display-for-symbol-at-point nil
-        cider-known-endpoints '(("patch" "localhost" "12345")))
+        cider-known-endpoints '(("local-repl" "localhost" "12345")
+                                ("port-forward" "localhost" "5554")))
   ;; Borrowed from https://manueluberti.eu//2023/03/25/clojure-lsp.html
   (defun mu-cider-disable-eldoc ()
     "Let LSP handle ElDoc instead of CIDER."
