@@ -24,8 +24,11 @@
     }:
     let
       system = "aarch64-darwin";
+      unfree-pkgs = pkg:
+        builtins.elem (nixpkgs.lib.getName pkg) [ "discord" "obsidian" "slack" "spotify" "zoom" ];
       pkgs = import nixpkgs {
         system = "aarch64-darwin";
+        config.allowUnfreePredicate = unfree-pkgs;
         overlays = [ (import emacs-overlay) ];
       };
     in
@@ -61,6 +64,7 @@
             ./base.nix
             ./work.nix
             ./mac-gui.nix
+            ./work-gui.nix
           ];
 
           extraSpecialArgs = rec {
@@ -72,11 +76,12 @@
             homedir = "/Users/${username}";
           };
         };
-	nuc = home-manager.lib.homeManagerConfiguration {
+        nuc = home-manager.lib.homeManagerConfiguration {
           pkgs = import nixpkgs {
             system = "x86_64-linux";
-	    overlays = [ (import emacs-overlay) ];
-	  };
+            config.allowUnfreePredicate = unfree-pkgs;
+            overlays = [ (import emacs-overlay) ];
+          };
 
           # Specify your home configuration modules here, for example,
           # the path to your home.nix.

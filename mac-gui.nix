@@ -1,8 +1,12 @@
 { pkgs, specialArgs, ... }:
 {
   home.packages = with pkgs; [
+    discord
     iterm2
+    obsidian
     pinentry_mac
+    slack
+    spotify
     terminal-notifier
 
     (pkgs.emacsWithPackagesFromUsePackage {
