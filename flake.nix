@@ -24,11 +24,9 @@
     }:
     let
       system = "aarch64-darwin";
-      unfree-pkgs = pkg:
-        builtins.elem (nixpkgs.lib.getName pkg) [ "discord" "obsidian" "slack" "spotify" "zoom" ];
       pkgs = import nixpkgs {
         system = "aarch64-darwin";
-        config.allowUnfreePredicate = unfree-pkgs;
+        config.allowUnfree = true;
         overlays = [ (import emacs-overlay) ];
       };
     in
@@ -79,7 +77,7 @@
         nuc = home-manager.lib.homeManagerConfiguration {
           pkgs = import nixpkgs {
             system = "x86_64-linux";
-            config.allowUnfreePredicate = unfree-pkgs;
+            config.allowUnfree = true;
             overlays = [ (import emacs-overlay) ];
           };
 
