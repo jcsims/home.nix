@@ -42,7 +42,7 @@ rec {
       #!/usr/bin/env bash
 
       if ${pkgs.coreutils}/bin/timeout 5 ${hue}/bin/hue list > /dev/null; then
-          if osascript -e 'tell application "System Events" to get name of (processes where background only is false)' | grep 'Meeting Center'; then
+          if osascript -e 'tell application "System Events" to get name of (processes where background only is false)' | grep 'zoom.us'; then
               ${hue}/bin/hue '#7'=red,20%
           else
               ${hue}/bin/hue '#7'=off
