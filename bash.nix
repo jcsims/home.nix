@@ -50,6 +50,9 @@
     # Attempt to add completions for _all_ aliases
     source ${complete-alias}/bin/complete_alias
     complete -F _complete_alias "''${!BASH_ALIASES[@]}"
+
+    # Increase the count of open files allowed (default is 256 on macOS)
+    ulimit -Sn 4096
   '';
 
   # extra stuff in .bashrc
