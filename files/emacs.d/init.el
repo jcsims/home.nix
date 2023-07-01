@@ -682,6 +682,7 @@ same directory as the org-buffer and insert a link to this file."
 (use-package org-mac-link)
 
 (use-package org-modern
+  :disabled
   :after org
   :config (global-org-modern-mode))
 
@@ -699,8 +700,7 @@ same directory as the org-buffer and insert a link to this file."
          ("C-c o d" . org-roam-dailies-goto-today)
          ("C-c o p" . org-roam-dailies-goto-previous-note)
          ("C-c o n" . org-roam-dailies-goto-next-note)
-         ("C-c o j" . org-roam-dailies-capture-today)
-         ("C-c o w" . (lambda () (interactive) (find-file (expand-file-name "20230104152728-work.org" org-roam-directory)))))
+         ("C-c o j" . org-roam-dailies-capture-today))
   :hook ((find-file . vulpea-project-update-tag)
          (before-save . vulpea-project-update-tag))
   :config
