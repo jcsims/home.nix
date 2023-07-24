@@ -240,7 +240,7 @@
               ("C-c l a" . eglot-code-actions)
               ("C-c l r" . eglot-rename)
               ("C-c l c n" . eglot-code-action-organize-imports))
-  :custom (eglot-connect-timeout 60))
+  :custom (eglot-connect-timeout 120))
 
 (use-package eldoc
   :ensure f
