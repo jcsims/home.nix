@@ -153,6 +153,7 @@ rec {
       "$HOME/go/bin"
       "$HOME/.cargo/bin"
       "$HOME/.local/bin" # pipx install path
+      "$HOME/.tiup/bin" # Install path for `tiup`
     ]
     ++ (
       if pkgs.stdenv.isDarwin
