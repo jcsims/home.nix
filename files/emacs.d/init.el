@@ -62,39 +62,25 @@
   (defvar jcs-light-theme)
 
   (use-package color-theme-sanityinc-tomorrow
-    :disabled
     :config
     (setq jcs-active-theme 'sanityinc-tomorrow-eighties
           jcs-dark-theme 'sanityinc-tomorrow-eighties
           jcs-light-theme 'sanityinc-tomorrow-day))
-
-  (use-package modus-themes)
-
-  (use-package circadian
-  :config
-  (setq calendar-latitude 45.7)
-  (setq calendar-longitude -122.7)
-  (setq circadian-themes '((:sunrise . modus-operandi)
-                           (:sunset  . modus-vivendi)))
-  (circadian-setup))
 
   (defun jcs/toggle-dark-light-theme ()
     "Toggle the current theme between light and dark."
     (interactive)
     (disable-theme jcs-active-theme)
     (if (eq jcs-active-theme jcs-light-theme)
-        (progn (setq jcs-active-theme jcs-dark-theme)
-               (sml/apply-theme 'dark))
-      (progn (setq jcs-active-theme jcs-light-theme)
-             (sml/apply-theme 'automatic)))
-    (load-theme jcs-active-theme t))
+        (setq jcs-active-theme jcs-dark-theme)
+      (setq jcs-active-theme jcs-light-theme))
+    (load-theme jcs-active-theme t)
+    (sml/apply-theme 'automatic))
 
   ;; Do the initial load.
-  ;;(load-theme jcs-active-theme t)
-  )
+  (load-theme jcs-active-theme t))
 
 (use-package smart-mode-line
-  :disabled
   :custom (sml/theme 'automatic)
   :config
   (add-to-list 'sml/replacer-regexp-list '("^~/code/work/patch" ":patch:") t)
