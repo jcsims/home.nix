@@ -222,10 +222,10 @@
               ("C-M-." . xref-find-references)
               ;; TODO: Fix these so they don't conflict with Clojure's load-file
               ;; or org-modes store-link
-              ("C-c l f" . eglot-format)
-              ("C-c l a" . eglot-code-actions)
-              ("C-c l r" . eglot-rename)
-              ("C-c l c n" . eglot-code-action-organize-imports))
+              ("s-l f" . eglot-format)
+              ("s-l a" . eglot-code-actions)
+              ("s-l r" . eglot-rename)
+              ("s-l c n" . eglot-code-action-organize-imports))
   :custom (eglot-connect-timeout 120))
 
 (use-package eldoc
