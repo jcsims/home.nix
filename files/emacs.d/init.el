@@ -945,7 +945,7 @@ Passes ARG onto `zap-to-char` or `backward-kill-word` if used."
         user-mail-address "chris@jcsi.ms"
         use-short-answers t
         ;; Prevent eldoc from using so much of the minibuffer
-        max-mini-window-height 0.1)
+        max-mini-window-height 0.2)
 
   ;; Always use UTF-8
   (set-terminal-coding-system 'utf-8)
