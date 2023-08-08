@@ -51,9 +51,9 @@
       # alwaysTangle = true;
 
       # Optionally provide extra packages not in the configuration file.
-      # extraEmacsPackages = epkgs: [
-      #   epkgs.cask
-      # ];
+      extraEmacsPackages = epkgs: with epkgs; [
+        treesit-grammars.with-all-grammars
+      ];
 
       # Optionally override derivations.
       # override = final: prev: {
