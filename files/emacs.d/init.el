@@ -206,12 +206,14 @@
   (global-display-line-numbers-mode))
 
 (use-package eglot
-  :hook ((clojure-mode
-          nix-mode
-          python-mode
-          rust-mode
-          sh-mode)
-         . eglot-ensure)
+  :hook
+  ((clojure-mode
+    nix-mode
+    python-mode
+    rust-mode
+    sh-mode)
+   . eglot-ensure)
+  (eglot-managed-mode . eglot-inlay-hints-mode)
   :config (setq eglot-autoshutdown t
                 eglot-confirm-server-initiated-edits nil
                 read-process-output-max (* 1024 1024)
@@ -331,13 +333,12 @@
    . lsp-deferred)
   :config
   (setq read-process-output-max (* 1024 1024))
-  ;;(setq lsp-enable-indentation nil)
-  ;; Using a locally-built version
-  ;;:custom (lsp-clojure-custom-server-command
-  ;;"/Users/jcsims/code/clojure-lsp/clojure-lsp")
   :custom
   (lsp-rust-analyzer-cargo-watch-command "clippy")
   (lsp-headerline-breadcrumb-enable-diagnostics nil)
+  ;; Using a locally-built version
+  ;; (lsp-clojure-custom-server-command
+  ;;"/Users/jcsims/code/clojure-lsp/clojure-lsp")
   :commands lsp
   :bind (:map lsp-mode-map
               ("C-c l f" . lsp-format-buffer)
@@ -347,7 +348,6 @@
   :disabled
   :after lsp-mode
   :commands lsp-ui-mode
-  :custom (lsp-ui-peek-show-directory nil)
   :bind (:map lsp-ui-mode-map
               ("C-M-." . xref-find-references)
               ([remap xref-find-references] . lsp-ui-peek-find-references))
