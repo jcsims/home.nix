@@ -222,8 +222,6 @@
                 eglot-sync-connect nil)
   :bind (:map eglot-mode-map
               ("C-M-." . xref-find-references)
-              ;; TODO: Fix these so they don't conflict with Clojure's load-file
-              ;; or org-modes store-link
               ("s-l f" . eglot-format)
               ("s-l a" . eglot-code-actions)
               ("s-l r" . eglot-rename)
