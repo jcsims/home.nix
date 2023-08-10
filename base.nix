@@ -13,9 +13,6 @@ let
     rev = "914f463390b660e99731f93a6ad9493918cd5d13";
     sha256 = "sha256-eePvWNTpZVgRp4ql/UCWudtvnuvVKCDHB+sYKeHudM8=";
   };
-  lein_jdk11 = pkgs.leiningen.override {
-    jdk = pkgs.jdk11;
-  };
 in
 rec {
   # Home Manager needs a bit of information about you and the
@@ -24,9 +21,6 @@ rec {
   home.homeDirectory = specialArgs.homedir;
   home.packages =
     (lib.attrValues specialArgs.extraPackages)
-    ++ [
-      lein_jdk11
-    ]
     ++ (with pkgs; [
       alejandra
       aspell
@@ -42,7 +36,7 @@ rec {
       gnupg
       gnuplot # Used by maelstrom
       htop
-      jdk11
+      jdk17
       jq
       languagetool
       neil
