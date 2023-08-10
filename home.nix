@@ -6,5 +6,5 @@
   system,
   ...
 }: {
-  home.packages = with pkgs; [flyctl];
+  home.packages = with pkgs; [];
 }
