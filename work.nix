@@ -32,7 +32,6 @@ rec {
       python3Packages.python-lsp-server
       sops
       nodePackages.sql-formatter
-      tidb
       yq
     ]);
 
