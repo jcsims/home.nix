@@ -162,7 +162,6 @@ rec {
     CLICOLOR = 1;
     EDITOR = "$HOME/bin/e";
     VISUAL = "$HOME/bin/ec";
-    MANPAGER = "sh -c 'col -bx | bat -l man -p'";
   };
 
   # Manage a bunch of files
