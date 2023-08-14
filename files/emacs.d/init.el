@@ -217,7 +217,7 @@
   :config (setq eglot-autoshutdown t
                 eglot-confirm-server-initiated-edits nil
                 read-process-output-max (* 1024 1024)
-                ;;eglot-extend-to-xref t
+                eglot-extend-to-xref t
                 ;; Don't block on connecting to the lsp server at all
                 eglot-sync-connect nil)
   :bind (:map eglot-mode-map
