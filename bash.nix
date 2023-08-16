@@ -1,4 +1,4 @@
-{bash-completion, complete-alias}: {
+{pkgs}: {
   enable = true;
   historyControl = ["erasedups"];
   historyFile = "$HOME/.bash_history";
@@ -10,7 +10,7 @@
     cat = "bat";
     reload = "exec bash";
     stay-awake = "caffeinate -di";
-    alert = "terminal-notifier -activate 'com.googlecode.iterm2' -message \"$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')\"";
+    alert = "${pkgs.terminal-notifier}/bin/terminal-notifier -activate 'com.googlecode.iterm2' -message \"$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')\"";
 
     # Git aliases
     gl = "git log --graph --abbrev-commit --date=relative --pretty=format:'%C(bold blue)%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'";
@@ -48,7 +48,7 @@
     bind '"\e\e[C": forward-word'
 
     # Attempt to add completions for _all_ aliases
-    source ${complete-alias}/bin/complete_alias
+    source ${pkgs.complete-alias}/bin/complete_alias
     complete -F _complete_alias "''${!BASH_ALIASES[@]}"
 
     # Increase the count of open files allowed (default is 256 on macOS)

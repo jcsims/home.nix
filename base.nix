@@ -215,10 +215,7 @@ rec {
   home.file.".functions/_c.bash".source = ./files/_c.bash;
 
   # Set up bash
-  programs.bash = import ./bash.nix {
-    bash-completion = pkgs.bash-completion;
-    complete-alias = pkgs.complete-alias;
-  };
+  programs.bash = import ./bash.nix { inherit pkgs; };
 
   programs.bat = {
     enable = true;
