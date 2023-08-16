@@ -257,9 +257,6 @@ rec {
 
   home.file.".config/alacritty/alacritty.yml".source = ./files/alacritty.yml;
   home.file.".config/alacritty/themes".source = alacritty-themes;
-  programs.alacritty = {
-    enable = true;
-  };
 
   programs.direnv.enable = true;
   programs.direnv.nix-direnv.enable = true;
