@@ -1,14 +1,6 @@
 { pkgs, specialArgs, ... }:
 {
   home.packages = with pkgs; [
-    discord
-    iterm2
-    obsidian
-    pinentry_mac
-    slack
-    spotify
-    terminal-notifier
-
     (pkgs.emacsWithPackagesFromUsePackage {
       # Your Emacs config file. Org mode babel files are also
       # supported.

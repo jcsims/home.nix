@@ -40,7 +40,7 @@
           modules = [
             ./base.nix
             ./home.nix
-            ./mac-gui.nix
+            ./emacs.nix
             ./work.nix
           ];
 
@@ -61,8 +61,7 @@
           modules = [
             ./base.nix
             ./work.nix
-            ./mac-gui.nix
-            ./work-gui.nix
+            ./emacs.nix
           ];
 
           extraSpecialArgs = rec {
