@@ -28,6 +28,7 @@ rec {
       kubernetes-helm
       kustomize
       mysql
+      operator-sdk
       pipx
       python3Packages.python-lsp-server
       sops
