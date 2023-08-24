@@ -13,7 +13,7 @@ rec {
     ++ (with pkgs; [
       apacheKafka
       azure-cli
-      babashka
+      babashka-unwrapped
       clojure
       etcd_3_5
       google-cloud-sdk # `gcloud` CLI tool
