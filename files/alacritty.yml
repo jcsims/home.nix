@@ -41,6 +41,7 @@ hints:
     post_processing: true
     mouse:
       enabled: true
+      # This is actually Shift + Command in tmux, just Command outside it.
       mods: Command
     binding:
       key: U
