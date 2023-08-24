@@ -32,6 +32,7 @@ rec {
       pipx
       python3Packages.python-lsp-server
       sops
+      teleport
       nodePackages.sql-formatter
       yq
     ]);
