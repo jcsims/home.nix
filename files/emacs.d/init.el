@@ -335,8 +335,7 @@
   (lsp-rust-analyzer-cargo-watch-command "clippy")
   (lsp-headerline-breadcrumb-enable-diagnostics nil)
   ;; Using a locally-built version
-  ;; (lsp-clojure-custom-server-command
-  ;;"/Users/jcsims/code/clojure-lsp/clojure-lsp")
+  ;; (lsp-clojure-custom-server-command "/Users/jcsims/code/clojure-lsp/clojure-lsp")
   :commands lsp
   :bind (:map lsp-mode-map
               ("C-c l f" . lsp-format-buffer)
