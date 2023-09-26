@@ -51,4 +51,11 @@ rec {
       fi
     '';
   };
+
+  home.sessionPath =
+    [
+      "$HOME/.local/bin" # pipx install path
+      "$HOME/.tiup/bin" # Install path for `tiup`
+      "$HOME/code/work/patch/bin" # `dev` tool
+    ];
 }
