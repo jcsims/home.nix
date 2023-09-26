@@ -13,7 +13,8 @@ rec {
     ++ (with pkgs; [
       apacheKafka
       azure-cli
-      babashka-unwrapped
+      #babashka-unwrapped
+      babashka
       clojure
       etcd_3_5
       google-cloud-sdk # `gcloud` CLI tool
@@ -28,8 +29,8 @@ rec {
       kubernetes-helm
       kustomize
       mysql
-      operator-sdk
       pipx
+      postgresql
       python3Packages.python-lsp-server
       sops
       teleport
