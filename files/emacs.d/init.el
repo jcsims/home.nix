@@ -208,6 +208,7 @@
 (use-package eglot
   :hook
   ((clojure-mode
+    go-ts-mode
     nix-mode
     python-mode
     rust-mode
@@ -272,6 +273,12 @@
 (use-package git-link)
 
 (use-package git-timemachine)
+
+(use-package go-ts-mode
+  :mode (("\\.go\\'" . go-ts-mode))
+  :hook (go-ts-mode . set-go-tab-width)
+  :config (defun set-go-tab-width ()
+            (setq-local tab-width 2)))
 
 (use-package graphql-mode)
 
