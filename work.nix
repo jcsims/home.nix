@@ -18,7 +18,6 @@ rec {
       clojure
       etcd_3_5
       google-cloud-sdk # `gcloud` CLI tool
-      go_1_19
       graphite-cli
       grpcurl
       k9s

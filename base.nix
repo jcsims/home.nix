@@ -35,6 +35,8 @@ rec {
       git
       gnupg
       gnuplot # Used by maelstrom
+      go_1_19
+      gopls
       htop
       jdk17
       jq
