@@ -18,7 +18,8 @@ rec {
       clojure
       etcd_3_5
       google-cloud-sdk # `gcloud` CLI tool
-      graphite-cli
+      go_1_19
+      specialArgs.pkgs-unstable.graphite-cli
       grpcurl
       k9s
       kubeconform

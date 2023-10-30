@@ -45,15 +45,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1692686040,
-        "narHash": "sha256-4GkXTC7sXpEL40QbJip49qsINAH+aKSciPT/1Pz6hfM=",
+        "lastModified": 1695108154,
+        "narHash": "sha256-gSg7UTVtls2yO9lKtP0yb66XBHT1Fx5qZSZbGMpSn2c=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "ea59b79f31beaf4a8cb0ea2fc4dfba5732e4212a",
+        "rev": "07682fff75d41f18327a871088d20af2710d4744",
         "type": "github"
       },
       "original": {
         "owner": "nix-community",
+        "ref": "release-23.05",
         "repo": "home-manager",
         "type": "github"
       }
@@ -111,17 +112,33 @@
         "type": "github"
       }
     },
-    "nixpkgs_2": {
+    "nixpkgs-unstable": {
       "locked": {
-        "lastModified": 1692717722,
-        "narHash": "sha256-zIEho4Ww8WYEhKkHip/A6rKWEOwOixrEslETSp686kk=",
+        "lastModified": 1696369299,
+        "narHash": "sha256-G95zDfpezWnjkn5YFVa1JHJp58IfLQP1XdAwgPwiVn8=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "e6d94b7f3d29f9d7140bcd9135d3d5dc2a3bb357",
+        "rev": "c286fec7c03cf459149e4cbb5a4fbc8d116b68bf",
         "type": "github"
       },
       "original": {
         "owner": "NixOS",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_2": {
+      "locked": {
+        "lastModified": 1696368129,
+        "narHash": "sha256-t299AeZMO/SEPoLi4nI1xleARe9F3hUGYjQ/xmrAYc0=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "b6b1660d2d24505f67082b3ba1561a3bfccbb7f2",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "release-23.05",
         "repo": "nixpkgs",
         "type": "github"
       }
@@ -131,7 +148,8 @@
         "emacs-overlay": "emacs-overlay",
         "home-manager": "home-manager",
         "hue": "hue",
-        "nixpkgs": "nixpkgs_2"
+        "nixpkgs": "nixpkgs_2",
+        "nixpkgs-unstable": "nixpkgs-unstable"
       }
     },
     "systems": {

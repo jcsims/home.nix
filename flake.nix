@@ -3,9 +3,10 @@
 
   inputs = {
     # Specify the source of Home Manager and Nixpkgs.
-    nixpkgs.url = "github:NixOS/nixpkgs";
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs";
+    nixpkgs.url = "github:NixOS/nixpkgs/release-23.05";
     home-manager = {
-      url = "github:nix-community/home-manager";
+      url = "github:nix-community/home-manager/release-23.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     hue = {
@@ -17,6 +18,7 @@
 
   outputs =
     { nixpkgs
+    , nixpkgs-unstable
     , home-manager
     , hue
     , emacs-overlay
@@ -25,6 +27,11 @@
     let
       system = "aarch64-darwin";
       pkgs = import nixpkgs {
+        system = "aarch64-darwin";
+        config.allowUnfree = true;
+        overlays = [ (import emacs-overlay) ];
+      };
+      pkgs-unstable = import nixpkgs-unstable {
         system = "aarch64-darwin";
         config.allowUnfree = true;
         overlays = [ (import emacs-overlay) ];
@@ -65,6 +72,7 @@
           ];
 
           extraSpecialArgs = rec {
+            inherit pkgs-unstable;
             # Use this to pull in packages as flakes.
             extraPackages = {
               hue = hue.packages.${system}.default;
