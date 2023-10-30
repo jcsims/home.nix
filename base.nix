@@ -259,8 +259,8 @@ rec {
   home.file.".config/alacritty/themes".source = alacritty-themes;
   programs.alacritty.enable = true;
 
-  programs.direnv.enable = false;
-  programs.direnv.nix-direnv.enable = false;
+  programs.direnv.enable = true;
+  programs.direnv.nix-direnv.enable = true;
 
   # This value determines the Home Manager release that your
   # configuration is compatible with. This helps avoid breakage
