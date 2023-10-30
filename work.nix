@@ -19,6 +19,7 @@ rec {
       etcd_3_5
       google-cloud-sdk # `gcloud` CLI tool
       go_1_19
+      specialArgs.pkgs-unstable.gopls
       specialArgs.pkgs-unstable.graphite-cli
       grpcurl
       k9s
@@ -35,6 +36,7 @@ rec {
       sops
       teleport
       nodePackages.sql-formatter
+      nodePackages.typescript-language-server
       yq
     ]);
 
