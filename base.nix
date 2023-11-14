@@ -41,7 +41,6 @@ rec {
       jdk17
       jq
       languagetool
-      neil
       (nerdfonts.override { fonts = [ "Hack" ]; })
       nixpkgs-fmt
       nix-diff
