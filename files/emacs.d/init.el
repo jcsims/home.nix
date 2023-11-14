@@ -205,6 +205,8 @@
   (setq display-line-numbers-width-start t)
   (global-display-line-numbers-mode))
 
+(use-package eat)
+
 (use-package eglot
   :hook
   ((clojure-mode
