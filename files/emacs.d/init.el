@@ -211,7 +211,7 @@
     go-ts-mode
     nix-mode
     python-mode
-    rust-mode
+    rust-ts-mode
     sh-mode)
    . eglot-ensure)
   (eglot-managed-mode . eglot-inlay-hints-mode)
@@ -275,6 +275,7 @@
 (use-package git-timemachine)
 
 (use-package go-ts-mode
+  :ensure f
   :mode (("\\.go\\'" . go-ts-mode))
   :hook (go-ts-mode . set-go-tab-width)
   :config (defun set-go-tab-width ()
@@ -797,6 +798,10 @@ canceled tasks."
   :ensure f
   :demand t
   :config (add-to-list 'recentf-exclude "^/\\(?:ssh\\|su\\|sudo\\)?x?:"))
+
+(use-package rust-ts-mode
+  :ensure f
+  :mode (("\\.rs\\'" . rust-ts-mode)))
 
 (use-package savehist
   :ensure f
