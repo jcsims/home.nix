@@ -21,7 +21,6 @@ rec {
       kubectx
       kubelogin
       kustomize
-      pipx
       postgresql
       python3Packages.python-lsp-server
       nodejs
