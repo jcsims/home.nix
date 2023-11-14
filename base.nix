@@ -36,7 +36,7 @@ rec {
       gnupg
       gnuplot # Used by maelstrom
       go_1_19
-      gopls
+      specialArgs.pkgs-unstable.gopls
       htop
       jdk17
       jq

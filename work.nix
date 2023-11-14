@@ -13,7 +13,6 @@ rec {
     ++ (with pkgs; [
       etcd_3_5
       google-cloud-sdk # `gcloud` CLI tool
-      specialArgs.pkgs-unstable.gopls
       specialArgs.pkgs-unstable.graphite-cli
       grpcurl
       k9s
