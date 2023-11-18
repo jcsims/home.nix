@@ -207,6 +207,12 @@
 
 (use-package eat)
 
+(use-package ediff
+  :ensure f
+  :config
+  (setq ediff-split-window-function 'split-window-horizontally)
+  (setq ediff-window-setup-function 'ediff-setup-windows-plain))
+
 (use-package eglot
   :hook
   ((clojure-mode
