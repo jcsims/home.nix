@@ -32,6 +32,7 @@ rec {
       clojure
       complete-alias # Aliases want completion, too!
       fd
+      gh # GitHub CLI tool
       git
       gnupg
       gnuplot # Used by maelstrom
