@@ -50,4 +50,8 @@ rec {
       "$HOME/.tiup/bin" # Install path for `tiup`
       "$HOME/code/work/patch/bin" # `dev` tool
     ];
+
+  home.sessionVariables = {
+    MY_TENANT_ID = "tnt_2OcMLxXPNuoEBKVDjoHnNzuHXnU";
+  };
 }
