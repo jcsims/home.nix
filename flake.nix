@@ -52,6 +52,7 @@
           ];
 
           extraSpecialArgs = rec {
+            inherit pkgs-unstable;
             # Use this to pull in packages as flakes.
             extraPackages = {
               hue = hue.packages.${system}.default;
@@ -96,6 +97,7 @@
           ];
 
           extraSpecialArgs = rec {
+            inherit pkgs-unstable;
             # Use this to pull in packages as flakes.
             extraPackages = {
               hue = hue.packages."x86_64-linux".default;
