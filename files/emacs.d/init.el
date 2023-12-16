@@ -935,9 +935,6 @@ Passes ARG onto `zap-to-char` or `backward-kill-word` if used."
   :ensure f
   :custom (xref-search-program 'ripgrep))
 
-(use-package yaml-mode
-  :mode (("\\.yml\\'" . yaml-mode)))
-
 ;;; Tequila worms
 
 (progn ;     startup
