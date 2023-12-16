@@ -48,7 +48,6 @@
             ./base.nix
             ./home.nix
             ./emacs.nix
-            ./work.nix
           ];
 
           extraSpecialArgs = rec {
