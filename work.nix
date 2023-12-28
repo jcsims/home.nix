@@ -16,6 +16,7 @@ in rec {
       grpcurl
       k9s
       kubeconform
+      kubectl
       kubectx
       kubelogin
       kustomize

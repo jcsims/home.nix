@@ -6,27 +6,33 @@
   historyIgnore = ["bg" "clear" "exit" "fg" "history" "ls"];
   # env vars, if any needed outside of home.sessionVariables
   # sessionVariables = {};
-  shellAliases = {
-    cat = "bat";
-    reload = "exec bash";
-    stay-awake = "caffeinate -di";
-    alert = "${pkgs.terminal-notifier}/bin/terminal-notifier -activate 'com.googlecode.iterm2' -message \"$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')\"";
+  shellAliases =
+    {
+      cat = "bat";
+      reload = "exec bash";
+      stay-awake = "caffeinate -di";
 
-    # Git aliases
-    gl = "git log --graph --abbrev-commit --date=relative --pretty=format:'%C(bold blue)%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'";
-    gp = "git push origin HEAD";
-    gpl = "git pull --rebase --prune";
-    gd = "git diff";
-    gdc = "git diff --cached";
-    gc = "git commit";
-    gco = "git checkout";
-    ga = "git add";
-    gs = "git status -sb";
+      # Git aliases
+      gl = "git log --graph --abbrev-commit --date=relative --pretty=format:'%C(bold blue)%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'";
+      gp = "git push origin HEAD";
+      gpl = "git pull --rebase --prune";
+      gd = "git diff";
+      gdc = "git diff --cached";
+      gc = "git commit";
+      gco = "git checkout";
+      ga = "git add";
+      gs = "git status -sb";
 
-    # Kubernetes
-    k = "kubectl";
-    kns = "kubectl config set-context --current --namespace ";
-  };
+      # Kubernetes
+      k = "kubectl";
+      kns = "kubectl config set-context --current --namespace ";
+    }
+    // (
+      if pkgs.stdenv.isDarwin
+      then {alert = "${pkgs.terminal-notifier}/bin/terminal-notifier -activate 'com.googlecode.iterm2' -message \"$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')\"";}
+      else {}
+    );
+
   # Code for initializing interactive shells
   initExtra = ''
     # Perform file completion in a case insensitive fashion

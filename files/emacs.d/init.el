@@ -10,7 +10,7 @@
   (message "Loading Emacs...done (%.3fs)"
            (float-time (time-subtract before-user-init-time
                                       before-init-time)))
-  (setq user-emacs-directory (file-name-directory user-init-file))
+  (setq user-emacs-directory "~/.emacs.d/")
   (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
   (message "Loading %s..." user-init-file)
   (setq inhibit-startup-buffer-menu t)
