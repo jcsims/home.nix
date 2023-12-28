@@ -1,13 +1,12 @@
-{ pkgs
-, lib
-, system
-, specialArgs
-, ...
-}:
-let
+{
+  pkgs,
+  lib,
+  system,
+  specialArgs,
+  ...
+}: let
   hue = specialArgs.extraPackages.hue;
-in
-rec {
+in rec {
   home.packages =
     (lib.attrValues specialArgs.extraPackages)
     ++ (with pkgs; [
@@ -44,12 +43,11 @@ rec {
     '';
   };
 
-  home.sessionPath =
-    [
-      "$HOME/.local/bin" # pipx install path
-      "$HOME/.tiup/bin" # Install path for `tiup`
-      "$HOME/code/work/patch/bin" # `dev` tool
-    ];
+  home.sessionPath = [
+    "$HOME/.local/bin" # pipx install path
+    "$HOME/.tiup/bin" # Install path for `tiup`
+    "$HOME/code/work/patch/bin" # `dev` tool
+  ];
 
   home.sessionVariables = {
     MY_TENANT_ID = "tnt_2OcMLxXPNuoEBKVDjoHnNzuHXnU";

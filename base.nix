@@ -1,20 +1,19 @@
-{ config
-, pkgs
-, lib
-, system
-, specialArgs
-, alacritty-themes
-, ...
-}:
-let
+{
+  config,
+  pkgs,
+  lib,
+  system,
+  specialArgs,
+  alacritty-themes,
+  ...
+}: let
   alacritty-themes = pkgs.fetchFromGitHub {
     owner = "alacritty";
     repo = "alacritty-theme";
     rev = "914f463390b660e99731f93a6ad9493918cd5d13";
     sha256 = "sha256-eePvWNTpZVgRp4ql/UCWudtvnuvVKCDHB+sYKeHudM8=";
   };
-in
-rec {
+in rec {
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
   home.username = specialArgs.username;
@@ -42,7 +41,7 @@ rec {
       jdk17
       jq
       languagetool
-      (nerdfonts.override { fonts = [ "Hack" ]; })
+      (nerdfonts.override {fonts = ["Hack"];})
       nixpkgs-fmt
       nix-diff
       nix-tree
@@ -155,7 +154,7 @@ rec {
         "/opt/homebrew/bin"
         "/opt/homebrew/sbin"
       ]
-      else [ ]
+      else []
     );
 
   home.sessionVariables = {
@@ -215,7 +214,7 @@ rec {
   home.file.".functions/_c.bash".source = ./files/_c.bash;
 
   # Set up bash
-  programs.bash = import ./bash.nix { inherit pkgs; };
+  programs.bash = import ./bash.nix {inherit pkgs;};
 
   programs.bat = {
     enable = true;
@@ -231,7 +230,7 @@ rec {
     enable = true;
     enableBashIntegration = true;
     # This fixes the broken screen clearing that was added here: https://github.com/lotabout/skim/pull/472
-    defaultOptions = [ "--no-clear-start" ];
+    defaultOptions = ["--no-clear-start"];
   };
 
   programs.starship = {
@@ -249,7 +248,7 @@ rec {
           k8s-ue-1 = "prod";
           k8s-dev-1 = "dev";
         };
-        detect_folders = [ "k8s" ];
+        detect_folders = ["k8s"];
         disabled = false;
       };
     };

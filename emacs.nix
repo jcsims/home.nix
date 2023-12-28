@@ -1,5 +1,8 @@
-{ pkgs, specialArgs, ... }:
 {
+  pkgs,
+  specialArgs,
+  ...
+}: {
   home.packages = with pkgs; [
     (pkgs.emacsWithPackagesFromUsePackage {
       # Your Emacs config file. Org mode babel files are also
@@ -43,9 +46,10 @@
       # alwaysTangle = true;
 
       # Optionally provide extra packages not in the configuration file.
-      extraEmacsPackages = epkgs: with epkgs; [
-        treesit-grammars.with-all-grammars
-      ];
+      extraEmacsPackages = epkgs:
+        with epkgs; [
+          treesit-grammars.with-all-grammars
+        ];
 
       # Optionally override derivations.
       # override = final: prev: {
