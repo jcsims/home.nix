@@ -1,16 +1,20 @@
-{
-  pkgs,
-  lib,
-  system,
-  specialArgs,
-  ...
+{ pkgs
+, lib
+, system
+, specialArgs
+, ...
 }: rec {
   home.packages =
     (lib.attrValues specialArgs.extraPackages)
     ++ (with pkgs; [
+      _1password-gui
+      alejandra
+      specialArgs.pkgs-unstable.calibre
+      firefox
       plexamp
       slack
       spotify
+      wl-clipboard
     ]);
 
   services.syncthing = {

@@ -97,6 +97,7 @@
           ./base.nix
           ./work.nix
           ./emacs.nix
+          ./linux-gui.nix
         ];
 
         extraSpecialArgs = rec {
