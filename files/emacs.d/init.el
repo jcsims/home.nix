@@ -459,6 +459,8 @@
 (use-package org
   :ensure f
   :custom
+  ;; Don't create a bookmark during org capture.
+  (org-capture-bookmark nil)
   (org-refile-use-outline-path 'file)
   (org-refile-allow-creating-parent-nodes 'confirm)
   (org-priority-default ?C)
