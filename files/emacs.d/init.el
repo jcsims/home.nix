@@ -1123,6 +1123,18 @@ format. With PREFIX, copy to kill ring."
       '(progn
          (define-key yaml-ts-mode-map (kbd "C-c p") 'jpt-yaml-show-path-to-point))))
 
+  (progn ;; Brightness helper
+    (defun set-brightness (level)
+      (call-process "ddcutil" nil nil nil "setvcp" "10" level))
+
+    (defun morning-bright ()
+      (interactive)
+      (set-brightness "55"))
+
+    (defun evening-bright ()
+      (interactive)
+      (set-brightness "5")))
+
 
   (let ((file (expand-file-name (concat (user-real-login-name) ".el")
                                 user-emacs-directory)))
