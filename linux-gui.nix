@@ -10,11 +10,14 @@
       _1password-gui
       alejandra
       specialArgs.pkgs-unstable.calibre
+      ddcutil
+      specialArgs.pkgs-unstable.jetbrains.idea-ultimate
       firefox
       plexamp
       slack
       spotify
       wl-clipboard
+      zoom-us
     ]);
 
   services.syncthing = {
