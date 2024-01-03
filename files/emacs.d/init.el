@@ -113,6 +113,16 @@
   ;; Auto-refresh buffers
   (global-auto-revert-mode))
 
+;; Borrowed from
+;; https://skybert.net/emacs/get-clickable-jira-links-in-your-org-files/
+;; This highlights the Linear ticket comments we use in the code.
+(use-package bug-reference
+  :ensure f
+  :config
+  (setq bug-reference-bug-regexp "\\(\\(PAT-[0-9]+\\)\\)"
+        bug-reference-url-format "https://linear.app/patch-tech/issue/%s")
+  :hook (prog-mode . bug-reference-prog-mode))
+
 (use-package cider
   :after (clojure-mode paredit)
   :commands (cider-mode)
