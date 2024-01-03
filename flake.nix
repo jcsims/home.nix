@@ -56,6 +56,7 @@
           ./base.nix
           ./home.nix
           ./emacs.nix
+          ./mac.nix
         ];
 
         extraSpecialArgs = rec {
@@ -77,6 +78,7 @@
           ./base.nix
           ./work.nix
           ./emacs.nix
+          ./mac.nix
         ];
 
         extraSpecialArgs = rec {
