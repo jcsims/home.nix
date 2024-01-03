@@ -27,7 +27,7 @@ in rec {
       bashInteractive
       bash-completion
       cachix
-      clojure-lsp
+      specialArgs.pkgs-unstable.clojure-lsp
       clojure
       complete-alias # Aliases want completion, too!
       fd
