@@ -1,8 +1,9 @@
-{ pkgs
-, lib
-, system
-, specialArgs
-, ...
+{
+  pkgs,
+  lib,
+  system,
+  specialArgs,
+  ...
 }: rec {
   home.packages =
     (lib.attrValues specialArgs.extraPackages)
