@@ -793,8 +793,10 @@ canceled tasks."
 
 (use-package recentf
   :ensure f
-  :demand t
-  :config (add-to-list 'recentf-exclude "^/\\(?:ssh\\|su\\|sudo\\)?x?:"))
+  :config
+  (setq recentf-max-saved-items 1000)
+  (add-to-list 'recentf-exclude "^/\\(?:ssh\\|su\\|sudo\\)?x?:")
+  (recentf-mode))
 
 (use-package rust-ts-mode
   :ensure f
