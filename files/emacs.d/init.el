@@ -215,7 +215,15 @@
   (setq display-line-numbers-width-start t)
   (global-display-line-numbers-mode))
 
-(use-package eat)
+(use-package eat
+  ;; Borrowed from https://github.com/purcell/emacs.d/blob/master/lisp/init-terminals.el
+  :config
+  (defun jcs/on-eat-exit (process)
+    (when (zerop (process-exit-status process))
+      (kill-buffer)
+      (unless (eq (selected-window) (next-window))
+        (delete-window))))
+  :hook (eat-exit . jcs/on-eat-exit))
 
 (use-package ediff
   :ensure f
