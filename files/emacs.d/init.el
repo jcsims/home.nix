@@ -348,37 +348,6 @@
     (setq indent-tabs-mode nil))
   (add-hook 'lisp-interaction-mode-hook 'indent-spaces-mode))
 
-(use-package lsp-mode
-  :disabled
-  :hook
-  ((rust-mode
-    clojure-mode
-    python-mode
-    sh-mode
-    nix-mode)
-   . lsp-deferred)
-  :config
-  (setq read-process-output-max (* 1024 1024))
-  :custom
-  (lsp-rust-analyzer-cargo-watch-command "clippy")
-  (lsp-headerline-breadcrumb-enable-diagnostics nil)
-  ;; Using a locally-built version
-  ;; (lsp-clojure-custom-server-command "/Users/jcsims/code/clojure-lsp/clojure-lsp")
-  :commands lsp
-  :bind (:map lsp-mode-map
-              ("C-c l f" . lsp-format-buffer)
-              ("C-c l a" . lsp-execute-code-action)))
-
-(use-package lsp-ui
-  :disabled
-  :after lsp-mode
-  :commands lsp-ui-mode
-  :bind (:map lsp-ui-mode-map
-              ("C-M-." . xref-find-references)
-              ([remap xref-find-references] . lsp-ui-peek-find-references))
-  :custom
-  (lsp-ui-doc-use-webkit nil))
-
 (use-package magit
   :bind (("C-c g"   . magit-status))
   :custom
@@ -701,11 +670,9 @@ same directory as the org-buffer and insert a link to this file."
 
 (use-package org-roam
   :after (org vulpea)
-  :init (setq org-roam-v2-ack t)
   :custom (org-roam-directory jcs/org-roam-dir)
   :bind (("C-c o l" . org-roam-buffer-toggle)
          ("C-c o f" . org-roam-node-find)
-         ("C-c o g" . org-roam-graph)
          ("C-c o i" . org-roam-node-insert)
          ("C-c o c" . org-roam-capture)
          ("C-c o r" . org-roam-refile)
