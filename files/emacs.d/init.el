@@ -345,7 +345,8 @@
               ("C-." . jinx-correct))
   :config (global-jinx-mode))
 
-(use-package kubel)
+(use-package kubel
+  :when (executable-find "kubectl"))
 
 (use-package lisp-mode
   :ensure f
