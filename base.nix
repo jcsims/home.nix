@@ -143,7 +143,6 @@ rec {
         pinentry-program ${pkgs.pinentry_mac}/Applications/pinentry-mac.app/Contents/MacOS/pinentry-mac
       ''
       else ''
-        pinentry-program ${pkgs.pinentry-gnome}/bin/pinentry
       ''
     );
 
