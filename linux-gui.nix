@@ -14,6 +14,7 @@
       ddcutil
       specialArgs.pkgs-unstable.jetbrains.idea-ultimate
       firefox
+      specialArgs.pkgs-unstable.graphite-cli
       plexamp
       slack
       spotify
