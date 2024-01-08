@@ -36,7 +36,6 @@ rec {
       gcc
       gh # GitHub CLI tool
       git
-      gnupg
       gnuplot # Used by maelstrom
       go_1_19
       specialArgs.pkgs-unstable.gopls
@@ -131,20 +130,6 @@ rec {
   programs.gpg.scdaemonSettings = {
     disable-ccid = true;
   };
-
-  home.file.".gnupg/gpg-agent.conf".text =
-    ''
-      default-cache-ttl 600
-      max-cache-ttl 7200
-    ''
-    + (
-      if pkgs.stdenv.isDarwin
-      then ''
-        pinentry-program ${pkgs.pinentry_mac}/Applications/pinentry-mac.app/Contents/MacOS/pinentry-mac
-      ''
-      else ''
-      ''
-    );
 
   home.sessionPath =
     [
