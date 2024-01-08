@@ -27,10 +27,12 @@ in rec {
       bashInteractive
       bash-completion
       cachix
+      cargo
       specialArgs.pkgs-unstable.clojure-lsp
       clojure
       complete-alias # Aliases want completion, too!
       fd
+      gcc
       gh # GitHub CLI tool
       git
       gnupg
@@ -50,7 +52,9 @@ in rec {
       pkg-config # jinx module build
       ripgrep
       rnix-lsp
-      rustup
+      rust-analyzer
+      rustc
+      rustfmt
       shellcheck
       texinfo # Used by borg to build docs
       tmux
