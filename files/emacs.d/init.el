@@ -242,7 +242,7 @@
    . eglot-ensure)
   (eglot-managed-mode . eglot-inlay-hints-mode)
   :config (setq eglot-autoshutdown t
-                eglot-confirm-server-initiated-edits nil
+                eglot-confirm-server-edits nil
                 read-process-output-max (* 1024 1024)
                 eglot-extend-to-xref t
                 ;; Don't block on connecting to the lsp server at all
@@ -337,7 +337,7 @@
 ;; Enable emacs to open jar files. This is essential with eglot for reading
 ;; dependency sources!
 (use-package jarchive
-  :config (jarchive-setup))
+  :config (jarchive-mode))
 
 (use-package jinx
   :demand t
@@ -593,7 +593,7 @@ same directory as the org-buffer and insert a link to this file."
         result)))
 
   (defun vulpea-project-files ()
-    "Return a list of org-roam files containing the 'project' tag."
+    "Return a list of org-roam files containing the `project' tag."
     (seq-uniq
      (seq-map
       #'car
@@ -605,7 +605,7 @@ same directory as the org-buffer and insert a link to this file."
                 :where (like tag (quote "%\"project\"%"))]))))
 
   (defun vulpea-agenda-files-update (&rest _)
-    "Update the value of `org-agenda-files' based on 'project' tag."
+    "Update the value of `org-agenda-files' based on `project' tag."
     (setq org-agenda-files (vulpea-project-files)))
 
   (advice-add 'org-agenda :before #'vulpea-agenda-files-update)
