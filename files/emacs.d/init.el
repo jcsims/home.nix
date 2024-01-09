@@ -1115,15 +1115,18 @@ format. With PREFIX, copy to kill ring."
 
   (progn ;; Brightness helper
     (defun set-brightness (level)
-      (call-process "ddcutil" nil nil nil "setvcp" "10" level))
+      (interactive "n")
+      (if (<= 0 level 100)
+          (call-process "ddcutil" nil nil nil "setvcp" "10" (number-to-string level))
+        (message (format "Unable to set brightness to %d" level))))
 
     (defun morning-bright ()
       (interactive)
-      (set-brightness "55"))
+      (set-brightness 55))
 
     (defun evening-bright ()
       (interactive)
-      (set-brightness "5")))
+      (set-brightness 5)))
 
 
   (let ((file (expand-file-name (concat (user-real-login-name) ".el")
