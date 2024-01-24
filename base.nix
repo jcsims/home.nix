@@ -66,6 +66,15 @@ rec {
       xz
     ]);
 
+    programs.gpg.package = pkgs.gnupg.overrideAttrs (orig: {
+    version = "2.4.0";
+    src = pkgs.fetchurl {
+      url = "mirror://gnupg/gnupg/gnupg-2.4.0.tar.bz2";
+      hash = "sha256-HXkVjdAdmSQx3S4/rLif2slxJ/iXhOosthDGAPsMFIM=";
+    };
+  });
+
+
   programs.git = {
     enable = true;
     userName = "Chris Sims";
@@ -120,7 +129,7 @@ rec {
   programs.gpg = {
     enable = true;
     settings = {
-      default-key = "0x25FF041622DE3AFB";
+      default-key = "0x32D20D5D6DB01A6B";
       charset = "utf-8";
       keyid-format = "0xlong";
       use-agent = true;
