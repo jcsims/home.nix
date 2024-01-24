@@ -1128,6 +1128,14 @@ format. With PREFIX, copy to kill ring."
       (interactive)
       (set-brightness 5)))
 
+  (progn ;; Reinstall packages via package.el, if needed
+    ;; Borrowed from https://emacsredux.com/blog/2020/09/12/reinstalling-emacs-packages/
+    (defun jcs/reinstall-package (pkg)
+      (interactive (list (intern (completing-read "Reinstall package: " (mapcar #'car package-alist)))))
+      (unload-feature pkg)
+      (package-reinstall pkg)
+      (require pkg)))
+
 
   (let ((file (expand-file-name (concat (user-real-login-name) ".el")
                                 user-emacs-directory)))
