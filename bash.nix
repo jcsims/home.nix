@@ -8,7 +8,6 @@
   # sessionVariables = {};
   shellAliases =
     {
-      cat = "bat";
       reload = "exec bash";
       stay-awake = "caffeinate -di";
 
