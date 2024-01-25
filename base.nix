@@ -22,6 +22,7 @@ rec {
   home.packages =
     (lib.attrValues specialArgs.extraPackages)
     ++ (with pkgs; [
+      age
       alejandra
       aspell
       aspellDicts.en

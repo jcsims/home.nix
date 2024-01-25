@@ -94,6 +94,11 @@
 
 ;;; Long tail
 
+(use-package age
+  :demand t
+  :config
+  (age-file-enable))
+
 (use-package atomic-chrome
   :if (display-graphic-p)
   :config
