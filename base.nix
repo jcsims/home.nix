@@ -180,11 +180,6 @@ rec {
     executable = true;
   };
 
-  # home.file.".emacs.d" = {
-  #   source = ./files/emacs.d;
-  #   recursive = true;
-  # };
-
   home.file.".aspell.conf".text = ''
     data-dir ${specialArgs.homedir}/.nix-profile/lib/aspell
   '';
@@ -194,11 +189,6 @@ rec {
     \x auto
     \pset null ¤
   '';
-
-  home.file."bin/check-nix-apps" = {
-    source = ./files/check-nix-apps;
-    executable = true;
-  };
 
   home.file.".config/clojure-lsp/config.edn".text = ''
     {:dependency-scheme  "jar"
