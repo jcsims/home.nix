@@ -21,7 +21,7 @@
     # works fine via homebrew).
     # nixcasks.launchcontrol
     nixcasks.monitorcontrol
-    nixcasks.obsidian
+    obsidian
     # Not packaged in nixpkgs for aarch64-apple-darwin
     nixcasks.plexamp
     rectangle
@@ -40,16 +40,8 @@
       for app in ~/.nix-profile/Applications/*
       do
           app_name=''${app#~/.nix-profile/Applications/}
-          if ! [[ -e ~/nix-apps/"$app_name" ]]
-          then
-              echo installing new app "$app_name"
-              ${pkgs.mkalias}/bin/mkalias -L "$app" ~/nix-apps/"$app_name"
-              #rsync -qLr -- "$app" ~/nix-apps
-          # elif ! diff -qr "$app" ~/nix-apps/"$app_name" 1> /dev/null
-          # then
-          #     echo updating "$app_name"
-          #     rsync -qLr --delete -- "$app" ~/nix-apps
-          fi
+          echo "Creating alias for: $app_name"
+          ${pkgs.mkalias}/bin/mkalias -L "$app" ~/nix-apps/"$app_name"
       done
 
       for app in ~/nix-apps/*
@@ -57,7 +49,7 @@
           if ! [[ -e ~/.nix-profile/Applications/"''${app#~/nix-apps/}" ]]
           then
               echo "$app is getting removed"
-              rm -rf -- "$app"
+              rm -- "$app"
           fi
       done;
     '';
