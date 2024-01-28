@@ -18,6 +18,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     emacs-overlay.url = "github:Nix-Community/emacs-overlay";
+    mkalias.url = "github:reckenrode/mkalias";
+    mkalias.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs =
@@ -28,21 +30,40 @@
     , hue
     , emacs-overlay
     , ...
-    }:
+    } @ inputs:
     let
 
       overlays = [ (import emacs-overlay) ];
 
+      nixcasks = import inputs.nixcasks {
+        inherit pkgs nixpkgs;
+        osVersion = "sonoma";
+      };
+
       system = "aarch64-darwin";
       pkgs = import nixpkgs {
-        inherit overlays;
+        overlays = overlays ++ [
+          (_: _: {
+            mkalias = inputs.mkalias.packages.${system}.mkalias;
+          })
+        ];
         system = "aarch64-darwin";
         config.allowUnfree = true;
+        config.packageOverrides = prev: {
+          inherit nixcasks;
+        };
       };
       pkgs-unstable = import nixpkgs-unstable {
-        inherit overlays;
+        overlays = overlays ++ [
+          (_: _: {
+            mkalias = inputs.mkalias.packages.${system}.mkalias;
+          })
+        ];
         system = "aarch64-darwin";
         config.allowUnfree = true;
+        config.packageOverrides = prev: {
+          inherit nixcasks;
+        };
       };
       x86-pkgs = import nixpkgs {
         inherit overlays;
