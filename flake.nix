@@ -52,7 +52,7 @@
     in
     {
       homeConfigurations = {
-        jcsims = home-manager.lib.homeManagerConfiguration {
+        "jcsims@groot" = home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
 
           # Specify your home configuration modules here, for example,
@@ -74,7 +74,7 @@
             homedir = "/Users/${username}";
           };
         };
-        work = home-manager.lib.homeManagerConfiguration {
+        "jcsims@patch" = home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
 
           # Specify your home configuration modules here, for example,
