@@ -30,13 +30,15 @@
     spotify
     # Broken in nixcask, and no macOS UI in nixpkgs
     # nixcasks.syncthing
+    # Tailscale also demands to be in /Applications
+    # nixcasks.tailscale
     zoom-us
   ];
 
   # Sync any applications installed managed via home-manager, so that Alfred
   # picks them up properly.
   home.activation = {
-    rsyncApplications = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    aliasApplications = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
       for app in ~/.nix-profile/Applications/*
       do
           app_name=''${app#~/.nix-profile/Applications/}
