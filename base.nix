@@ -10,8 +10,8 @@ let
   alacritty-themes = pkgs.fetchFromGitHub {
     owner = "alacritty";
     repo = "alacritty-theme";
-    rev = "914f463390b660e99731f93a6ad9493918cd5d13";
-    sha256 = "sha256-eePvWNTpZVgRp4ql/UCWudtvnuvVKCDHB+sYKeHudM8=";
+    rev = "f03686afad05274f5fbd2507f85f95b1a6542df4";
+    sha256 = "sha256-457kKE3I4zGf1EKkEoyZu0Fa/1O3yiryzHVEw2rNZt8=";
   };
 in
 rec {
@@ -261,12 +261,22 @@ rec {
     };
   };
 
-  home.file.".config/alacritty/alacritty.yml".source = ./files/alacritty.yml;
+  home.file.".config/alacritty/alacritty.toml".source = ./files/alacritty.toml;
   home.file.".config/alacritty/themes".source = alacritty-themes;
-  programs.alacritty.enable = true;
+  programs.alacritty = {
+    enable = pkgs.stdenv.isDarwin;
+    package = specialArgs.pkgs-unstable.alacritty;
+  };
 
   programs.direnv.enable = true;
   programs.direnv.nix-direnv.enable = true;
+
+  programs.eza = {
+    enable = true;
+    enableAliases = true;
+    git = true;
+    icons = true;
+  };
 
   # This value determines the Home Manager release that your
   # configuration is compatible with. This helps avoid breakage

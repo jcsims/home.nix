@@ -16,7 +16,6 @@
     discord
     # Not packaged with nixcasks yet.
     #nixcasks.istat-menus
-    iterm2
     # macOS reports launchcontrol as broken when installed via nixcasks (but
     # works fine via homebrew).
     # nixcasks.launchcontrol
