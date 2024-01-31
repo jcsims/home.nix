@@ -56,12 +56,13 @@ rec {
       gh # GitHub CLI tool
       git
       gnuplot # Used by maelstrom
-      go_1_19
+      go
       specialArgs.pkgs-unstable.gopls
       htop
-      jdk17
+      jdk
       jq
       languagetool
+      leiningen
       (nerdfonts.override { fonts = [ "Hack" ]; })
       nixpkgs-fmt
       nix-diff
@@ -162,8 +163,8 @@ rec {
   home.sessionPath =
     [
       "$HOME/bin"
-      "$HOME/go/bin"
       "$HOME/.cargo/bin"
+      "$(${pkgs.go}/bin/go env GOPATH)/bin"
     ]
     ++ (
       if pkgs.stdenv.isDarwin
