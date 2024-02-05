@@ -1,6 +1,6 @@
 import = ["/Users/jcsims/.config/alacritty/themes/themes/snazzy.toml"]
 
-# To get the font not so bold, run this: `defaults write org.alacritty AppleFontSmoothing -int 0`
+# To get the font not so bold on macOS, run this: `defaults write org.alacritty AppleFontSmoothing -int 0`
 [font]
 size = 12.0
 
