@@ -122,23 +122,18 @@
             homedir = "/Users/${username}";
           };
         };
-        thanos = home-manager.lib.homeManagerConfiguration rec {
+        "jcsims@graphene" = home-manager.lib.homeManagerConfiguration rec {
           pkgs = x86-pkgs;
           # Specify your home configuration modules here, for example,
           # the path to your home.nix.
           modules = [
             ./base.nix
-            ./work.nix
             ./emacs.nix
-            ./linux-gui.nix
           ];
 
           extraSpecialArgs = rec {
             pkgs-unstable = x86-pkgs-unstable;
-            # Use this to pull in packages as flakes.
-            extraPackages = {
-              hue = hue.packages."x86_64-linux".default;
-            };
+            extraPackages = {};
             username = "jcsims";
             homedir = "/home/${username}";
           };
