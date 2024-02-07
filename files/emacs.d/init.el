@@ -932,6 +932,11 @@ Passes ARG onto `zap-to-char` or `backward-kill-word` if used."
 
 (use-package yaml-ts-mode :ensure f)
 
+;; This needs to come late, so that it's the first hook that gets executed -
+;; hooks prepend as they get added.
+(use-package envrc
+  :config (envrc-global-mode))
+
 ;;; Tequila worms
 
 (progn ;     startup

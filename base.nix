@@ -47,7 +47,6 @@ rec {
       bashInteractive
       bash-completion
       cachix
-      cargo
       specialArgs.pkgs-unstable.clojure-lsp
       clojure
       complete-alias # Aliases want completion, too!
@@ -72,9 +71,6 @@ rec {
       pkg-config # jinx module build
       ripgrep
       rnix-lsp
-      rust-analyzer
-      rustc
-      rustfmt
       shellcheck
       texinfo # Used by borg to build docs
       tmux
