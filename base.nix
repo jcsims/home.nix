@@ -50,6 +50,7 @@ rec {
       specialArgs.pkgs-unstable.clojure-lsp
       clojure
       complete-alias # Aliases want completion, too!
+      exercism
       fd
       gcc
       gh # GitHub CLI tool
