@@ -250,10 +250,18 @@ rec {
   };
 
   programs.skim = {
-    enable = true;
+    enable = false;
     enableBashIntegration = true;
     # This fixes the broken screen clearing that was added here: https://github.com/lotabout/skim/pull/472
     defaultOptions = [ "--no-clear-start" ];
+  };
+
+  programs.atuin = {
+    enable = true;
+    enableBashIntegration = true;
+    package = specialArgs.pkgs-unstable.atuin;
+    flags = [ "--disable-up-arrow" ];
+    #settings = {  auto_sync = true;  sync_frequency = "5m";  sync_address = "https://api.atuin.sh";  search_mode = "prefix";};
   };
 
   programs.starship = {
