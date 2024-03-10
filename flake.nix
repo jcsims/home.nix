@@ -133,7 +133,7 @@
 
           extraSpecialArgs = rec {
             pkgs-unstable = x86-pkgs-unstable;
-            extraPackages = {};
+            extraPackages = { };
             username = "jcsims";
             homedir = "/home/${username}";
           };
