@@ -44,6 +44,7 @@ rec {
       alejandra
       aspell
       aspellDicts.en
+      babashka
       bashInteractive
       bash-completion
       cachix
@@ -52,17 +53,20 @@ rec {
       complete-alias # Aliases want completion, too!
       exercism
       fd
-      gcc
       gh # GitHub CLI tool
       git
       gnuplot # Used by maelstrom
       go
+      godef
+      golangci-lint
       specialArgs.pkgs-unstable.gopls
+      gotools # godoc, for example
       htop
       jdk
       jq
       languagetool
       leiningen
+      neil
       (nerdfonts.override { fonts = [ "Hack" ]; })
       nixpkgs-fmt
       nix-diff
@@ -72,12 +76,12 @@ rec {
       pkg-config # jinx module build
       ripgrep
       rnix-lsp
+      rustup
       shellcheck
       texinfo # Used by borg to build docs
       tmux
       tokei
       tree
-      tree-sitter
       vulnix
       watch
       xz
