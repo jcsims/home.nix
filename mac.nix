@@ -13,7 +13,7 @@
     # in homebrew).
     # nixcasks.alfred
     nixcasks.dash
-    discord
+    # discord
     # Not packaged with nixcasks yet.
     #nixcasks.istat-menus
     # macOS reports launchcontrol as broken when installed via nixcasks (but
