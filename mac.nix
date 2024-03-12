@@ -19,7 +19,9 @@
     # macOS reports launchcontrol as broken when installed via nixcasks (but
     # works fine via homebrew).
     # nixcasks.launchcontrol
-    nixcasks.monitorcontrol
+    # monitorcontrol installed via nixcasks doesn't persist its start-on-login
+    # behavior
+    # nixcasks.monitorcontrol
     obsidian
     # Not packaged in nixpkgs for aarch64-apple-darwin
     nixcasks.plexamp
