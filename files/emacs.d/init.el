@@ -308,9 +308,14 @@
 (use-package go-ts-mode
   :ensure f
   :mode (("\\.go\\'" . go-ts-mode))
-  :hook (go-ts-mode . set-go-tab-width)
-  :config (defun set-go-tab-width ()
-            (setq-local tab-width 2)))
+  ;; These shouldn't be on the global hooks, just for go-ts-mode
+  :hook (;;(before-save . eglot-format-buffer)
+         ;;(before-save . eglot-code-action-organize-imports)
+         (go-ts-mode . set-go-local-config))
+  :config
+  (defun set-go-local-config ()
+    (setq-local tab-width 2
+                compile-command "go test -v && go vet && golangci-lint run --color never")))
 
 (use-package graphql-mode)
 
