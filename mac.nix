@@ -12,7 +12,7 @@
     # macOS reports Alfred as broken when installed via nixcasks (but works fine
     # in homebrew).
     # nixcasks.alfred
-    nixcasks.dash
+    # nixcasks.dash
     # discord
     # Not packaged with nixcasks yet.
     #nixcasks.istat-menus
@@ -22,10 +22,10 @@
     # monitorcontrol installed via nixcasks doesn't persist its start-on-login
     # behavior
     # nixcasks.monitorcontrol
-    obsidian
+    # obsidian
     # Not packaged in nixpkgs for aarch64-apple-darwin
     # nixcasks.plexamp
-    rectangle
+    # rectangle
     # Seems to be broken in both nixpkgs and nixcask
     # nixcasks.slack
     #spotify
