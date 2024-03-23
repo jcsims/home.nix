@@ -288,7 +288,8 @@ rec {
   home.file.".config/alacritty/alacritty.toml".source = ./files/alacritty.toml;
   home.file.".config/alacritty/themes".source = alacritty-themes;
   programs.alacritty = {
-    enable = pkgs.stdenv.isDarwin;
+    enable = false;
+    # enable = pkgs.stdenv.isDarwin;
     package = specialArgs.pkgs-unstable.alacritty;
   };
 

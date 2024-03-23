@@ -24,16 +24,16 @@
     # nixcasks.monitorcontrol
     obsidian
     # Not packaged in nixpkgs for aarch64-apple-darwin
-    nixcasks.plexamp
+    # nixcasks.plexamp
     rectangle
     # Seems to be broken in both nixpkgs and nixcask
     # nixcasks.slack
-    spotify
+    #spotify
     # Broken in nixcask, and no macOS UI in nixpkgs
     # nixcasks.syncthing
     # Tailscale also demands to be in /Applications
     # nixcasks.tailscale
-    zoom-us
+    # zoom-us
   ];
 
   # Sync any applications installed managed via home-manager, so that Alfred
