@@ -6,7 +6,10 @@
 }: {
   home.packages = with pkgs; [
     mkalias
+    terminal-notifier
   ];
+
+  home.file.".Brewfile".source = ./files/Brewfile;
 
   # Sync any applications installed managed via home-manager, so that Alfred
   # picks them up properly.
