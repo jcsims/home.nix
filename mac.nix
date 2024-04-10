@@ -16,16 +16,16 @@
   home.activation = {
     aliasApplications = lib.hm.dag.entryAfter [ "writeBoundary" "linkGeneration" "installPackages" ] ''
       mkdir -p ~/nix-apps
-      for app in ~/Applications/Home\ Manager\ Apps/*
+      for app in ~/.nix-profile/Applications/*
       do
-          app_name=''${app#~/Applications/Home\ Manager\ Apps/}
+          app_name=''${app#~/.nix-profile/Applications/}
           echo "Creating alias for: $app_name"
           ${pkgs.mkalias}/bin/mkalias -L "$app" ~/nix-apps/"$app_name"
       done
 
       for app in ~/nix-apps/*
       do
-          if ! [[ -e ~/Applications/Home\ Manager\ Apps/"''${app#~/nix-apps/}" ]]
+          if ! [[ -e ~/.nix-profile/Applications/"''${app#~/nix-apps/}" ]]
           then
               echo "$app is getting removed"
               rm -- "$app"
