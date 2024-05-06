@@ -30,11 +30,6 @@
 
       overlays = [ (import emacs-overlay) ];
 
-      nixcasks = import inputs.nixcasks {
-        inherit pkgs nixpkgs;
-        osVersion = "sonoma";
-      };
-
       system = "aarch64-darwin";
       pkgs = import nixpkgs {
         overlays = overlays ++ [
@@ -44,9 +39,6 @@
         ];
         system = "aarch64-darwin";
         config.allowUnfree = true;
-        config.packageOverrides = prev: {
-          inherit nixcasks;
-        };
       };
       pkgs-unstable = import nixpkgs-unstable {
         overlays = overlays ++ [
@@ -56,9 +48,6 @@
         ];
         system = "aarch64-darwin";
         config.allowUnfree = true;
-        config.packageOverrides = prev: {
-          inherit nixcasks;
-        };
       };
       x86-pkgs = import nixpkgs {
         inherit overlays;
@@ -76,8 +65,6 @@
         "jcsims@groot" = home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
 
-          # Specify your home configuration modules here, for example,
-          # the path to your home.nix.
           modules = [
             ./base.nix
             ./home.nix
@@ -98,8 +85,6 @@
         "csims@splashfinancial.com" = home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
 
-          # Specify your home configuration modules here, for example,
-          # the path to your home.nix.
           modules = [
             ./base.nix
             ./work.nix
@@ -119,8 +104,6 @@
         };
         "jcsims@graphene" = home-manager.lib.homeManagerConfiguration rec {
           pkgs = x86-pkgs;
-          # Specify your home configuration modules here, for example,
-          # the path to your home.nix.
           modules = [
             ./base.nix
             ./emacs.nix
