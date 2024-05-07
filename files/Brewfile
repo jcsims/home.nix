@@ -4,8 +4,8 @@
 #brew "gnupg" if OS.mac?
 #brew "glibc" if OS.linux?
 tap "homebrew/bundle"
-tap "homebrew/cask-fonts"
 
+brew "mas" if OS.mac?
 brew "terminal-notifier" if OS.mac?
 
 cask "1password" if OS.mac?

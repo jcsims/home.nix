@@ -1,19 +1,14 @@
 # -*- mode: ruby-ts;-*-
-tap "babashka/brew"
-tap "borkdude/brew"
-tap "clojure-lsp/brew"
-tap "clojure/tools"
-tap "d12frosted/emacs-plus"
+
 tap "homebrew/bundle"
-tap "homebrew/cask-fonts"
+
+brew "mas" if OS.mac?
 brew "terminal-notifier" if OS.mac?
 
 cask "1password" if OS.mac?
-cask "alacritty" if OS.mac?
 cask "alfred" if OS.mac?
 cask "daisydisk" if OS.mac?
 cask "dash" if OS.mac?
-cask "font-hack-nerd-font" if OS.mac?
 cask "istat-menus" if OS.mac?
 cask "jetbrains-toolbox" if OS.mac?
 cask "monitorcontrol" if OS.mac?
