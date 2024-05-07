@@ -6,14 +6,6 @@
 , alacritty-themes
 , ...
 }:
-let
-  alacritty-themes = pkgs.fetchFromGitHub {
-    owner = "alacritty";
-    repo = "alacritty-theme";
-    rev = "f03686afad05274f5fbd2507f85f95b1a6542df4";
-    sha256 = "sha256-457kKE3I4zGf1EKkEoyZu0Fa/1O3yiryzHVEw2rNZt8=";
-  };
-in
 rec {
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
@@ -276,10 +268,9 @@ rec {
   };
 
   home.file.".config/alacritty/alacritty.toml".source = ./files/alacritty.toml;
-  home.file.".config/alacritty/themes".source = alacritty-themes;
   programs.alacritty = {
-    enable = false;
-    # enable = pkgs.stdenv.isDarwin;
+    enable = pkgs.stdenv.isDarwin;
+    # TODO: Move this back to stable after nixpkgs 24.05 is released
     package = specialArgs.pkgs-unstable.alacritty;
   };
 

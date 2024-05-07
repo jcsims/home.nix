@@ -1,4 +1,3 @@
-import = ["/Users/jcsims/.config/alacritty/themes/themes/snazzy.toml"]
 
 # To get the font not so bold on macOS, run this: `defaults write org.alacritty AppleFontSmoothing -int 0`
 [font]
@@ -18,23 +17,6 @@ family = "Hack Nerd Font"
 
 [selection]
 save_to_clipboard = true
-
-[hints]
-alphabet = "jfkdls;ahgurieowpq"
-
-[[hints.enabled]]
-command = "open"
-hyperlinks = true
-post_processing = true
-regex = "(ipfs:|ipns:|magnet:|mailto:|gemini:|gopher:|https:|http:|news:|file:|git:|ssh:|ftp:)[^\u0000-\u001F\u007F-<>\"\\s{-}\\^⟨⟩`]+"
-
-[hints.enabled.binding]
-key = "U"
-mods = "Command"
-
-[hints.enabled.mouse]
-enabled = true
-mods = "Command"
 
 [[keyboard.bindings]]
 action = "ClearLogNotice"
@@ -256,3 +238,33 @@ startup_mode = "Windowed"
 [window.padding]
 x = 2
 y = 2
+
+# From https://github.com/alacritty/alacritty-theme/blob/master/themes/snazzy.toml
+# Colors (Snazzy)
+
+# Default colors
+[colors.primary]
+background = '#282a36'
+foreground = '#eff0eb'
+
+# Normal colors
+[colors.normal]
+black   = '#282a36'
+red     = '#ff5c57'
+green   = '#5af78e'
+yellow  = '#f3f99d'
+blue    = '#57c7ff'
+magenta = '#ff6ac1'
+cyan    = '#9aedfe'
+white   = '#f1f1f0'
+
+# Bright colors
+[colors.bright]
+black   = '#686868'
+red     = '#ff5c57'
+green   = '#5af78e'
+yellow  = '#f3f99d'
+blue    = '#57c7ff'
+magenta = '#ff6ac1'
+cyan    = '#9aedfe'
+white   = '#f1f1f0'
