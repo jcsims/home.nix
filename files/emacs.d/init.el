@@ -392,6 +392,8 @@
 
 (use-package nix-mode)
 
+(use-package nix-update)
+
 (use-package no-littering)
 
 (use-package obsidian
