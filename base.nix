@@ -15,24 +15,6 @@ let
   };
 in
 rec {
-  nix = {
-    package = pkgs.nix;
-    # gc = {
-    #   automatic = true;
-    #   interval = { Weekday = 0; Hour = 0; Minute = 0; };
-    #   options = "--delete-older-than 30d";
-    # };
-    settings = {
-      experimental-features = [ "nix-command" "flakes" ];
-      max-jobs = "auto";
-      auto-optimise-store = true;
-
-      # This is recommended by nix-direnv, so that nix-shell derivations aren't garbage-collected
-      keep-derivations = true;
-      keep-outputs = true;
-    };
-  };
-
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
   home.username = specialArgs.username;
