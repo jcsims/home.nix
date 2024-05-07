@@ -10,8 +10,22 @@ in rec {
   home.packages =
     (lib.attrValues specialArgs.extraPackages)
     ++ (with pkgs; [
+      awscli2
+      bazelisk
       nodePackages.typescript-language-server
+      phpactor
     ]);
+
+  # Stonehenge assumes that bazelisk will be aliased to `bazel` (which the
+  # homebrew package does by default).
+  home.file."bin/bazel" = {
+    text = ''
+      #!/usr/bin/env bash
+
+      bazelisk $@
+    '';
+    executable = true;
+  };
 
   home.file."bin/set-meeting-light" = {
     executable = true;
