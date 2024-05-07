@@ -10,22 +10,7 @@ in rec {
   home.packages =
     (lib.attrValues specialArgs.extraPackages)
     ++ (with pkgs; [
-      etcd_3_5
-      google-cloud-sdk # `gcloud` CLI tool
-      grpcurl
-      k9s
-      kubeconform
-      kubectl
-      kubectx
-      kubelogin
-      kustomize
-      postgresql
-      python3Packages.python-lsp-server
-      nodejs
-      teleport
-      nodePackages.sql-formatter
       nodePackages.typescript-language-server
-      yq
     ]);
 
   home.file."bin/set-meeting-light" = {
@@ -41,15 +26,5 @@ in rec {
           fi
       fi
     '';
-  };
-
-  home.sessionPath = [
-    "$HOME/.local/bin" # pipx install path
-    "$HOME/.tiup/bin" # Install path for `tiup`
-    "$HOME/code/work/patch/bin" # `dev` tool
-  ];
-
-  home.sessionVariables = {
-    MY_TENANT_ID = "tnt_2OcMLxXPNuoEBKVDjoHnNzuHXnU";
   };
 }

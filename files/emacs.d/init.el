@@ -48,8 +48,8 @@
 
 (use-package server
   :ensure f
-  :commands (server-running-p)
-  :config (or (server-running-p) (server-mode)))
+  :config (or (bound-and-true-p server-process)
+              (server-mode)))
 
 ;; Font
 (if (eq system-type 'gnu/linux)
@@ -83,7 +83,7 @@
 (use-package smart-mode-line
   :custom (sml/theme 'automatic)
   :config
-  (add-to-list 'sml/replacer-regexp-list '("^~/code/work/patch" ":patch:") t)
+  (add-to-list 'sml/replacer-regexp-list '("^~/code/work" ":work:") t)
   (add-to-list 'sml/replacer-regexp-list '("^~/.config/home-manager/" ":home-manager:") t)
   (sml/setup))
 
@@ -93,11 +93,6 @@
                                       before-user-init-time))))
 
 ;;; Long tail
-
-(use-package age
-  :demand t
-  :config
-  (age-file-enable))
 
 (use-package atomic-chrome
   :if (display-graphic-p)
@@ -169,17 +164,14 @@
 
   (add-hook 'cider-mode-hook #'mu-cider-disable-completion))
 
-(use-package chatgpt-shell
-  :config (setq chatgpt-shell-openai-key
-                (lambda ()
-                  (auth-source-pick-first-password :host "api.openai.com"))))
-
 (use-package clojure-mode
   :after (paredit)
   :mode (("\\.edn\\'" . clojure-mode))
   :hook
   (clojure-mode . paredit-mode)
-  (clojure-mode . cider-mode))
+  (clojure-mode . cider-mode)
+  ;; TODO: Move this to dir-local var for stonehenge
+  :custom (clojure-indent-style 'always-indent))
 
 (use-package company
   :config
@@ -331,11 +323,6 @@
          :map emacs-lisp-mode-map
          ("C-c C-d" . helpful-at-point)))
 
-(use-package hippie-exp
-  :disabled
-  :ensure f
-  :bind (([remap dabbrev-expand] . hippie-expand)))
-
 (use-package hl-todo
   :config (global-hl-todo-mode))
 
@@ -354,9 +341,6 @@
   :bind (:map jinx-mode-map
               ("C-." . jinx-correct))
   :config (global-jinx-mode))
-
-(use-package kubel
-  :when (executable-find "kubectl"))
 
 (use-package lisp-mode
   :ensure f
@@ -413,7 +397,7 @@
 (use-package obsidian
   :demand t
   :config
-  (obsidian-specify-path "~/notes/patch")
+  (obsidian-specify-path "~/notes/splash")
   (global-obsidian-mode)
 
   (require 'dash)
@@ -774,6 +758,8 @@ canceled tasks."
 
 ;; TODO: Try out pixel-scroll-precision-mode
 
+(use-package php-mode)
+
 (use-package prog-mode
   :ensure f
   :config
@@ -869,16 +855,6 @@ canceled tasks."
   :ensure f
   :defer t
   :config (cl-pushnew 'tramp-own-remote-path tramp-remote-path))
-
-;; tree-sitter bindings
-;; TODO: In Emacs 29+, use the built-in version instead.
-(use-package tree-sitter
-  :disabled
-  :config
-  (add-hook 'tree-sitter-after-on-hook 'tree-sitter-hl-mode)
-  (global-tree-sitter-mode))
-
-(use-package tree-sitter-langs :disabled)
 
 (use-package treemacs
   :config (treemacs-resize-icons 16))

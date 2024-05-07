@@ -100,7 +100,7 @@
             homedir = "/Users/${username}";
           };
         };
-        "jcsims@patch" = home-manager.lib.homeManagerConfiguration {
+        "csims@splashfinancial.com" = home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
 
           # Specify your home configuration modules here, for example,
@@ -118,8 +118,8 @@
             extraPackages = {
               hue = hue.packages.${system}.default;
             };
-            username = "jcsims";
-            homedir = "/Users/${username}";
+            username = "csims@splashfinancial.com";
+            homedir = "/Users/csims";
           };
         };
         "jcsims@graphene" = home-manager.lib.homeManagerConfiguration rec {
