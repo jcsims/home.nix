@@ -19,13 +19,14 @@ rec {
       aspell
       aspellDicts.en
       babashka
+      bashInteractive
+      bash-completion
       cachix
       specialArgs.pkgs-unstable.clojure-lsp
       clojure
       complete-alias # Aliases want completion, too!
       exercism
       fd
-      fish
       gh # GitHub CLI tool
       git
       gnuplot # Used by maelstrom
@@ -207,7 +208,11 @@ rec {
 
   home.file.".tmux.conf".source = ./files/tmux.conf;
   home.file.".authinfo.gpg".source = ./files/authinfo.gpg;
+  home.file.".functions/c.bash".source = ./files/c.bash;
+  home.file.".functions/_c.bash".source = ./files/_c.bash;
 
+  # Set up bash
+  programs.bash = import ./bash.nix { inherit pkgs; };
   home.file.".Brewfile".source =
     if
       (specialArgs.username == "csims@splashfinancial.com")
@@ -216,9 +221,6 @@ rec {
     else
       ./files/Brewfile;
 
-  # Set up fish
-  programs.fish = import ./fish.nix { inherit pkgs; };
-
   programs.bat = {
     enable = true;
     config.theme = "Monokai Extended";
@@ -226,6 +228,43 @@ rec {
 
   programs.nix-index = {
     enable = true;
+    enableBashIntegration = true;
+  };
+
+  programs.skim = {
+    enable = false;
+    enableBashIntegration = true;
+    # This fixes the broken screen clearing that was added here: https://github.com/lotabout/skim/pull/472
+    defaultOptions = [ "--no-clear-start" ];
+  };
+
+  programs.atuin = {
+    enable = true;
+    enableBashIntegration = true;
+    package = specialArgs.pkgs-unstable.atuin;
+    flags = [ "--disable-up-arrow" ];
+    #settings = {  auto_sync = true;  sync_frequency = "5m";  sync_address = "https://api.atuin.sh";  search_mode = "prefix";};
+  };
+
+  programs.starship = {
+    enable = true;
+    enableBashIntegration = true;
+    settings = {
+      add_newline = false;
+      git_status.disabled = true;
+      java.disabled = true;
+      nodejs.disabled = true;
+      python.disabled = true;
+      gcloud.disabled = true;
+      kubernetes = {
+        context_aliases = {
+          k8s-ue-1 = "prod";
+          k8s-dev-1 = "dev";
+        };
+        detect_folders = [ "k8s" ];
+        disabled = false;
+      };
+    };
   };
 
   home.file.".config/alacritty/alacritty.toml".source = ./files/alacritty.toml;
@@ -237,6 +276,7 @@ rec {
 
   programs.direnv = {
     enable = true;
+    enableBashIntegration = true;
     nix-direnv.enable = true;
   };
 
