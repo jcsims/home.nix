@@ -6,7 +6,6 @@
 }: {
   home.packages = with pkgs; [
     mkalias
-    terminal-notifier
   ];
 
   # Sync any applications installed managed via home-manager, so that Alfred

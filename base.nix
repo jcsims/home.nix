@@ -194,6 +194,7 @@ rec {
     CLICOLOR = 1;
     EDITOR = "$HOME/bin/e";
     VISUAL = "$HOME/bin/ec";
+    HOMEBREW_BUNDLE_FILE = "$HOME/.Brewfile";
   };
 
   # Manage a bunch of files
@@ -238,6 +239,13 @@ rec {
 
   # Set up bash
   programs.bash = import ./bash.nix { inherit pkgs; };
+  home.file.".Brewfile".source =
+    if
+      (specialArgs.username == "csims@splashfinancial.com")
+    then
+      ./files/Brewfile-work
+    else
+      ./files/Brewfile;
 
   programs.bat = {
     enable = true;

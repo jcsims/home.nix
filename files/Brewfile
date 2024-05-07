@@ -1,0 +1,33 @@
+# -*- mode: ruby-ts;-*-
+# An example of OS-specific packages:
+# install only on specified OS
+#brew "gnupg" if OS.mac?
+#brew "glibc" if OS.linux?
+tap "homebrew/bundle"
+tap "homebrew/cask-fonts"
+
+brew "terminal-notifier" if OS.mac?
+
+cask "1password" if OS.mac?
+cask "alfred" if OS.mac?
+cask "arq" if OS.mac?
+cask "balenaetcher" if OS.mac?
+cask "calibre" if OS.mac?
+cask "daisydisk" if OS.mac?
+cask "dash" if OS.mac?
+cask "discord" if OS.mac?
+cask "istat-menus" if OS.mac?
+cask "launchcontrol" if OS.mac?
+cask "monitorcontrol" if OS.mac?
+cask "obsidian" if OS.mac?
+cask "plexamp" if OS.mac?
+cask "rectangle" if OS.mac?
+cask "slack" if OS.mac?
+cask "spotify" if OS.mac?
+cask "syncthing" if OS.mac?
+cask "transmit" if OS.mac?
+
+mas "Deliveries", id: 290986013
+mas "Ivory", id: 6444602274
+mas "Tailscale", id: 1475387142
+mas "Things", id: 904280696
