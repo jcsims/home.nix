@@ -100,26 +100,6 @@
         "type": "github"
       }
     },
-    "nixcasks": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1710020341,
-        "narHash": "sha256-Kn0UVnwiAkaqRx1MayoBbUmTuQH3/Zt5A9bJqjFDOX8=",
-        "owner": "jacekszymanski",
-        "repo": "nixcasks",
-        "rev": "af0ad40b6b0519333c1745ad2798e9f1df921cb8",
-        "type": "github"
-      },
-      "original": {
-        "owner": "jacekszymanski",
-        "repo": "nixcasks",
-        "type": "github"
-      }
-    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1709703039,
@@ -189,7 +169,6 @@
         "home-manager": "home-manager",
         "hue": "hue",
         "mkalias": "mkalias",
-        "nixcasks": "nixcasks",
         "nixpkgs": "nixpkgs_2",
         "nixpkgs-unstable": "nixpkgs-unstable"
       }

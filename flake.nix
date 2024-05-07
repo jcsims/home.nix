@@ -1,5 +1,5 @@
 {
-  description = "Home Manager configuration of Chris Sims";
+  description = "Home Manager configuration of jcsims";
 
   inputs = {
     # Specify the source of Home Manager and Nixpkgs.
@@ -9,10 +9,6 @@
       url = "github:nix-community/home-manager/release-23.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    # Homebrew casks, nixified
-    # documentation: https://github.com/jacekszymanski/nixcasks/
-    nixcasks.url = "github:jacekszymanski/nixcasks";
-    nixcasks.inputs.nixpkgs.follows = "nixpkgs";
     hue = {
       url = "github:SierraSoftworks/hue?rev=4f597d972ab553208074ba19b9aaaa442fa8e43c";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -26,7 +22,6 @@
     { nixpkgs
     , nixpkgs-unstable
     , home-manager
-    , nixcasks
     , hue
     , emacs-overlay
     , ...
