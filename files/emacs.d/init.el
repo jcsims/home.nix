@@ -233,6 +233,7 @@
   ((clojure-mode
     go-ts-mode
     nix-mode
+    php-mode
     python-mode
     rust-ts-mode
     sh-mode)
