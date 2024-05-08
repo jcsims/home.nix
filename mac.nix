@@ -7,7 +7,6 @@
 }: {
   home.packages = with pkgs; [
     mkalias
-    terminal-notifier
   ];
 
   home.sessionVariables = {
