@@ -39,6 +39,7 @@ rec {
       leiningen
       neil
       (nerdfonts.override { fonts = [ "Hack" ]; })
+      nil
       nixpkgs-fmt
       nix-diff
       nix-tree
@@ -46,7 +47,6 @@ rec {
       pass
       pkg-config # jinx module build
       ripgrep
-      rnix-lsp
       rustup
       shellcheck
       texinfo # Used by borg to build docs
@@ -58,13 +58,13 @@ rec {
       xz
     ]);
 
-  programs.gpg.package = pkgs.gnupg.overrideAttrs (orig: {
-    version = "2.4.0";
-    src = pkgs.fetchurl {
-      url = "mirror://gnupg/gnupg/gnupg-2.4.0.tar.bz2";
-      hash = "sha256-HXkVjdAdmSQx3S4/rLif2slxJ/iXhOosthDGAPsMFIM=";
-    };
-  });
+  # programs.gpg.package = pkgs.gnupg.overrideAttrs (orig: {
+  #   version = "2.4.0";
+  #   src = pkgs.fetchurl {
+  #     url = "mirror://gnupg/gnupg/gnupg-2.4.0.tar.bz2";
+  #     hash = "sha256-HXkVjdAdmSQx3S4/rLif2slxJ/iXhOosthDGAPsMFIM=";
+  #   };
+  # });
 
 
   programs.git = {
@@ -222,7 +222,8 @@ rec {
 
   programs.eza = {
     enable = true;
-    enableAliases = true;
+    # Enabled by default in home-manager 24.05
+    #enableAliases = true;
     git = true;
     icons = true;
   };
