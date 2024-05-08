@@ -151,21 +151,12 @@ rec {
       "$HOME/bin"
       "$HOME/.cargo/bin"
       "$(${pkgs.go}/bin/go env GOPATH)/bin"
-    ]
-    ++ (
-      if pkgs.stdenv.isDarwin
-      then [
-        "/opt/homebrew/bin"
-        "/opt/homebrew/sbin"
-      ]
-      else [ ]
-    );
+    ] ;
 
   home.sessionVariables = {
     CLICOLOR = 1;
     EDITOR = "$HOME/bin/e";
     VISUAL = "$HOME/bin/ec";
-    HOMEBREW_BUNDLE_FILE = "$HOME/.Brewfile";
   };
 
   # Manage a bunch of files
@@ -204,15 +195,6 @@ rec {
   '';
 
   home.file.".tmux.conf".source = ./files/tmux.conf;
-  home.file.".authinfo.gpg".source = ./files/authinfo.gpg;
-
-  home.file.".Brewfile".source =
-    if
-      (specialArgs.username == "csims@splashfinancial.com")
-    then
-      ./files/Brewfile-work
-    else
-      ./files/Brewfile;
 
   # Set up fish
   programs.fish = import ./fish.nix { inherit pkgs; };

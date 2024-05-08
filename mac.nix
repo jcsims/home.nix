@@ -2,6 +2,7 @@
 , pkgs
 , lib
 , system
+, specialArgs
 , ...
 }: {
   home.packages = with pkgs; [
@@ -9,7 +10,23 @@
     terminal-notifier
   ];
 
-  home.file.".Brewfile".source = ./files/Brewfile;
+  home.sessionVariables = {
+    HOMEBREW_BUNDLE_FILE = "$HOME/.Brewfile";
+  };
+
+  home.sessionPath = [
+    "/opt/homebrew/bin"
+    "/opt/homebrew/sbin"
+  ];
+
+  home.file.".Brewfile".source =
+    if
+      (specialArgs.username == "csims@splashfinancial.com")
+    then
+      ./files/Brewfile-work
+    else
+      ./files/Brewfile;
+
 
   # Sync any applications installed managed via home-manager, so that Alfred
   # picks them up properly.
