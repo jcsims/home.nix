@@ -804,7 +804,7 @@ canceled tasks."
 
 (use-package savehist
   :ensure f
-  :config (savehist-mode))
+  :init (savehist-mode))
 
 (use-package saveplace
   :ensure f
@@ -945,6 +945,8 @@ Passes ARG onto `zap-to-char` or `backward-kill-word` if used."
         scroll-error-top-bottom t       ; Scroll similar to vim
         user-full-name "Chris Sims"
         user-mail-address "chris@jcsi.ms"
+        calendar-latitude 45.7
+        calendar-longitude -122.7
         use-short-answers t
         ;; Prevent eldoc from using so much of the minibuffer
         max-mini-window-height 0.2)
@@ -972,6 +974,7 @@ Passes ARG onto `zap-to-char` or `backward-kill-word` if used."
   (global-set-key (kbd "C-c e f") (lambda () (interactive) (find-nix-file "flake.nix")))
   (global-set-key (kbd "C-c e b") (lambda () (interactive) (find-nix-file "base.nix")))
   (global-set-key (kbd "C-c e l") (lambda () (interactive) (find-nix-file "linux-gui.nix")))
+  (global-set-key (kbd "C-c e p") (lambda () (interactive) (find-nix-file "files/Brewfile")))
   (global-set-key (kbd "C-c e c") (lambda () (interactive) (find-file "/etc/nixos/configuration.nix")))
 
   ;; Taken from the Emacs Wiki: http://www.emacswiki.org/emacs/InsertDate

@@ -5,17 +5,19 @@ tap "homebrew/bundle"
 brew "mas" if OS.mac?
 brew "terminal-notifier" if OS.mac?
 
-cask "1password" if OS.mac?
-cask "alfred" if OS.mac?
-cask "daisydisk" if OS.mac?
-cask "dash" if OS.mac?
-cask "istat-menus" if OS.mac?
-cask "jetbrains-toolbox" if OS.mac?
-cask "monitorcontrol" if OS.mac?
-cask "plexamp" if OS.mac?
-cask "rectangle" if OS.mac?
-cask "slack" if OS.mac?
-cask "spotify" if OS.mac?
-cask "syncthing" if OS.mac?
+cask "1password"
+cask "alfred"
+cask "chromium"
+cask "cljstyle"
+cask "daisydisk"
+cask "dash"
+cask "istat-menus"
+cask "jetbrains-toolbox"
+cask "monitorcontrol"
+cask "plexamp"
+cask "rectangle"
+cask "slack"
+cask "spotify"
+cask "syncthing"
 
 mas "Things", id: 904280696

@@ -1,12 +1,9 @@
-{ config
-, pkgs
+{ pkgs
 , lib
-, system
 , specialArgs
-, alacritty-themes
 , ...
 }:
-rec {
+{
   home.username = specialArgs.username;
   home.homeDirectory = specialArgs.homedir;
   home.packages =
