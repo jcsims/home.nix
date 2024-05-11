@@ -34,6 +34,7 @@
       jq
       languagetool
       leiningen
+      lua-language-server
       neil
       (nerdfonts.override { fonts = [ "Hack" ]; })
       nil
@@ -175,6 +176,15 @@
     executable = true;
   };
 
+  home.file."bin/bookmarks" = {
+    text = ''
+      #!/usr/bin/env bash
+
+      ${pkgs.emacs29}/bin/emacsclient -ne "(present-open-bookmark-frame)"
+'';
+    executable = true;
+  };
+
   home.file.".aspell.conf".text = ''
     data-dir ${specialArgs.homedir}/.nix-profile/lib/aspell
   '';
@@ -192,6 +202,11 @@
   '';
 
   home.file.".tmux.conf".source = ./files/tmux.conf;
+
+  home.file.".hammerspoon" = {
+    source = ./files/hammerspoon;
+    recursive = true;
+  };
 
   # Set up fish
   programs.fish = import ./fish.nix { inherit pkgs; };

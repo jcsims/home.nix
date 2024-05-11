@@ -113,14 +113,16 @@
   ;; Auto-refresh buffers
   (global-auto-revert-mode))
 
+(use-package bazel)
+
 ;; Borrowed from
 ;; https://skybert.net/emacs/get-clickable-jira-links-in-your-org-files/
 ;; This highlights the Linear ticket comments we use in the code.
 (use-package bug-reference
   :ensure f
   :config
-  (setq bug-reference-bug-regexp "\\(\\(PAT-[0-9]+\\)\\)"
-        bug-reference-url-format "https://linear.app/patch-tech/issue/%s")
+  (setq bug-reference-bug-regexp "\\(\\(RATE-[0-9]+\\)\\)"
+        bug-reference-url-format "https://splashfinancial.atlassian.net/browse/%s")
   :hook (prog-mode . bug-reference-prog-mode))
 
 (use-package cider
@@ -211,6 +213,8 @@
   :config
   (setq display-line-numbers-width-start t)
   (global-display-line-numbers-mode))
+
+(use-package dockerfile-mode)
 
 (use-package eat
   ;; Borrowed from https://github.com/purcell/emacs.d/blob/master/lisp/init-terminals.el
@@ -352,6 +356,8 @@
     (setq indent-tabs-mode nil))
   (add-hook 'lisp-interaction-mode-hook 'indent-spaces-mode))
 
+(use-package lua-mode)
+
 (use-package magit
   :bind (("C-c g"   . magit-status))
   :custom
@@ -422,9 +428,9 @@
 
 (use-package orderless
   :init
-  (setq completion-styles '(orderless)
+  (setq completion-styles '(orderless basic)
         completion-category-defaults nil
-        completion-category-overrides '((file (styles . (partial-completion))))))
+        completion-category-overrides '((file (styles partial-completion)))))
 
 (defvar org-dir (file-truename "~/org"))
 (defvar jcs/org-roam-dir (file-truename "~/org-roam"))
@@ -838,6 +844,8 @@ canceled tasks."
               ("h n" . symbol-overlay-switch-forward)
               ("h p" . symbol-overlay-switch-backward)))
 
+(use-package terraform-mode)
+
 (progn ;    `text-mode'
   (add-hook 'text-mode-hook 'indicate-buffer-boundaries-left))
 
@@ -1132,6 +1140,80 @@ format. With PREFIX, copy to kill ring."
       (unload-feature pkg)
       (package-reinstall pkg)
       (require pkg)))
+
+  (progn ;; Borrowed from https://xenodium.com/building-your-own-bookmark-launcher/
+    (require 'org-roam-id)
+    (require 'org-element)
+    (require 'seq)
+
+    (defun browser-bookmarks (org-file)
+      "Return all links from ORG-FILE."
+      (with-temp-buffer
+        (let (links)
+          (insert-file-contents org-file)
+          (org-mode)
+          (org-element-map (org-element-parse-buffer) 'link
+            (lambda (link)
+              (let* ((raw-link (org-element-property :raw-link link))
+                     (content (org-element-contents link))
+                     (title (substring-no-properties (or (seq-first content) raw-link))))
+                (push (concat title
+                              " | "
+                              (propertize raw-link 'face 'whitespace-space))
+                      links)))
+            nil nil 'link)
+          (seq-sort 'string-greaterp links))))
+
+    (benchmark-run 1
+      (browser-bookmarks
+       (car (org-roam-id-find "DECD703F-028C-4414-ADAD-0910F8283CD8"))))
+
+    (defun open-bookmark ()
+      (interactive)
+      (browse-url (seq-elt
+                   (split-string
+                    (completing-read "Open: "
+                                     (browser-bookmarks
+                                      (car (org-roam-id-find "DECD703F-028C-4414-ADAD-0910F8283CD8"))))
+                    " | ")
+                   1)))
+
+    (defmacro present (&rest body)
+      "Create a buffer with BUFFER-NAME and eval BODY in a basic frame."
+      (declare (indent 1) (debug t))
+      `(let* ((buffer (get-buffer-create (generate-new-buffer-name "*present*")))
+              (frame (make-frame '((auto-raise . t)
+                                   (font . "Hack Nerd Font 15")
+                                   (top . 200)
+                                   (height . 20)
+                                   (width . 110)
+                                   (internal-border-width . 20)
+                                   (left . 0.33)
+                                   (left-fringe . 0)
+                                   (line-spacing . 3)
+                                   (menu-bar-lines . 0)
+                                   (minibuffer . only)
+                                   (right-fringe . 0)
+                                   (tool-bar-lines . 0)
+                                   (undecorated . t)
+                                   (unsplittable . t)
+                                   (vertical-scroll-bars . nil)))))
+         ;; (set-face-attribute 'ivy-current-match frame
+         ;;                     :background "#2a2a2a"
+         ;;                     :foreground 'unspecified)
+         (select-frame frame)
+         (select-frame-set-input-focus frame)
+         (with-current-buffer buffer
+           (condition-case nil
+               (unwind-protect
+                   ,@body
+                 (delete-frame frame)
+                 (kill-buffer buffer))
+             (quit (delete-frame frame)
+                   (kill-buffer buffer))))))
+
+    (defun present-open-bookmark-frame ()
+      (present (open-bookmark))))
 
 
   (let ((file (expand-file-name (concat (user-real-login-name) ".el")

@@ -14,6 +14,7 @@ in rec {
       bazelisk
       nodePackages.typescript-language-server
       phpactor
+      terraform
     ]);
 
   # Stonehenge assumes that bazelisk will be aliased to `bazel` (which the
