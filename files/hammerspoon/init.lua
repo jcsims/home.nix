@@ -25,4 +25,9 @@ hs.hotkey.bind({ "cmd", "alt", "ctrl" }, "L", function()
       hs.execute(os.getenv("HOME") .. "/bin/bookmarks")
 end)
 
+-- Start the screensaver, Hammerspoon edition
+hs.hotkey.bind({ "cmd", "alt" }, "L", function()
+      hs.caffeinate.startScreensaver()
+end)
+
 hs.alert.show("Config loaded")
