@@ -1178,6 +1178,7 @@ format. With PREFIX, copy to kill ring."
                     " | ")
                    1)))
 
+    ;; TODO: Bind escape to close the minibuffer
     (defmacro present (&rest body)
       "Create a buffer with BUFFER-NAME and eval BODY in a basic frame."
       (declare (indent 1) (debug t))
@@ -1185,7 +1186,7 @@ format. With PREFIX, copy to kill ring."
               (frame (make-frame '((auto-raise . t)
                                    (font . "Hack Nerd Font 15")
                                    (top . 200)
-                                   (height . 20)
+                                   (height . 13)
                                    (width . 110)
                                    (internal-border-width . 20)
                                    (left . 0.33)
