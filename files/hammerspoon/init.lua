@@ -21,7 +21,7 @@ local myWatcher = hs.pathwatcher.new(config_path, reloadConfig):start()
 
 -- Launch a bookmarks browser powered by Emacs!
 -- I'm doing this here instead of Alfred because it's dramatically faster!
-hs.hotkey.bind({ "cmd", "alt", "ctrl" }, "L", function()
+hs.hotkey.bind({ "cmd", "alt" }, "P", function()
       hs.execute(os.getenv("HOME") .. "/bin/bookmarks")
 end)
 
