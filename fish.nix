@@ -31,6 +31,9 @@
     # Set this here, since I don't want to wrestle with setting this to an array
     # in home-manager.
     set -gx PROJECT_PATHS $HOME/code $HOME/code/work
+
+    # For done notifications, don't notify when it's running emacs from the shell
+    set -U --append __done_exclude '^emacsclient'
     '';
   plugins = [
     {
