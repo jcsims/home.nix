@@ -13,6 +13,7 @@ in {
       bazelisk
       nodePackages.typescript-language-server
       phpactor
+      python310
       terraform
     ]);
 
