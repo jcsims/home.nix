@@ -4,6 +4,10 @@
 ;; Seed the PRNG anew, from the system's entropy pool
 (random t)
 
+(defmacro comment (&rest _body)
+  "Comment out one or more s-expressions. Borrowed from Clojure."
+  nil)
+
 (progn ;;     startup
   (defvar before-user-init-time (current-time)
     "Value of `current-time' when Emacs begins loading `user-init-file'.")
@@ -1164,9 +1168,10 @@ format. With PREFIX, copy to kill ring."
             nil nil 'link)
           (seq-sort 'string-greaterp links))))
 
-    (benchmark-run 1
-      (browser-bookmarks
-       (car (org-roam-id-find "DECD703F-028C-4414-ADAD-0910F8283CD8"))))
+    (comment
+     (benchmark-run 1
+       (browser-bookmarks
+        (car (org-roam-id-find "DECD703F-028C-4414-ADAD-0910F8283CD8")))))
 
     (defun open-bookmark ()
       (interactive)
