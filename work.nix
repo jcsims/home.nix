@@ -1,12 +1,11 @@
 {
   pkgs,
   lib,
-  system,
   specialArgs,
   ...
 }: let
   hue = specialArgs.extraPackages.hue;
-in rec {
+in {
   home.packages =
     (lib.attrValues specialArgs.extraPackages)
     ++ (with pkgs; [
@@ -23,7 +22,7 @@ in rec {
     text = ''
       #!/usr/bin/env bash
 
-      bazelisk $@
+      ${pkgs.bazelisk}/bin/bazelisk "$@"
     '';
     executable = true;
   };
