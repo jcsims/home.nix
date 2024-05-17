@@ -985,6 +985,7 @@ Passes ARG onto `zap-to-char` or `backward-kill-word` if used."
   (global-set-key (kbd "C-c e e") (lambda () (interactive) (find-nix-file "files/emacs.d/init.el")))
   (global-set-key (kbd "C-c e f") (lambda () (interactive) (find-nix-file "flake.nix")))
   (global-set-key (kbd "C-c e b") (lambda () (interactive) (find-nix-file "base.nix")))
+  (global-set-key (kbd "C-c e w") (lambda () (interactive) (find-nix-file "work.nix")))
   (global-set-key (kbd "C-c e l") (lambda () (interactive) (find-nix-file "linux-gui.nix")))
   (global-set-key (kbd "C-c e p") (lambda () (interactive) (find-nix-file "files/Brewfile")))
   (global-set-key (kbd "C-c e c") (lambda () (interactive) (find-file "/etc/nixos/configuration.nix")))
