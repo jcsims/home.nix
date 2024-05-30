@@ -169,6 +169,10 @@
 
   (add-hook 'cider-mode-hook #'mu-cider-disable-completion))
 
+(use-package cljstyle-format
+  :after (clojure-mode)
+  :hook (clojure-mode . cljstyle-format-on-save-mode))
+
 (use-package clojure-mode
   :after (paredit)
   :mode (("\\.edn\\'" . clojure-mode))
