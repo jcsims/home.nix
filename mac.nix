@@ -1,7 +1,5 @@
-{ config
-, pkgs
+{  pkgs
 , lib
-, system
 , specialArgs
 , ...
 }: {
@@ -20,7 +18,7 @@
 
   home.file.".Brewfile".source =
     if
-      (specialArgs.username == "csims@splashfinancial.com")
+      (specialArgs.work == true)
     then
       ./files/Brewfile-work
     else

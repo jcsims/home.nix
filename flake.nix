@@ -82,7 +82,7 @@
             homedir = "/Users/${username}";
           };
         };
-        "csims@splashfinancial.com" = home-manager.lib.homeManagerConfiguration {
+        "csims" = home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
 
           modules = [
@@ -95,10 +95,11 @@
           extraSpecialArgs = rec {
             inherit pkgs-unstable;
             # Use this to pull in packages as flakes.
+            work = true;
             extraPackages = {
               hue = hue.packages.${system}.default;
             };
-            username = "csims@splashfinancial.com";
+            username = "csims";
             homedir = "/Users/csims";
           };
         };

@@ -30,7 +30,7 @@
       specialArgs.pkgs-unstable.gopls
       gotools # godoc, for example
       htop
-      jdk
+      jdk17
       jq
       languagetool
       leiningen
