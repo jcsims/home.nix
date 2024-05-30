@@ -22,7 +22,9 @@ local myWatcher = hs.pathwatcher.new(config_path, reloadConfig):start()
 -- Launch a bookmarks browser powered by Emacs!
 -- I'm doing this here instead of Alfred because it's dramatically faster!
 hs.hotkey.bind({ "cmd", "alt" }, "P", function()
-      hs.execute(os.getenv("HOME") .. "/bin/bookmarks")
+      log.i("Executing bookmarks launcher...")
+      local output, status, tipe, rc = hs.execute(os.getenv("HOME") .. "/bin/bookmarks")
+      log.f("Got out string: %q with status: %q and type: %q and result code: %q", output, status, tipe, rc)
 end)
 
 -- Start the screensaver, Hammerspoon edition
