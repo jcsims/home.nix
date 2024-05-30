@@ -46,5 +46,14 @@
           fi
       done;
     '';
+    # Make jdk17 available system-wide for CLI and GUI apps. This is the same
+    # approach that Homebrew recommends.
+    linkjdk = lib.hm.dag.entryAfter [ "writeBoundary" "linkGeneration" "installPackages" ] ''
+      jdk_path="${pkgs.jdk17}/zulu-17.jdk"
+      if [[ "$(realpath /Library/Java/JavaVirtualMachines/zulu-17.jdk)" != "$jdk_path" ]]; then
+        echo "Symlinking the installed JDK so it's available system-wide..."
+        sudo ln -sf "$jdk_path" "/Library/Java/JavaVirtualMachines/"
+      fi
+    '';
   };
 }
