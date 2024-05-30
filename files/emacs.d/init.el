@@ -279,6 +279,9 @@
         auto-save-file-name-transforms
         `((".*" ,(no-littering-expand-var-file-name "auto-save/") t))))
 
+(use-package fish-mode
+  :hook (fish-mode . fish_indent-before-save))
+
 (use-package flycheck
   :config (global-flycheck-mode)
   :bind (:map flycheck-mode-map
