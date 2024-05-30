@@ -770,7 +770,34 @@ canceled tasks."
 
 ;; TODO: Try out pixel-scroll-precision-mode
 
-(use-package php-mode)
+(use-package php-mode
+  :after (eglot)
+  :hook (php-mode . eglot-ensure)
+  :config
+  (setq website-dir (expand-file-name "~/code/work/Website"))
+
+  (defun website-test-class ()
+    (interactive)
+    (let ((class-path (file-relative-name (buffer-file-name) website-dir)))
+      (compile (concat "docker exec -t app php artisan test " class-path))))
+
+  (defun website-test-method ()
+    (interactive)
+    (let ((class-path (file-relative-name (buffer-file-name) website-dir))
+          (filter (thing-at-point 'symbol)))
+      (compile (concat "docker exec -t app php artisan test " class-path " --filter " filter))))
+
+  (defun website-test-case (case)
+    (interactive
+     (list
+      (let* ((prompt "Run case: ")
+             (input (read-from-minibuffer prompt nil nil nil nil)))
+        input)))
+    (let ((class-path (file-relative-name (buffer-file-name) website-dir))
+          (filter (thing-at-point 'symbol))
+          (escaped-case
+           (replace-regexp-in-string (regexp-quote "$") "\\$" case nil
+                                     'literal))))))
 
 (use-package prog-mode
   :ensure f
