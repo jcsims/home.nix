@@ -78,6 +78,7 @@
             extraPackages = {
               hue = hue.packages.${system}.default;
             };
+            work = false;
             username = "jcsims";
             homedir = "/Users/${username}";
           };
@@ -95,10 +96,10 @@
           extraSpecialArgs = rec {
             inherit pkgs-unstable;
             # Use this to pull in packages as flakes.
-            work = true;
             extraPackages = {
               hue = hue.packages.${system}.default;
             };
+            work = true;
             username = "csims";
             homedir = "/Users/${username}";
           };
@@ -113,6 +114,7 @@
           extraSpecialArgs = rec {
             pkgs-unstable = x86-pkgs-unstable;
             extraPackages = { };
+            work = false;
             username = "jcsims";
             homedir = "/home/${username}";
           };
