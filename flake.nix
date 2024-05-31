@@ -100,10 +100,10 @@
               hue = hue.packages.${system}.default;
             };
             username = "csims";
-            homedir = "/Users/csims";
+            homedir = "/Users/${username}";
           };
         };
-        "jcsims@graphene" = home-manager.lib.homeManagerConfiguration rec {
+        "jcsims@graphene" = home-manager.lib.homeManagerConfiguration {
           pkgs = x86-pkgs;
           modules = [
             ./base.nix

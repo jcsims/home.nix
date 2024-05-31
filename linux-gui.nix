@@ -1,12 +1,11 @@
 { pkgs
 , lib
-, system
 , specialArgs
 , ...
-}: rec {
+}: {
   home.packages =
     (lib.attrValues specialArgs.extraPackages)
-    ++ (with pkgs; [
+    ++ ([
       specialArgs.pkgs-unstable.jetbrains.idea-ultimate
       specialArgs.pkgs-unstable.graphite-cli
     ]);
