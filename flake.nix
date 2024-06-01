@@ -118,7 +118,24 @@
             username = "jcsims";
             homedir = "/home/${username}";
           };
+      "jcsims@taichi" = home-manager.lib.homeManagerConfiguration {
+        pkgs = x86-pkgs;
+        modules = [
+          ./base.nix
+          ./home.nix
+          ./emacs.nix
+          ./linux-gui.nix
+          ./hyprland.nix
+        ];
+
+        extraSpecialArgs = rec {
+          pkgs-unstable = x86-pkgs-unstable;
+          extraPackages = {};
+          work = false;
+          username = "jcsims";
+          homedir = "/home/${username}";
         };
       };
     };
+  };
 }
