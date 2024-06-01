@@ -1,7 +1,8 @@
-{  pkgs
-, lib
-, specialArgs
-, ...
+{
+  pkgs,
+  lib,
+  specialArgs,
+  ...
 }: {
   home.packages = with pkgs; [
     mkalias
@@ -17,18 +18,14 @@
   ];
 
   home.file.".Brewfile".source =
-    if
-      (specialArgs.work == true)
-    then
-      ./files/Brewfile-work
-    else
-      ./files/Brewfile;
-
+    if (specialArgs.work == true)
+    then ./files/Brewfile-work
+    else ./files/Brewfile;
 
   # Sync any applications installed managed via home-manager, so that Alfred
   # picks them up properly.
   home.activation = {
-    aliasApplications = lib.hm.dag.entryAfter [ "writeBoundary" "linkGeneration" "installPackages" ] ''
+    aliasApplications = lib.hm.dag.entryAfter ["writeBoundary" "linkGeneration" "installPackages"] ''
       mkdir -p ~/nix-apps
       for app in ~/.nix-profile/Applications/*
       do
@@ -48,7 +45,7 @@
     '';
     # Make jdk17 available system-wide for CLI and GUI apps. This is the same
     # approach that Homebrew recommends.
-    linkjdk = lib.hm.dag.entryAfter [ "writeBoundary" "linkGeneration" "installPackages" ] ''
+    linkjdk = lib.hm.dag.entryAfter ["writeBoundary" "linkGeneration" "installPackages"] ''
       jdk_path="${pkgs.jdk17}/zulu-17.jdk"
       if [[ "$(realpath /Library/Java/JavaVirtualMachines/zulu-17.jdk)" != "$jdk_path" ]]; then
         echo "Symlinking the installed JDK so it's available system-wide..."

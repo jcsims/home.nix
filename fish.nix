@@ -7,10 +7,10 @@
     "gd" = "git diff";
     "gdc" = "git diff --cached";
     "gl" = "git log --graph --abbrev-commit --date=relative --pretty=format:'%C(bold blue)%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'";
-    "gp" =  "git push origin HEAD";
-    "gpl" =  "git pull --rebase --prune";
-    "gs" =  "git status -sb";
-    "cat" =  "bat";
+    "gp" = "git push origin HEAD";
+    "gpl" = "git pull --rebase --prune";
+    "gs" = "git status -sb";
+    "cat" = "bat";
     "c" = "pj";
     "co" = "pj open";
   };
@@ -23,7 +23,7 @@
     set -g hydro_color_pwd blue
     set -g hydro_color_duration yellow
 
-    '';
+  '';
   shellInit = ''
     # Increase the count of open files allowed (default is 256 on macOS)
     ulimit -Sn 4096
@@ -34,7 +34,7 @@
 
     # For done notifications, don't notify when it's running emacs from the shell
     set -U --append __done_exclude '^emacsclient'
-    '';
+  '';
   plugins = [
     {
       name = "done";

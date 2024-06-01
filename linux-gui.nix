@@ -1,14 +1,15 @@
-{ pkgs
-, lib
-, specialArgs
-, ...
+{
+  pkgs,
+  lib,
+  specialArgs,
+  ...
 }: {
   home.packages =
     (lib.attrValues specialArgs.extraPackages)
-    ++ ([
+    ++ [
       specialArgs.pkgs-unstable.jetbrains.idea-ultimate
       specialArgs.pkgs-unstable.graphite-cli
-    ]);
+    ];
 
   services.syncthing = {
     enable = true;
@@ -37,7 +38,7 @@
   systemd.user.targets.tray = {
     Unit = {
       Description = "Home Manager System Tray";
-      Requires = [ "graphical-session-pre.target" ];
+      Requires = ["graphical-session-pre.target"];
     };
   };
 }

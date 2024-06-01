@@ -1,6 +1,4 @@
-{ pkgs
-, ...
-}: {
+{pkgs, ...}: {
   home.packages = with pkgs; [
     (pkgs.emacsWithPackagesFromUsePackage {
       # Your Emacs config file. Org mode babel files are also

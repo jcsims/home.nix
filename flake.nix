@@ -18,106 +18,108 @@
     mkalias.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs =
-    { nixpkgs
-    , nixpkgs-unstable
-    , home-manager
-    , hue
-    , emacs-overlay
-    , ...
-    } @ inputs:
-    let
+  outputs = {
+    nixpkgs,
+    nixpkgs-unstable,
+    home-manager,
+    hue,
+    emacs-overlay,
+    ...
+  } @ inputs: let
+    overlays = [(import emacs-overlay)];
 
-      overlays = [ (import emacs-overlay) ];
-
+    system = "aarch64-darwin";
+    pkgs = import nixpkgs {
+      overlays =
+        overlays
+        ++ [
+          (_: _: {
+            mkalias = inputs.mkalias.packages.${system}.mkalias;
+          })
+        ];
       system = "aarch64-darwin";
-      pkgs = import nixpkgs {
-        overlays = overlays ++ [
+      config.allowUnfree = true;
+    };
+    pkgs-unstable = import nixpkgs-unstable {
+      overlays =
+        overlays
+        ++ [
           (_: _: {
             mkalias = inputs.mkalias.packages.${system}.mkalias;
           })
         ];
-        system = "aarch64-darwin";
-        config.allowUnfree = true;
-      };
-      pkgs-unstable = import nixpkgs-unstable {
-        overlays = overlays ++ [
-          (_: _: {
-            mkalias = inputs.mkalias.packages.${system}.mkalias;
-          })
+      system = "aarch64-darwin";
+      config.allowUnfree = true;
+    };
+    x86-pkgs = import nixpkgs {
+      inherit overlays;
+      system = "x86_64-linux";
+      config.allowUnfree = true;
+    };
+    x86-pkgs-unstable = import nixpkgs-unstable {
+      inherit overlays;
+      system = "x86_64-linux";
+      config.allowUnfree = true;
+    };
+  in {
+    homeConfigurations = {
+      "jcsims@groot" = home-manager.lib.homeManagerConfiguration {
+        inherit pkgs;
+
+        modules = [
+          ./base.nix
+          ./home.nix
+          ./emacs.nix
+          ./mac.nix
         ];
-        system = "aarch64-darwin";
-        config.allowUnfree = true;
-      };
-      x86-pkgs = import nixpkgs {
-        inherit overlays;
-        system = "x86_64-linux";
-        config.allowUnfree = true;
-      };
-      x86-pkgs-unstable = import nixpkgs-unstable {
-        inherit overlays;
-        system = "x86_64-linux";
-        config.allowUnfree = true;
-      };
-    in
-    {
-      homeConfigurations = {
-        "jcsims@groot" = home-manager.lib.homeManagerConfiguration {
-          inherit pkgs;
 
-          modules = [
-            ./base.nix
-            ./home.nix
-            ./emacs.nix
-            ./mac.nix
-          ];
-
-          extraSpecialArgs = rec {
-            inherit pkgs-unstable;
-            # Use this to pull in packages as flakes.
-            extraPackages = {
-              hue = hue.packages.${system}.default;
-            };
-            work = false;
-            username = "jcsims";
-            homedir = "/Users/${username}";
+        extraSpecialArgs = rec {
+          inherit pkgs-unstable;
+          # Use this to pull in packages as flakes.
+          extraPackages = {
+            hue = hue.packages.${system}.default;
           };
+          work = false;
+          username = "jcsims";
+          homedir = "/Users/${username}";
         };
-        "csims" = home-manager.lib.homeManagerConfiguration {
-          inherit pkgs;
+      };
+      "csims" = home-manager.lib.homeManagerConfiguration {
+        inherit pkgs;
 
-          modules = [
-            ./base.nix
-            ./work.nix
-            ./emacs.nix
-            ./mac.nix
-          ];
+        modules = [
+          ./base.nix
+          ./work.nix
+          ./emacs.nix
+          ./mac.nix
+        ];
 
-          extraSpecialArgs = rec {
-            inherit pkgs-unstable;
-            # Use this to pull in packages as flakes.
-            extraPackages = {
-              hue = hue.packages.${system}.default;
-            };
-            work = true;
-            username = "csims";
-            homedir = "/Users/${username}";
+        extraSpecialArgs = rec {
+          inherit pkgs-unstable;
+          # Use this to pull in packages as flakes.
+          extraPackages = {
+            hue = hue.packages.${system}.default;
           };
+          work = true;
+          username = "csims";
+          homedir = "/Users/${username}";
         };
-        "jcsims@graphene" = home-manager.lib.homeManagerConfiguration {
-          pkgs = x86-pkgs;
-          modules = [
-            ./base.nix
-            ./emacs.nix
-          ];
+      };
+      "jcsims@graphene" = home-manager.lib.homeManagerConfiguration {
+        pkgs = x86-pkgs;
+        modules = [
+          ./base.nix
+          ./emacs.nix
+        ];
 
-          extraSpecialArgs = rec {
-            pkgs-unstable = x86-pkgs-unstable;
-            extraPackages = { };
-            work = false;
-            username = "jcsims";
-            homedir = "/home/${username}";
-          };
+        extraSpecialArgs = rec {
+          pkgs-unstable = x86-pkgs-unstable;
+          extraPackages = {};
+          work = false;
+          username = "jcsims";
+          homedir = "/home/${username}";
+        };
+      };
       "jcsims@taichi" = home-manager.lib.homeManagerConfiguration {
         pkgs = x86-pkgs;
         modules = [

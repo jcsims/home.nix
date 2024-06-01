@@ -1,9 +1,9 @@
-{ pkgs
-, lib
-, specialArgs
-, ...
-}:
 {
+  pkgs,
+  lib,
+  specialArgs,
+  ...
+}: {
   home.username = specialArgs.username;
   home.homeDirectory = specialArgs.homedir;
   home.packages =
@@ -27,7 +27,7 @@
       jq
       lua-language-server
       neil
-      (nerdfonts.override { fonts = [ "Hack" ]; })
+      (nerdfonts.override {fonts = ["Hack"];})
       nil
       nixpkgs-fmt
       nix-diff
@@ -52,7 +52,6 @@
   #     hash = "sha256-HXkVjdAdmSQx3S4/rLif2slxJ/iXhOosthDGAPsMFIM=";
   #   };
   # });
-
 
   programs.git = {
     enable = true;
@@ -133,12 +132,11 @@
     disable-ccid = true;
   };
 
-  home.sessionPath =
-    [
-      "$HOME/bin"
-      "$HOME/.cargo/bin"
-      "$(${pkgs.go}/bin/go env GOPATH)/bin"
-    ] ;
+  home.sessionPath = [
+    "$HOME/bin"
+    "$HOME/.cargo/bin"
+    "$(${pkgs.go}/bin/go env GOPATH)/bin"
+  ];
 
   home.sessionVariables = {
     CLICOLOR = 1;
@@ -170,7 +168,7 @@
       #!/usr/bin/env bash
 
       ${pkgs.emacs29}/bin/emacsclient -ne "(present-open-bookmark-frame)"
-'';
+    '';
     executable = true;
   };
 
@@ -198,7 +196,7 @@
   };
 
   # Set up fish
-  programs.fish = import ./fish.nix { inherit pkgs; };
+  programs.fish = import ./fish.nix {inherit pkgs;};
 
   programs.bat = {
     enable = true;
