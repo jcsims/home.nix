@@ -19,7 +19,7 @@
   services.gpg-agent = {
     enable = true;
     defaultCacheTtl = 600;
-    pinentryFlavor = "gnome3";
+    pinentryPackage = pkgs.pinentry-rofi;
   };
 
   # According to home-manager options docs, this may be required to use the
