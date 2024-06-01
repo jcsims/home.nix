@@ -17,23 +17,14 @@
       cachix
       specialArgs.pkgs-unstable.clojure-lsp
       clojure
-      complete-alias # Aliases want completion, too!
       exercism
       fd
       fish
-      gh # GitHub CLI tool
       git
       gnuplot # Used by maelstrom
-      go
-      godef
-      golangci-lint
-      specialArgs.pkgs-unstable.gopls
-      gotools # godoc, for example
       htop
       jdk17
       jq
-      languagetool
-      leiningen
       lua-language-server
       neil
       (nerdfonts.override { fonts = [ "Hack" ]; })
@@ -43,11 +34,9 @@
       nix-tree
       nodePackages.bash-language-server
       pass
-      pkg-config # jinx module build
       ripgrep
       rustup
       shellcheck
-      texinfo # Used by borg to build docs
       tmux
       tokei
       tree
