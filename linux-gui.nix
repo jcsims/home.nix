@@ -19,7 +19,7 @@
   services.gpg-agent = {
     enable = true;
     defaultCacheTtl = 600;
-    max-cache-ttl = 7200;
+    maxCacheTtl = 7200;
     pinentryPackage = pkgs.pinentry-rofi;
   };
 
