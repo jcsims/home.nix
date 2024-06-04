@@ -208,7 +208,7 @@
   programs.eza = {
     enable = true;
     # Enabled by default in home-manager 24.05
-    #enableAliases = true;
+    enableAliases = true;
     git = true;
     icons = true;
   };
