@@ -59,5 +59,9 @@
         sudo ln -sf "$jdk_path" "/Library/Java/JavaVirtualMachines/"
       fi
     '';
+    setKeyboardRateAndDelay = ''
+      defaults write -g InitialKeyRepeat -int 15
+      defaults write -g KeyRepeat -int 2
+    '';
   };
 }
