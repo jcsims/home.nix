@@ -7,7 +7,7 @@ brew "terminal-notifier" if OS.mac?
 
 cask "1password"
 cask "alfred"
-cask "chromium"
+cask "chromium", args: {"no-quarantine": true}
 cask "cljstyle"
 cask "daisydisk"
 cask "dash"
