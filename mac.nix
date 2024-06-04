@@ -32,20 +32,20 @@
   # picks them up properly.
   home.activation = {
     aliasApplications = lib.hm.dag.entryAfter ["writeBoundary" "linkGeneration" "installPackages"] ''
-      mkdir -p ~/nix-apps
+      run mkdir -p ~/nix-apps
       for app in ~/.nix-profile/Applications/*
       do
           app_name=''${app#~/.nix-profile/Applications/}
-          echo "Creating alias for: $app_name"
-          ${pkgs.mkalias}/bin/mkalias -L "$app" ~/nix-apps/"$app_name"
+          verboseEcho "Creating alias for: $app_name"
+          run ${pkgs.mkalias}/bin/mkalias -L "$app" ~/nix-apps/"$app_name"
       done
 
       for app in ~/nix-apps/*
       do
           if ! [[ -e ~/.nix-profile/Applications/"''${app#~/nix-apps/}" ]]
           then
-              echo "$app is getting removed"
-              rm -- "$app"
+              verboseEcho "$app is getting removed"
+              run rm -- "$app"
           fi
       done;
     '';
@@ -54,13 +54,14 @@
     linkjdk = lib.hm.dag.entryAfter ["writeBoundary" "linkGeneration" "installPackages"] ''
       jdk_path="${pkgs.jdk17}/zulu-17.jdk"
       if [[ "$(realpath /Library/Java/JavaVirtualMachines/zulu-17.jdk)" != "$jdk_path" ]]; then
-        echo "Symlinking the installed JDK so it's available system-wide..."
-        sudo ln -sf "$jdk_path" "/Library/Java/JavaVirtualMachines/"
+        verboseEcho "Symlinking the installed JDK so it's available system-wide..."
+        run sudo ln -sf "$jdk_path" "/Library/Java/JavaVirtualMachines/"
       fi
     '';
-    setKeyboardRateAndDelay = ''
-      defaults write -g InitialKeyRepeat -int 15
-      defaults write -g KeyRepeat -int 2
+    setKeyboardRateAndDelay = lib.hm.dag.entryAfter ["writeBoundary"] ''
+      run defaults write -g InitialKeyRepeat -int 15
+      run defaults write -g KeyRepeat -int 2
     '';
+    # TODO: `brew bundle check -q` and `brew bundle` if needed
   };
 }
