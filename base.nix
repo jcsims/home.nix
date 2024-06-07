@@ -131,6 +131,8 @@
   };
 
   # Manage a bunch of files
+  home.file.".authinfo.gpg".source = ./files/authinfo.gpg;
+
   home.file."bin/e" = {
     text = ''
       #!/usr/bin/env bash
