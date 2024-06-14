@@ -8,6 +8,9 @@
   "Comment out one or more s-expressions. Borrowed from Clojure."
   nil)
 
+(defvar work-install (string= "csims" user-login-name)
+  "Is this instance of Emacs running on a work laptop?")
+
 (eval-and-compile ;;     startup
   (defvar before-user-init-time (current-time)
     "Value of `current-time' when Emacs begins loading `user-init-file'.")
@@ -22,7 +25,7 @@
   (setq initial-buffer-choice t)
   (setq initial-scratch-message "")
   (setq ring-bell-function 'ignore)
-  (when (string= "csims" user-login-name)
+  (when work-install
     (setq shell-file-name "~/.nix-profile/bin/fish"))
   (when (fboundp 'scroll-bar-mode)
     (scroll-bar-mode 0))
@@ -99,6 +102,9 @@
 
 ;;; Long tail
 
+(use-package age
+  :config (age-file-enable))
+
 (use-package atomic-chrome
   :if (display-graphic-p)
   :config
@@ -170,6 +176,7 @@
   (add-hook 'cider-mode-hook #'mu-cider-disable-completion))
 
 (use-package cljstyle-format
+  :if work-install
   :after (clojure-mode)
   :hook (clojure-mode . cljstyle-format-on-save-mode))
 
@@ -178,9 +185,7 @@
   :mode (("\\.edn\\'" . clojure-mode))
   :hook
   (clojure-mode . paredit-mode)
-  (clojure-mode . cider-mode)
-  ;; TODO: Move this to dir-local var for stonehenge
-  :custom (clojure-indent-style 'always-indent))
+  (clojure-mode . cider-mode))
 
 (use-package company
   :config
@@ -284,7 +289,7 @@
         `((".*" ,(no-littering-expand-var-file-name "auto-save/") t))))
 
 (use-package fish-mode
-  :hook (fish-mode . fish_indent-before-save))
+  :hook (before-save . fish_indent-before-save))
 
 (use-package flycheck
   :config (global-flycheck-mode)
@@ -308,6 +313,9 @@
   (add-hook 'prog-mode-hook 'flyspell-prog-mode)
   (setq ispell-program-name "aspell"))
 
+(use-package forge
+  :after (magit))
+
 (use-package git-link)
 
 (use-package git-timemachine)
@@ -324,7 +332,8 @@
     (setq-local tab-width 2
                 compile-command "go test -v && go vet && golangci-lint run --color never")))
 
-(use-package graphql-mode)
+(use-package graphql-mode
+  :if work-install)
 
 (use-package help
   :ensure f
@@ -778,7 +787,7 @@ canceled tasks."
 ;; TODO: Try out pixel-scroll-precision-mode
 
 (use-package php-mode
-  :after (eglot)
+  :if work-install
   :hook (php-mode . eglot-ensure)
   :config
   (setq website-dir (expand-file-name "~/code/work/Website"))
@@ -881,7 +890,8 @@ canceled tasks."
               ("h n" . symbol-overlay-switch-forward)
               ("h p" . symbol-overlay-switch-backward)))
 
-(use-package terraform-mode)
+(use-package terraform-mode
+  :if work-install)
 
 (eval-and-compile ;    `text-mode'
   (add-hook 'text-mode-hook 'indicate-buffer-boundaries-left))
@@ -1184,6 +1194,10 @@ format. With PREFIX, copy to kill ring."
     (require 'org-element)
     (require 'seq)
 
+    (defvar bookmarks-node-id (if work-install
+                                  "DECD703F-028C-4414-ADAD-0910F8283CD8"
+                                "DD137EE9-E13C-4450-973E-DFDA7770A871"))
+
     (defun browser-bookmarks (org-file)
       "Return all links from ORG-FILE."
       (with-temp-buffer
@@ -1205,7 +1219,7 @@ format. With PREFIX, copy to kill ring."
     (comment
      (benchmark-run 1
        (browser-bookmarks
-        (car (org-roam-id-find "DECD703F-028C-4414-ADAD-0910F8283CD8")))))
+        (car (org-roam-id-find bookmarks-node-id)))))
 
     (defun open-bookmark ()
       (interactive)
@@ -1213,7 +1227,7 @@ format. With PREFIX, copy to kill ring."
                    (split-string
                     (completing-read "Open: "
                                      (browser-bookmarks
-                                      (car (org-roam-id-find "DECD703F-028C-4414-ADAD-0910F8283CD8"))))
+                                      (car (org-roam-id-find bookmarks-node-id))))
                     " | ")
                    1)))
 
