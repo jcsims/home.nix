@@ -8,15 +8,14 @@
   "Comment out one or more s-expressions. Borrowed from Clojure."
   nil)
 
-(defvar work-install (string= "csims" user-login-name)
-  "Is this instance of Emacs running on a work laptop?")
-
 (eval-and-compile ;;     startup
   (defvar before-user-init-time (current-time)
     "Value of `current-time' when Emacs begins loading `user-init-file'.")
   (message "Loading Emacs...done (%.3fs)"
            (float-time (time-subtract before-user-init-time
                                       before-init-time)))
+  (defvar work-install (string= "csims" user-login-name)
+    "Is this instance of Emacs running on a work laptop?")
   (setq user-emacs-directory "~/.emacs.d/")
   (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
   (message "Loading %s..." user-init-file)
