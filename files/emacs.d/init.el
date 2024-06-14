@@ -161,19 +161,21 @@
   (setq cider-repl-display-help-banner nil
         nrepl-log-messages nil
         ;; Let LSP handle eldoc
-        cider-eldoc-display-for-symbol-at-point nil)
+        ;; cider-eldoc-display-for-symbol-at-point nil
+        )
   ;; Borrowed from https://manueluberti.eu//2023/03/25/clojure-lsp.html
-  (defun mu-cider-disable-eldoc ()
-    "Let LSP handle ElDoc instead of CIDER."
-    (remove-hook 'eldoc-documentation-functions #'cider-eldoc t))
+  ;; (defun mu-cider-disable-eldoc ()
+  ;;   "Let LSP handle ElDoc instead of CIDER."
+  ;;   (remove-hook 'eldoc-documentation-functions #'cider-eldoc t))
 
-  (add-hook 'cider-mode-hook #'mu-cider-disable-eldoc)
+  ;; (add-hook 'cider-mode-hook #'mu-cider-disable-eldoc)
 
-  (defun mu-cider-disable-completion ()
-    "Let LSP handle completion instead of CIDER."
-    (remove-hook 'completion-at-point-functions #'cider-complete-at-point t))
+  ;; (defun mu-cider-disable-completion ()
+  ;;   "Let LSP handle completion instead of CIDER."
+  ;;   (remove-hook 'completion-at-point-functions #'cider-complete-at-point t))
 
-  (add-hook 'cider-mode-hook #'mu-cider-disable-completion))
+  ;; (add-hook 'cider-mode-hook #'mu-cider-disable-completion)
+  )
 
 (use-package cljstyle-format
   :if work-install
