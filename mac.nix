@@ -59,9 +59,15 @@
       fi
     '';
     setKeyboardRateAndDelay = lib.hm.dag.entryAfter ["writeBoundary"] ''
+      verboseEcho "Setting keyboard repeat rate and delay"
       run defaults write -g InitialKeyRepeat -int 15
       run defaults write -g KeyRepeat -int 2
     '';
-    # TODO: `brew bundle check -q` and `brew bundle` if needed
+    homebrewUpdate = lib.hm.dag.entryAfter ["writeBoundary" "linkGeneration"] ''
+      if type -t brew > /dev/null && ! brew bundle check -q; then
+        verboseEcho "Making sure Homebrew packages are synced"
+        run brew bundle --cleanup
+      fi
+    '';
   };
 }
