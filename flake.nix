@@ -9,6 +9,11 @@
       url = "github:nix-community/home-manager/release-24.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    plasma-manager = {
+      url = "github:pjones/plasma-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
+    };
     hue = {
       url = "github:SierraSoftworks/hue?rev=4f597d972ab553208074ba19b9aaaa442fa8e43c";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -22,6 +27,7 @@
     nixpkgs,
     nixpkgs-unstable,
     home-manager,
+    plasma-manager,
     hue,
     emacs-overlay,
     ...
@@ -127,6 +133,7 @@
           ./home.nix
           ./emacs.nix
           ./linux-gui.nix
+          plasma-manager.homeManagerModules.plasma-manager
         ];
 
         extraSpecialArgs = rec {
