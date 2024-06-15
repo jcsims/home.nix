@@ -127,7 +127,6 @@
           ./home.nix
           ./emacs.nix
           ./linux-gui.nix
-          ./hyprland.nix
         ];
 
         extraSpecialArgs = rec {
