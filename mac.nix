@@ -8,10 +8,6 @@
     mkalias
   ];
 
-  home.sessionVariables = {
-    HOMEBREW_BUNDLE_FILE = "$HOME/.Brewfile";
-  };
-
   home.sessionPath = [
     "/opt/homebrew/bin"
     "/opt/homebrew/sbin"
@@ -52,15 +48,20 @@
         run sudo ln -sf "$jdk_path" "/Library/Java/JavaVirtualMachines/"
       fi
     '';
+
     setKeyboardRateAndDelay = lib.hm.dag.entryAfter ["writeBoundary"] ''
       verboseEcho "Setting keyboard repeat rate and delay"
       run defaults write -g InitialKeyRepeat -int 15
       run defaults write -g KeyRepeat -int 2
     '';
+
+    # TODO: Don't write ~/.Brewfile, but either use `--file=-` and pipe the file
+    # to stdin, or write the Brewfile into the store and reference it from the
+    # store.
     homebrewUpdate = lib.hm.dag.entryAfter ["writeBoundary" "linkGeneration"] ''
-      if type -t brew > /dev/null && ! brew bundle check -q; then
+      if type -t brew > /dev/null && ! brew bundle check -q --file ~/.Brewfile; then
         verboseEcho "Making sure Homebrew packages are synced"
-        run brew bundle --cleanup
+        run brew bundle --cleanup --file ~/.Brewfile
       fi
     '';
   };
