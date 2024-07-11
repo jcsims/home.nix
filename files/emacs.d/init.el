@@ -194,6 +194,8 @@
 (use-package crux
   :bind (("C-a" . crux-move-beginning-of-line)))
 
+(use-package deadgrep)
+
 (use-package diff-hl
   :config
   (setq diff-hl-draw-borders nil)
