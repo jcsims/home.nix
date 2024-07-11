@@ -214,7 +214,8 @@
 (use-package dired
   :ensure f
   :defer t
-  :config (setq dired-listing-switches "-alh"))
+  :config (setq dired-listing-switches "-alh")
+  :custom (dired-vc-rename-file t))
 
 (use-package display-line-numbers
   :ensure f
@@ -283,6 +284,7 @@
         `((".*" ,(no-littering-expand-var-file-name "auto-save/") t))))
 
 (use-package fish-mode
+  :custom (fish-enable-auto-indent t)
   :hook (before-save . fish_indent-before-save))
 
 (use-package flycheck
