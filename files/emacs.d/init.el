@@ -222,8 +222,6 @@
   (setq display-line-numbers-width-start t)
   (global-display-line-numbers-mode))
 
-(use-package dockerfile-mode)
-
 (use-package eat
   ;; Borrowed from https://github.com/purcell/emacs.d/blob/master/lisp/init-terminals.el
   :config
@@ -308,9 +306,6 @@
   (add-hook 'text-mode-hook 'flyspell-mode)
   (add-hook 'prog-mode-hook 'flyspell-prog-mode)
   (setq ispell-program-name "aspell"))
-
-(use-package forge
-  :after (magit))
 
 (use-package git-link)
 
