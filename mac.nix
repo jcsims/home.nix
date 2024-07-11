@@ -18,8 +18,8 @@
     then ./files/Brewfile-work
     else ./files/Brewfile;
 
-  # Sync any applications installed managed via home-manager, so that Alfred
-  # picks them up properly.
+  # Create aliases for any applications installed managed via home-manager, so
+  # that Alfred picks them up properly.
   home.activation = {
     aliasApplications = lib.hm.dag.entryAfter ["writeBoundary" "linkGeneration" "installPackages"] ''
       run mkdir -p ~/nix-apps
@@ -39,6 +39,7 @@
           fi
       done;
     '';
+
     # Make jdk17 available system-wide for CLI and GUI apps. This is the same
     # approach that Homebrew recommends.
     linkjdk = lib.hm.dag.entryAfter ["writeBoundary" "linkGeneration" "installPackages"] ''
