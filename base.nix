@@ -9,6 +9,7 @@
   home.packages =
     (lib.attrValues specialArgs.extraPackages)
     ++ (with pkgs; [
+      _1password
       alejandra
       aspell
       aspellDicts.en
