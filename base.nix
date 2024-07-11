@@ -167,11 +167,11 @@
     enable = true;
   };
 
+  # TODO: Move this config into nix since I'm not doing anything that's crazy to
+  # escape anymore.
   home.file.".config/alacritty/alacritty.toml".source = ./files/alacritty.toml;
   programs.alacritty = {
     enable = pkgs.stdenv.isDarwin;
-    # TODO: Move this back to stable after nixpkgs 24.05 is released
-    package = specialArgs.pkgs-unstable.alacritty;
   };
 
   programs.direnv = {
