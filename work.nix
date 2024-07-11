@@ -5,7 +5,18 @@
   ...
 }: let
   hue = specialArgs.extraPackages.hue;
-in rec {
+
+  set-meeting-light = pkgs.writeShellScript "set-meeting-light.sh" ''
+    if ${pkgs.coreutils}/bin/timeout 5 ${hue}/bin/hue list > /dev/null; then
+      if osascript -e 'tell application "System Events" to get name of (processes where background only is false)' | grep 'zoom.us'; then
+        ${hue}/bin/hue '#7'=red,20%
+      else
+        ${hue}/bin/hue '#7'=off
+      fi
+    fi
+  '';
+
+in  {
   home.packages =
     (lib.attrValues specialArgs.extraPackages)
     ++ (with pkgs; [
@@ -42,14 +53,4 @@ in rec {
       ];
     };
   };
-
-  set-meeting-light = pkgs.writeShellScript "set-meeting-light.sh" ''
-    if ${pkgs.coreutils}/bin/timeout 5 ${hue}/bin/hue list > /dev/null; then
-      if osascript -e 'tell application "System Events" to get name of (processes where background only is false)' | grep 'zoom.us'; then
-        ${hue}/bin/hue '#7'=red,20%
-      else
-        ${hue}/bin/hue '#7'=off
-      fi
-    fi
-  '';
 }

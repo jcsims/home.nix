@@ -1,11 +1,12 @@
+# -*- mode: ruby-ts;-*-
 tap "homebrew/bundle"
 
 brew "mas" if OS.mac?
 brew "terminal-notifier" if OS.mac?
 
 cask "1password"
-cask "arc"
 cask "alfred"
+cask "arc"
 cask "chromium", args: {"no-quarantine": true}
 cask "cljstyle"
 cask "daisydisk"
