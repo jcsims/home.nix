@@ -5,7 +5,7 @@
   ...
 }: let
   hue = specialArgs.extraPackages.hue;
-in {
+in rec {
   home.packages =
     (lib.attrValues specialArgs.extraPackages)
     ++ (with pkgs; [
@@ -29,18 +29,27 @@ in {
     executable = true;
   };
 
-  home.file."bin/set-meeting-light" = {
-    executable = true;
-    text = ''
-      #!/usr/bin/env bash
+  launchd.agents.set-meeting-light = {
+    enable = true;
+    config = {
+      Program = "${set-meeting-light}";
+      ProcessType = "Background";
 
-      if ${pkgs.coreutils}/bin/timeout 5 ${hue}/bin/hue list > /dev/null; then
-          if osascript -e 'tell application "System Events" to get name of (processes where background only is false)' | grep 'zoom.us'; then
-              ${hue}/bin/hue '#7'=red,20%
-          else
-              ${hue}/bin/hue '#7'=off
-          fi
-      fi
-    '';
+      StartCalendarInterval = [
+        {
+          Minute = 1;
+        }
+      ];
+    };
   };
+
+  set-meeting-light = pkgs.writeShellScript "set-meeting-light.sh" ''
+    if ${pkgs.coreutils}/bin/timeout 5 ${hue}/bin/hue list > /dev/null; then
+      if osascript -e 'tell application "System Events" to get name of (processes where background only is false)' | grep 'zoom.us'; then
+        ${hue}/bin/hue '#7'=red,20%
+      else
+        ${hue}/bin/hue '#7'=off
+      fi
+    fi
+  '';
 }
