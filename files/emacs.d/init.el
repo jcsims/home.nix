@@ -372,7 +372,9 @@
   :bind (("C-c g"   . magit-status))
   :custom
   (magit-branch-prefer-remote-upstream t)
-  (magit-save-repository-buffers 'dontask))
+  (magit-save-repository-buffers 'dontask)
+  :config (when work-install
+            (remove-hook 'magit-status-headers-hook #'magit-insert-tags-header)))
 
 (use-package man
   :ensure f
@@ -779,7 +781,6 @@ canceled tasks."
 
 (use-package php-mode
   :if work-install
-  :hook (php-mode . eglot-ensure)
   :config
   (setq website-dir (expand-file-name "~/code/work/Website"))
 
@@ -866,6 +867,13 @@ canceled tasks."
   (when (>= emacs-major-version 27)
     (set-face-attribute 'smerge-refined-removed nil :extend t)
     (set-face-attribute 'smerge-refined-added   nil :extend t)))
+
+(use-package splash
+  :if work-install
+  :after cider
+  :load-path "/Users/csims/code/work/stonehenge/development/emacs/"
+  :custom
+  (splash-stonehenge-dir "/Users/csims/code/work/stonehenge/"))
 
 (use-package sqlformat
   :config (setq sqlformat-command 'sql-formatter))
