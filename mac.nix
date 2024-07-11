@@ -18,6 +18,22 @@
     then ./files/Brewfile-work
     else ./files/Brewfile;
 
+  launchd.agents.nix-index-build = {
+    enable = true;
+    config = {
+      Program = "${pkgs.nix-index}/bin/nix-index";
+      ProcessType = "Background";
+
+      StartCalendarInterval = [
+        {
+          Weekday = 0;
+          Hour = 8;
+          Minute = 0;
+        }
+      ];
+    };
+  };
+
   # Create aliases for any applications installed managed via home-manager, so
   # that Alfred picks them up properly.
   home.activation = {
