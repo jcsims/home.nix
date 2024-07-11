@@ -66,10 +66,12 @@
       fi
     '';
 
-    setKeyboardRateAndDelay = lib.hm.dag.entryAfter ["writeBoundary"] ''
-      verboseEcho "Setting keyboard repeat rate and delay"
+    setStatefulConfig = lib.hm.dag.entryAfter ["writeBoundary"] ''
+      verboseEcho "Setting some stateful macOS config"
       run defaults write -g InitialKeyRepeat -int 15
       run defaults write -g KeyRepeat -int 2
+      # This disables the too-bold font in Alacritty
+      run defaults write org.alacritty AppleFontSmoothing -int 0
     '';
 
     # TODO: Don't write ~/.Brewfile, but either use `--file=-` and pipe the file
