@@ -249,7 +249,7 @@
    . eglot-ensure)
   (eglot-managed-mode . eglot-inlay-hints-mode)
   :config (setq eglot-autoshutdown t
-                eglot-confirm-server-initiated-edits nil
+                eglot-confirm-server-edits nil
                 read-process-output-max (* 1024 1024)
                 eglot-extend-to-xref t
                 ;; Don't block on connecting to the lsp server at all
