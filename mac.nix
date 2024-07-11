@@ -22,12 +22,6 @@
     then ./files/Brewfile-work
     else ./files/Brewfile;
 
-  home.file.".gnupg/gpg-agent.conf".text = ''
-    default-cache-ttl 600
-    max-cache-ttl 7200
-    pinentry-program ${pkgs.pinentry_mac}/Applications/pinentry-mac.app/Contents/MacOS/pinentry-mac
-  '';
-
   # Sync any applications installed managed via home-manager, so that Alfred
   # picks them up properly.
   home.activation = {

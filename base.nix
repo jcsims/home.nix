@@ -9,7 +9,6 @@
   home.packages =
     (lib.attrValues specialArgs.extraPackages)
     ++ (with pkgs; [
-      age
       alejandra
       aspell
       aspellDicts.en
@@ -45,19 +44,10 @@
       xz
     ]);
 
-  # programs.gpg.package = pkgs.gnupg.overrideAttrs (orig: {
-  #   version = "2.4.0";
-  #   src = pkgs.fetchurl {
-  #     url = "mirror://gnupg/gnupg/gnupg-2.4.0.tar.bz2";
-  #     hash = "sha256-HXkVjdAdmSQx3S4/rLif2slxJ/iXhOosthDGAPsMFIM=";
-  #   };
-  # });
-
   programs.git = {
     enable = true;
     userName = "Chris Sims";
     userEmail = "chris@jcsi.ms";
-    #attributes = ["*.gpg filter=gpg diff=gpg"];
     aliases = {
       recent = "branch --sort=-committerdate --format=\"%(committerdate:relative)%09%(refname:short)\"";
     };
@@ -98,24 +88,8 @@
       pull.rebase = true;
       rebase.autostash = true;
       status.submoduleSummary = true;
-      diff.gpg.textconv = "gpg --no-tty --decrypt";
       github.user = "jcsims";
     };
-  };
-
-  # These settings are pulled from https://github.com/drduh/YubiKey-Guide
-  programs.gpg = {
-    enable = true;
-    settings = {
-      default-key = "0x32D20D5D6DB01A6B";
-      charset = "utf-8";
-      keyid-format = "0xlong";
-      use-agent = true;
-    };
-  };
-
-  programs.gpg.scdaemonSettings = {
-    disable-ccid = true;
   };
 
   home.sessionPath = [
@@ -131,8 +105,6 @@
   };
 
   # Manage a bunch of files
-  home.file.".authinfo.gpg".source = ./files/authinfo.gpg;
-
   home.file."bin/e" = {
     text = ''
       #!/usr/bin/env bash

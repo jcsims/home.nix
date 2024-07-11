@@ -101,19 +101,12 @@
 
 ;;; Long tail
 
-(use-package age
-  :config (age-file-enable))
-
 (use-package atomic-chrome
   :if (display-graphic-p)
   :config
   (setq atomic-chrome-url-major-mode-alist
         '(("github\\.com" . gfm-mode)))
   (atomic-chrome-start-server))
-
-(use-package auth-source
-  :ensure f
-  :custom (auth-sources '("~/.authinfo.gpg")))
 
 (use-package autorevert
   :ensure f
