@@ -3,7 +3,15 @@
   lib,
   specialArgs,
   ...
-}: {
+}: let
+  sync-org-roam = pkgs.writeShellScript "sync-org-roam" ''
+    # Only attempt this if the screen is unlocked
+    if [ "$(/usr/libexec/PlistBuddy -c "print :IOConsoleUsers:0:CGSSessionScreenIsLocked" /dev/stdin 2>/dev/null <<< "$(ioreg -n Root -d1 -a)")" != "true" ]; then
+      cd ~/org-roam
+      ./sync
+    fi
+  '';
+in {
   home.packages = with pkgs; [
     mkalias
   ];
@@ -31,6 +39,17 @@
           Minute = 0;
         }
       ];
+    };
+  };
+
+  launchd.agents.sync-org-roam = {
+    enable = true;
+    config = {
+      Program = "${sync-org-roam}";
+      ProcessType = "Background";
+      StartCalendarInterval = [{Minute = 30;}];
+      StandardOutPath = "/tmp/sync-org-roam-out.log";
+      StandardErrorPath = "/tmp/sync-org-roam-err.log";
     };
   };
 
