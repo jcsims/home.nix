@@ -520,7 +520,7 @@ same directory as the org-buffer and insert a link to this file."
            (make-temp-name
             (concat (file-name-nondirectory (buffer-file-name))
                     "_imgs/"
-                    (format-time-string "%Y%m%d_%H%M%S_")) )
+                    (format-time-string "%Y%m%d_%H%M%S_")))
            ".png"))
     (unless (file-exists-p (file-name-directory filename))
       (make-directory (file-name-directory filename)))
@@ -868,6 +868,7 @@ canceled tasks."
     (set-face-attribute 'smerge-refined-removed nil :extend t)
     (set-face-attribute 'smerge-refined-added   nil :extend t)))
 
+(use-package environ :if work-install)
 (use-package splash
   :if work-install
   :after cider
