@@ -2,6 +2,7 @@
   enable = true;
   shellAbbrs = {
     "ga" = "git add";
+    "gi" = "git add -i";
     "gc" = "git commit";
     "gco" = "git checkout";
     "gd" = "git diff";
