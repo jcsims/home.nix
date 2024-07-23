@@ -22,7 +22,6 @@ in {
       awscli2
       bazelisk
       nodePackages.typescript-language-server
-      php
       phpactor
       python310
       terraform

@@ -1301,6 +1301,22 @@ format. With PREFIX, copy to kill ring."
 
     (add-hook 'nix-mode-hook 'alejandra-format-on-save-mode))
 
+  (eval-and-compile ;; php-cs-fixer formatting
+    (use-package reformatter)
+
+;;;###autoload (autoload 'php-cs-fixer-format-buffer "php-cs-fixer-format" nil t)
+;;;###autoload (autoload 'php-cs-fixer-format-region "php-cs-fixer-format" nil t)
+;;;###autoload (autoload 'php-cs-fixer-format-on-save-mode "php-cs-fixer-format" nil t)
+    (reformatter-define
+      php-cs-fixer-format
+      :program "php-cs-fixer"
+      :stdin nil
+      :stdout nil
+      :args (list "fix" "-q" input-file)
+      :lighter " php-cs-fixer")
+
+    (add-hook 'php-mode-hook 'php-cs-fixer-format-on-save-mode))
+
 
   (let ((file (expand-file-name (concat (user-real-login-name) ".el")
                                 user-emacs-directory)))
