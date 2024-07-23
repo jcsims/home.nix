@@ -1296,7 +1296,6 @@ format. With PREFIX, copy to kill ring."
       alejandra-format
       :program alejandra-format-command
       :args alejandra-format-arguments
-      :lighter " alejandra"
       :group 'alejandra-format)
 
     (add-hook 'nix-mode-hook 'alejandra-format-on-save-mode))
@@ -1312,8 +1311,7 @@ format. With PREFIX, copy to kill ring."
       :program "php-cs-fixer"
       :stdin nil
       :stdout nil
-      :args (list "fix" "-q" input-file)
-      :lighter " php-cs-fixer")
+      :args (list "fix" "-q" input-file))
 
     (add-hook 'php-mode-hook 'php-cs-fixer-format-on-save-mode))
 
