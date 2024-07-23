@@ -124,7 +124,7 @@
 (use-package bug-reference
   :ensure f
   :config
-  (setq bug-reference-bug-regexp "\\(\\(RATE-[0-9]+\\)\\)"
+  (setq bug-reference-bug-regexp "\\(\\(RATE-[0-9]+\\|AR-[0-9]+\\)\\)"
         bug-reference-url-format "https://splashfinancial.atlassian.net/browse/%s")
   :hook (prog-mode . bug-reference-prog-mode))
 
