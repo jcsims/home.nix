@@ -7,6 +7,7 @@
     "gco" = "git checkout";
     "gd" = "git diff";
     "gdc" = "git diff --cached";
+    "gf" = "git fetch --all";
     "gl" = "git log --graph --abbrev-commit --date=relative --pretty=format:'%C(bold blue)%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'";
     "gp" = "git push origin HEAD";
     "gpl" = "git pull --rebase --prune";
@@ -14,6 +15,7 @@
     "cat" = "bat";
     "c" = "pj";
     "co" = "pj open";
+    "todos" = "git diff origin/master | grep --color=always -C 10 TODO | bat";
   };
   interactiveShellInit = ''
     # Remove the default greeting message on a new shell

@@ -188,6 +188,9 @@
 (use-package company-quickhelp
   :config (company-quickhelp-mode))
 
+(use-package consult
+  :bind (("C-x b" . consult-buffer)))
+
 ;; TODO: Pull out this one function and its dependencies.
 (use-package crux
   :bind (("C-a" . crux-move-beginning-of-line)))
@@ -967,7 +970,11 @@ Passes ARG onto `zap-to-char` or `backward-kill-word` if used."
 
 (use-package xref
   :ensure f
-  :custom (xref-search-program 'ripgrep))
+  :after consult
+  :custom
+  (xref-search-program 'ripgrep)
+  (xref-show-xrefs-function 'consult-xref)
+  (xref-show-definitions-function 'consult-xref))
 
 (use-package yaml-ts-mode :ensure f)
 

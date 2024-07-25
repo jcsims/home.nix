@@ -24,5 +24,6 @@ cask "plexamp"
 cask "rectangle"
 cask "slack"
 cask "spotify"
+cask "zed"
 
 mas "Things", id: 904280696
