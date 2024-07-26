@@ -168,13 +168,6 @@
     enable = true;
   };
 
-  # TODO: Move this config into nix since I'm not doing anything that's crazy to
-  # escape anymore.
-  home.file.".config/alacritty/alacritty.toml".source = ./files/alacritty.toml;
-  programs.alacritty = {
-    enable = pkgs.stdenv.isDarwin;
-  };
-
   programs.direnv = {
     enable = true;
     nix-direnv.enable = true;
