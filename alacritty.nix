@@ -39,12 +39,7 @@
       };
       keyboard.bindings = [
         {
-          action = "ClearLogNotice";
-          key = "L";
-          mods = "Control";
-        }
-        {
-          chars = "\f";
+          action = "ClearHistory";
           key = "L";
           mode = "~Vi|~Search";
           mods = "Control";
@@ -131,7 +126,7 @@
         }
 
         {
-          chars = "\f";
+          chars = "\\f";
           key = "K";
           mode = "~Vi|~Search";
           mods = "Command";
