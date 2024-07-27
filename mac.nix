@@ -4,6 +4,7 @@
   specialArgs,
   ...
 }: let
+  # TODO: write to ~/problems or use terminal-notifier directly when this fails
   sync-org-roam = pkgs.writeShellScript "sync-org-roam" ''
     # Only attempt this if the screen is unlocked
     if [ "$(/usr/libexec/PlistBuddy -c "print :IOConsoleUsers:0:CGSSessionScreenIsLocked" /dev/stdin 2>/dev/null <<< "$(ioreg -n Root -d1 -a)")" != "true" ]; then
