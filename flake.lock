@@ -66,17 +66,17 @@
         ]
       },
       "locked": {
-        "lastModified": 1668377153,
-        "narHash": "sha256-lRmTVmDsseXUhd0gB9J43tUQevzKiDdZ1Um3DcBlTgY=",
-        "owner": "SierraSoftworks",
+        "lastModified": 1721971881,
+        "narHash": "sha256-G4TwUPf8ya3sdqYK9dGeVc6glT0Sm6lc8pcnrH1xfvU=",
+        "owner": "jcsims",
         "repo": "hue",
-        "rev": "4f597d972ab553208074ba19b9aaaa442fa8e43c",
+        "rev": "1b43a049a916ccd6ed0fb4d93d72d64d95e686ac",
         "type": "github"
       },
       "original": {
-        "owner": "SierraSoftworks",
+        "owner": "jcsims",
         "repo": "hue",
-        "rev": "4f597d972ab553208074ba19b9aaaa442fa8e43c",
+        "rev": "1b43a049a916ccd6ed0fb4d93d72d64d95e686ac",
         "type": "github"
       }
     },

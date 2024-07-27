@@ -10,7 +10,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     hue = {
-      url = "github:SierraSoftworks/hue?rev=4f597d972ab553208074ba19b9aaaa442fa8e43c";
+      url = "github:jcsims/hue?rev=1b43a049a916ccd6ed0fb4d93d72d64d95e686ac";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     emacs-overlay.url = "github:Nix-Community/emacs-overlay";
