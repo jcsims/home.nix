@@ -14,7 +14,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     emacs-overlay.url = "github:Nix-Community/emacs-overlay";
-    mkalias.url = "github:reckenrode/mkalias";
+    mkalias.url = "github:reckenrode/mkalias/v0.3.2";
     mkalias.inputs.nixpkgs.follows = "nixpkgs";
   };
 

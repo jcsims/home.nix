@@ -96,6 +96,7 @@
       },
       "original": {
         "owner": "reckenrode",
+        "ref": "v0.3.2",
         "repo": "mkalias",
         "type": "github"
       }
