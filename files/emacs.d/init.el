@@ -379,6 +379,11 @@
   :config (when work-install
             (remove-hook 'magit-status-headers-hook #'magit-insert-tags-header)))
 
+(use-package magit-todos
+  :after magit
+  :config (magit-todos-mode 1)
+  :custom ((magit-todos-exclude-globs  '("*.map"))))
+
 (use-package man
   :ensure f
   :defer t
@@ -457,9 +462,12 @@
   :config
   (org-babel-do-load-languages 'org-babel-load-languages
                                '((clojure . t)
+                                 (php . t)
                                  (shell . t)
                                  (sql . t)
                                  (emacs-lisp . t))))
+
+(use-package ob-php)
 
 
 (use-package org
@@ -894,7 +902,8 @@ canceled tasks."
               ("h p" . symbol-overlay-switch-backward)))
 
 (use-package terraform-mode
-  :if work-install)
+  :if work-install
+  :custom (terraform-format-on-save t))
 
 (eval-and-compile ;    `text-mode'
   (add-hook 'text-mode-hook 'indicate-buffer-boundaries-left))
@@ -970,11 +979,8 @@ Passes ARG onto `zap-to-char` or `backward-kill-word` if used."
 
 (use-package xref
   :ensure f
-  :after consult
   :custom
-  (xref-search-program 'ripgrep)
-  (xref-show-xrefs-function 'consult-xref)
-  (xref-show-definitions-function 'consult-xref))
+  (xref-search-program 'ripgrep))
 
 (use-package yaml-ts-mode :ensure f)
 
