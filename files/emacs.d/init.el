@@ -360,6 +360,8 @@
               ("C-." . jinx-correct))
   :config (global-jinx-mode))
 
+(use-package just-mode)
+
 (use-package lisp-mode
   :ensure f
   :config

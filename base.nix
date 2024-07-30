@@ -25,6 +25,7 @@
       htop
       jdk17
       jq
+      just
       lua-language-server
       neil
       (nerdfonts.override {fonts = ["Hack"];})
