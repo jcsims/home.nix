@@ -4,19 +4,50 @@
   specialArgs,
   ...
 }: let
-  # TODO: write to ~/problems or use terminal-notifier directly when this fails
+  check-for-sync-conflicts = pkgs.writeShellScript "check-for-sync-conflicts" ''
+    status=0
+    sync_paths=(
+        "$HOME/Downloads"
+        "$HOME/books"
+        "$HOME/synced-config"
+        "$HOME/synced-docs"
+        "$HOME/wallpapers"
+        "$HOME/work-docs"
+           )
+
+    for path in "$${sync_paths[@]}"; do
+        if [[ -d $path ]]; then
+
+            conflicts=$(${pkgs.fd}/bin/fd -I -H --exclude .stversions .sync-conflict- "$path")
+
+            if [[ $conflicts ]] ; then
+                echo "there are conflicts in $path:" >> $HOME/problems
+                echo "$conflicts" >> $HOME/problems
+            else
+                # do nothing, things are good
+                status=$((status + 1))
+            fi
+        fi
+    done
+  '';
+
+  check-problems = pkgs.writeShellScript "check-problems" ''
+    if [ -s "$HOME"/problems ] ; then
+      /opt/homebrew/bin/terminal-notifier \
+          -title "There's a problem!" \
+          -message "$(head -n 1 "$HOME"/problems)"
+    fi
+  '';
   sync-org-roam = pkgs.writeShellScript "sync-org-roam" ''
     # Only attempt this if the screen is unlocked
     if [ "$(/usr/libexec/PlistBuddy -c "print :IOConsoleUsers:0:CGSSessionScreenIsLocked" /dev/stdin 2>/dev/null <<< "$(ioreg -n Root -d1 -a)")" != "true" ]; then
       cd ~/org-roam
-      ./sync
+      if ! ./sync; then
+        echo "org-roam sync failed! $(date)" >> "$HOME/problems"
+      fi
     fi
   '';
 in {
-  home.packages = with pkgs; [
-    mkalias
-  ];
-
   home.sessionPath = [
     "/opt/homebrew/bin"
     "/opt/homebrew/sbin"
@@ -27,30 +58,51 @@ in {
     then ./files/Brewfile-work
     else ./files/Brewfile;
 
-  launchd.agents.nix-index-build = {
-    enable = true;
-    config = {
-      Program = "${pkgs.nix-index}/bin/nix-index";
-      ProcessType = "Background";
-
-      StartCalendarInterval = [
-        {
-          Weekday = 0;
-          Hour = 8;
-          Minute = 0;
-        }
-      ];
+  launchd.agents = {
+    check-for-sync-conflicts = {
+      enable = true;
+      config = {
+        Program = "${check-for-sync-conflicts}";
+        ProcessType = "Background";
+        StartCalendarInterval = [{Minute = 30;}];
+        StandardOutPath = "/tmp/check-for-sync-conflicts-out.log";
+        StandardErrorPath = "/tmp/check-for-sync-conflicts-err.log";
+      };
     };
-  };
+    check-problems = {
+      enable = true;
+      config = {
+        Program = "${check-problems}";
+        ProcessType = "Background";
+        StandardOutPath = "/tmp/check-problems-out.log";
+        StandardErrorPath = "/tmp/check-problems-err.log";
+        WatchPaths = ["${specialArgs.homedir}/problems"];
+      };
+    };
+    nix-index-build = {
+      enable = true;
+      config = {
+        Program = "${pkgs.nix-index}/bin/nix-index";
+        ProcessType = "Background";
 
-  launchd.agents.sync-org-roam = {
-    enable = true;
-    config = {
-      Program = "${sync-org-roam}";
-      ProcessType = "Background";
-      StartCalendarInterval = [{Minute = 30;}];
-      StandardOutPath = "/tmp/sync-org-roam-out.log";
-      StandardErrorPath = "/tmp/sync-org-roam-err.log";
+        StartCalendarInterval = [
+          {
+            Weekday = 0;
+            Hour = 8;
+            Minute = 0;
+          }
+        ];
+      };
+    };
+    sync-org-roam = {
+      enable = true;
+      config = {
+        Program = "${sync-org-roam}";
+        ProcessType = "Background";
+        StartCalendarInterval = [{Minute = 30;}];
+        StandardOutPath = "/tmp/sync-org-roam-out.log";
+        StandardErrorPath = "/tmp/sync-org-roam-err.log";
+      };
     };
   };
 
@@ -63,7 +115,7 @@ in {
       do
           app_name=''${app#~/.nix-profile/Applications/}
           verboseEcho "Creating alias for: $app_name"
-          run ${pkgs.mkalias}/bin/mkalias -L "$app" ~/nix-apps/"$app_name"
+          run ${specialArgs.extraPackages.mkalias}/bin/mkalias -L "$app" ~/nix-apps/"$app_name"
       done
 
       for app in ~/nix-apps/*
@@ -92,6 +144,8 @@ in {
       run defaults write -g KeyRepeat -int 2
       # This disables the too-bold font in Alacritty
       run defaults write org.alacritty AppleFontSmoothing -int 0
+      verboseEcho "Setting the proper scroll direction"
+      run defaults write -g com.apple.swipescrolldirection -boolean NO
     '';
 
     # TODO: Don't write ~/.Brewfile, but either use `--file=-` and pipe the file
