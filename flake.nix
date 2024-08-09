@@ -19,35 +19,24 @@
   };
 
   outputs = {
-    nixpkgs,
-    nixpkgs-unstable,
+    emacs-overlay,
     home-manager,
     hue,
-    emacs-overlay,
+    nixpkgs,
+    nixpkgs-unstable,
+    mkalias,
     ...
-  } @ inputs: let
+  }: let
     overlays = [(import emacs-overlay)];
 
     system = "aarch64-darwin";
     pkgs = import nixpkgs {
-      overlays =
-        overlays
-        ++ [
-          (_: _: {
-            mkalias = inputs.mkalias.packages.${system}.mkalias;
-          })
-        ];
+      inherit overlays;
       system = "aarch64-darwin";
       config.allowUnfree = true;
     };
     pkgs-unstable = import nixpkgs-unstable {
-      overlays =
-        overlays
-        ++ [
-          (_: _: {
-            mkalias = inputs.mkalias.packages.${system}.mkalias;
-          })
-        ];
+      inherit overlays;
       system = "aarch64-darwin";
       config.allowUnfree = true;
     };
@@ -79,6 +68,7 @@
           # Use this to pull in packages as flakes.
           extraPackages = {
             hue = hue.packages.${system}.default;
+            mkalias = mkalias.packages.${system}.default;
           };
           work = false;
           username = "jcsims";
@@ -101,6 +91,7 @@
           # Use this to pull in packages as flakes.
           extraPackages = {
             hue = hue.packages.${system}.default;
+            mkalias = mkalias.packages.${system}.default;
           };
           work = true;
           username = "csims";
