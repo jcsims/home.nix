@@ -34,7 +34,6 @@
       nix-diff
       nix-tree
       nodePackages.bash-language-server
-      pass
       ripgrep
       rustup
       shellcheck
