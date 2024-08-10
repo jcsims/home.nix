@@ -1,6 +1,8 @@
 ;;; init.el --- user-init-file                    -*- lexical-binding: t -*-
 ;;; Early birds
 
+;; TODO: Pull package installation out of emacs-overlay and rely on e.g. borg?
+
 ;; Seed the PRNG anew, from the system's entropy pool
 (random t)
 
