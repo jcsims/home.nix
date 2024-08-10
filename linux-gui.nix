@@ -3,7 +3,8 @@
   lib,
   specialArgs,
   ...
-}: {
+}:
+{
   home.packages =
     (lib.attrValues specialArgs.extraPackages)
     ++ (with pkgs; [
@@ -27,7 +28,7 @@
   systemd.user.targets.tray = {
     Unit = {
       Description = "Home Manager System Tray";
-      Requires = ["graphical-session-pre.target"];
+      Requires = [ "graphical-session-pre.target" ];
     };
   };
 
@@ -40,15 +41,15 @@
     };
 
     shortcuts = {
-      ksmserver."Lock Session" = ["Meta+Alt+L"];
+      ksmserver."Lock Session" = [ "Meta+Alt+L" ];
       kwin = {
-        ExposeAll = ["Meta+Ctrl+Alt+Up"];
+        ExposeAll = [ "Meta+Ctrl+Alt+Up" ];
         "Walk Through Windows" = "Meta+Tab";
         "Walk Through Windows (Reverse)" = "Meta+Shift+Tab";
         "Walk Through Windows of Current Application" = "Meta+`";
         "Walk Through Windows of Current Application (Reverse)" = "Meta+~";
-        "Window Maximize" = ["Ctrl+Alt+Return"];
-        "Window Minimize" = ["Meta+H"];
+        "Window Maximize" = [ "Ctrl+Alt+Return" ];
+        "Window Minimize" = [ "Meta+H" ];
         "Window Quick Tile Bottom" = "Ctrl+Alt+Down";
         "Window Quick Tile Left" = "Ctrl+Alt+Left";
         "Window Quick Tile Right" = "Ctrl+Alt+Right";
@@ -56,13 +57,26 @@
       };
       org_kde_powerdevil = {
         # Same keys for brightness as in macOS
-        "Decrease Screen Brightness" = ["Monitor Brightness Down" "ScrollLock"];
-        "Increase Screen Brightness" = ["Monitor Brightness Up" "Pause"];
+        "Decrease Screen Brightness" = [
+          "Monitor Brightness Down"
+          "ScrollLock"
+        ];
+        "Increase Screen Brightness" = [
+          "Monitor Brightness Up"
+          "Pause"
+        ];
       };
       plasmashell = {
-        "show dashboard" = ["Meta+Ctrl+Alt+Down" "Ctrl+F12"];
+        "show dashboard" = [
+          "Meta+Ctrl+Alt+Down"
+          "Ctrl+F12"
+        ];
       };
-      "services/org.kde.krunner.desktop"."_launch" = ["Meta+Space" "Search" "Alt+F2"];
+      "services/org.kde.krunner.desktop"."_launch" = [
+        "Meta+Space"
+        "Search"
+        "Alt+F2"
+      ];
     };
 
     configFile = {

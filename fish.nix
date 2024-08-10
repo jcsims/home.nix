@@ -1,4 +1,5 @@
-{pkgs}: {
+{ pkgs }:
+{
   enable = true;
   shellAbbrs = {
     "ga" = "git add";

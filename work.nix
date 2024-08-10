@@ -3,7 +3,8 @@
   lib,
   specialArgs,
   ...
-}: let
+}:
+let
   hue = specialArgs.extraPackages.hue;
 
   set-meeting-light = pkgs.writeShellScript "set-meeting-light.sh" ''
@@ -15,7 +16,8 @@
       fi
     fi
   '';
-in {
+in
+{
   home.packages =
     (lib.attrValues specialArgs.extraPackages)
     ++ (with pkgs; [
@@ -43,7 +45,7 @@ in {
     config = {
       Program = "${set-meeting-light}";
       ProcessType = "Background";
-      StartCalendarInterval = [{}];
+      StartCalendarInterval = [ { } ];
       StandardOutPath = "/tmp/set-meeting-light-out.log";
       StandardErrorPath = "/tmp/set-meeting-light-err.log";
     };

@@ -3,14 +3,14 @@
   lib,
   specialArgs,
   ...
-}: {
+}:
+{
   home.username = specialArgs.username;
   home.homeDirectory = specialArgs.homedir;
   home.packages =
     (lib.attrValues specialArgs.extraPackages)
     ++ (with pkgs; [
       _1password
-      alejandra
       aspell
       aspellDicts.en
       babashka
@@ -28,11 +28,11 @@
       just
       lua-language-server
       neil
-      (nerdfonts.override {fonts = ["Hack"];})
+      (nerdfonts.override { fonts = [ "Hack" ]; })
       nil
-      nixpkgs-fmt
       nix-diff
       nix-tree
+      nixfmt-rfc-style
       nodePackages.bash-language-server
       ripgrep
       rustup
@@ -157,7 +157,7 @@
   };
 
   # Set up fish
-  programs.fish = import ./fish.nix {inherit pkgs;};
+  programs.fish = import ./fish.nix { inherit pkgs; };
 
   programs.bat = {
     enable = true;

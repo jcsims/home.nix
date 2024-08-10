@@ -419,7 +419,8 @@
   :ensure f
   :config (global-set-key [remap comment-dwim] #'comment-line))
 
-(use-package nix-mode)
+(use-package nix-mode
+  :hook (before-save . nix-format-before-save))
 
 (use-package nix-update)
 
@@ -1283,37 +1284,6 @@ format. With PREFIX, copy to kill ring."
 
     (defun present-open-bookmark-frame ()
       (present (open-bookmark))))
-
-  ;; TODO: Pull me into a separate package!
-  (eval-and-compile ;; alejandra formatting
-    (use-package reformatter)
-
-    (defgroup alejandra-format nil
-      "Nix file formatting using Alejandra."
-      :group 'nix)
-
-    (defcustom alejandra-format-command
-      "alejandra"
-      "Name of the alejandra executable."
-      :group 'alejandra-format
-      :type 'string)
-
-    (defcustom alejandra-format-arguments
-      '("-q" "--" "-")
-      "Arguments to pass to alejandra."
-      :group 'alejandra-format
-      :type '(repeat string))
-
-;;;###autoload (autoload 'alejandra-format-buffer "alejandra-format" nil t)
-;;;###autoload (autoload 'alejandra-format-region "alejandra-format" nil t)
-;;;###autoload (autoload 'alejandra-format-on-save-mode "alejandra-format" nil t)
-    (reformatter-define
-      alejandra-format
-      :program alejandra-format-command
-      :args alejandra-format-arguments
-      :group 'alejandra-format)
-
-    (add-hook 'nix-mode-hook 'alejandra-format-on-save-mode))
 
   (eval-and-compile ;; php-cs-fixer formatting
     (use-package reformatter)
