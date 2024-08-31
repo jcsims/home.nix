@@ -154,12 +154,31 @@ in
 
     setStatefulConfig = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
       verboseEcho "Setting some stateful macOS config"
+
+      # Configure the keyboard
       run defaults write -g InitialKeyRepeat -int 15
       run defaults write -g KeyRepeat -int 2
+      run defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
+
       # This disables the too-bold font in Alacritty
       run defaults write org.alacritty AppleFontSmoothing -int 0
+
+      # Trackpad
       verboseEcho "Setting the proper scroll direction"
       run defaults write -g com.apple.swipescrolldirection -boolean NO
+
+      verboseEcho "Configuring the Dock"
+      run defaults write com.apple.dock orientation -string left
+      run defaults write com.apple.dock tilesize -int 40
+      # Don't show recent apps in the Dock
+      run defaults write com.apple.dock show-recents -bool false
+      # This only shows open applications, which is awesome
+      run defaults write com.apple.dock static-only -bool true
+      # This makes hidden apps slightly darker
+      run defaults write com.apple.dock showhidden -bool true
+
+      verboseEcho "configuring Finder"
+      run defaults write com.apple.finder ShowPathbar -bool true
     '';
 
     # TODO: Don't write ~/.Brewfile, but either use `--file=-` and pipe the file
