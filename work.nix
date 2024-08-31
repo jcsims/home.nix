@@ -23,8 +23,7 @@ in
     ++ (with pkgs; [
       awscli2
       bazelisk
-      nodePackages.typescript-language-server
-      phpactor
+      nodePackages.intelephense
       python310
       terraform
     ]);
