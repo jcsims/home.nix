@@ -78,7 +78,7 @@
             homedir = "/Users/${username}";
           };
         };
-        "csims" = home-manager.lib.homeManagerConfiguration {
+        "csims@splashfinancial.com" = home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
 
           modules = [
@@ -97,8 +97,8 @@
               mkalias = mkalias.packages.${system}.default;
             };
             work = true;
-            username = "csims";
-            homedir = "/Users/${username}";
+            username = "csims@splashfinancial.com";
+            homedir = "/Users/csims";
           };
         };
         "jcsims@graphene" = home-manager.lib.homeManagerConfiguration {
