@@ -17,6 +17,7 @@
     "c" = "pj";
     "co" = "pj open";
     "todos" = "git diff origin/master | grep --color=always -C 10 TODO | bat";
+    "wtests" = "docker compose exec -T -u root app vendor/bin/paratest --testsuite";
   };
   interactiveShellInit = ''
     # Remove the default greeting message on a new shell
