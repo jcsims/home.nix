@@ -89,7 +89,7 @@
             ./alacritty.nix
           ];
 
-          extraSpecialArgs = rec {
+          extraSpecialArgs = {
             inherit pkgs-unstable;
             # Use this to pull in packages as flakes.
             extraPackages = {
