@@ -4,7 +4,6 @@ tap "homebrew/bundle"
 # For some reason, php installed via nixpkgs is horrendously slow on startup
 # (~5s vs 35ms), which makes editor tooling that relies on it mostly unusable.
 brew "php@8.2"
-brew "php-cs-fixer"
 brew "mas" if OS.mac?
 brew "terminal-notifier" if OS.mac?
 

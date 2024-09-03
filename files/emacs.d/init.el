@@ -783,8 +783,14 @@ canceled tasks."
 
 (use-package php-mode
   :if work-install
+  :hook (after-save . jcs/php-format)
   :config
   (setq website-dir (expand-file-name "~/code/work/Website"))
+
+  (defun jcs/php-format ()
+    (when (eq major-mode 'php-mode)
+      (eglot-format)
+      (save-buffer)))
 
   (defun website-test-class ()
     (interactive)
@@ -807,7 +813,8 @@ canceled tasks."
           (filter (thing-at-point 'symbol))
           (escaped-case
            (replace-regexp-in-string (regexp-quote "$") "\\$" case nil
-                                     'literal))))))
+                                     'literal))
+          (compile (concat "docker exec -t app php artisan test " class-path " --filter " filter "@'" escaped-case "'"))))))
 
 (use-package prog-mode
   :ensure f
@@ -1272,22 +1279,6 @@ format. With PREFIX, copy to kill ring."
 
     (defun present-open-bookmark-frame ()
       (present (open-bookmark))))
-
-  (eval-and-compile ;; php-cs-fixer formatting
-    (use-package reformatter)
-
-;;;###autoload (autoload 'php-cs-fixer-format-buffer "php-cs-fixer-format" nil t)
-;;;###autoload (autoload 'php-cs-fixer-format-region "php-cs-fixer-format" nil t)
-;;;###autoload (autoload 'php-cs-fixer-format-on-save-mode "php-cs-fixer-format" nil t)
-    (reformatter-define
-      php-cs-fixer-format
-      :program "php-cs-fixer"
-      :stdin nil
-      :stdout nil
-      :args (list "fix" "-q" input-file))
-
-    (add-hook 'php-mode-hook 'php-cs-fixer-format-on-save-mode))
-
 
   (let ((file (expand-file-name (concat (user-real-login-name) ".el")
                                 user-emacs-directory)))
