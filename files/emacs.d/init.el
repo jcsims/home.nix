@@ -813,8 +813,8 @@ canceled tasks."
           (filter (thing-at-point 'symbol))
           (escaped-case
            (replace-regexp-in-string (regexp-quote "$") "\\$" case nil
-                                     'literal))
-          (compile (concat "docker exec -t app php artisan test " class-path " --filter " filter "@'" escaped-case "'"))))))
+                                     'literal)))
+      (compile (concat "docker exec -t app php artisan test " class-path " --filter " filter "@'" escaped-case "'")))))
 
 (use-package prog-mode
   :ensure f
