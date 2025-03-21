@@ -14,8 +14,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     emacs-overlay.url = "github:Nix-Community/emacs-overlay";
-    mkalias.url = "github:reckenrode/mkalias/v0.3.2";
-    mkalias.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs =
@@ -25,7 +23,6 @@
       hue,
       nixpkgs,
       nixpkgs-unstable,
-      mkalias,
       ...
     }:
     let
@@ -71,7 +68,6 @@
             # Use this to pull in packages as flakes.
             extraPackages = {
               hue = hue.packages.${system}.default;
-              mkalias = mkalias.packages.${system}.default;
             };
             work = false;
             username = "jcsims";
@@ -94,7 +90,6 @@
             # Use this to pull in packages as flakes.
             extraPackages = {
               hue = hue.packages.${system}.default;
-              mkalias = mkalias.packages.${system}.default;
             };
             work = true;
             username = "csims@splashfinancial.com";
