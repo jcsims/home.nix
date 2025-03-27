@@ -122,7 +122,7 @@ in
           do
               app_name=''${app#~/.nix-profile/Applications/}
               verboseEcho "Creating alias for: $app_name"
-              run ${pkgs.mkalias}/bin/mkalias -L "$app" ~/nix-apps/"$app_name"
+              run ${pkgs.mkalias}/bin/mkalias "$app" ~/nix-apps/"$app_name"
           done
 
           for app in ~/nix-apps/*

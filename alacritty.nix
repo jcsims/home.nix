@@ -261,7 +261,7 @@
       ];
       scrolling.history = 20000;
       selection.save_to_clipboard = true;
-      shell = {
+      terminal.shell = {
         program = "${pkgs.fish}/bin/fish";
         args = [ "--login" ];
       };
