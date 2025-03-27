@@ -22,7 +22,7 @@
       defaultInitFile = true;
 
       # Package is optional, defaults to pkgs.emacs
-      package = pkgs.emacs29;
+      # package = pkgs.emacs29;
 
       # By default emacsWithPackagesFromUsePackage will only pull in
       # packages with `:ensure`, `:ensure t` or `:ensure <package name>`.

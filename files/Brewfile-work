@@ -14,7 +14,6 @@ cask "chromium", args: {"no-quarantine": true}
 cask "cljstyle"
 cask "daisydisk"
 cask "dash"
-cask "hammerspoon"
 cask "istat-menus"
 cask "jetbrains-toolbox"
 cask "launchcontrol"

@@ -106,8 +106,8 @@ in
     };
   };
 
-  # Create aliases for any applications installed managed via home-manager, so
-  # that Alfred picks them up properly.
+  # Create aliases for any applications installed via home-manager, so that
+  # Alfred picks them up properly.
   home.activation = {
     aliasApplications =
       lib.hm.dag.entryAfter

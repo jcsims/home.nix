@@ -150,11 +150,6 @@
 
   home.file.".tmux.conf".source = ./files/tmux.conf;
 
-  home.file.".hammerspoon" = {
-    source = ./files/hammerspoon;
-    recursive = true;
-  };
-
   # Set up fish
   programs.fish = import ./fish.nix { inherit pkgs; };
 

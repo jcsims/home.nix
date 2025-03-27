@@ -1,8 +1,6 @@
 ;;; init.el --- user-init-file                    -*- lexical-binding: t -*-
 ;;; Early birds
 
-;; TODO: Pull package installation out of emacs-overlay and rely on e.g. borg?
-
 ;; Seed the PRNG anew, from the system's entropy pool
 (random t)
 
@@ -32,6 +30,8 @@
     (scroll-bar-mode 0))
   (when (fboundp 'tool-bar-mode)
     (tool-bar-mode 0))
+  (when (fboundp 'tooltip-mode)
+    (tooltip-mode 0))
   (menu-bar-mode 0)
   (when (file-exists-p custom-file)
     (load custom-file)))
@@ -103,6 +103,15 @@
 
 ;;; Long tail
 
+(use-package ansi-color
+  :ensure f
+  ;; Interpret ANSI color codes in compilation buffer
+  :hook (compilation-filter . ansi-color-compilation-filter))
+
+(use-package apheleia
+  :if work-install
+  :hook clojure-mode)
+
 (use-package atomic-chrome
   :if (display-graphic-p)
   :config
@@ -120,13 +129,16 @@
 
 (use-package bazel)
 
+(use-package breadcrumb
+  :config (breadcrumb-mode))
+
 ;; Borrowed from
 ;; https://skybert.net/emacs/get-clickable-jira-links-in-your-org-files/
 ;; This highlights the Linear ticket comments we use in the code.
 (use-package bug-reference
   :ensure f
   :config
-  (setq bug-reference-bug-regexp "\\(\\(RATE-[0-9]+\\|AR-[0-9]+\\)\\)"
+  (setq bug-reference-bug-regexp "\\(\\(RATE-[0-9]+\\|LOS-[0-9]+\\|AR-[0-9]+\\)\\)"
         bug-reference-url-format "https://splashfinancial.atlassian.net/browse/%s")
   :hook (prog-mode . bug-reference-prog-mode))
 
@@ -155,14 +167,11 @@
   (setq cider-repl-display-help-banner nil
         nrepl-log-messages nil))
 
-(use-package cljstyle-format
-  :if work-install
-  :after (clojure-mode)
-  :hook (clojure-mode . cljstyle-format-on-save-mode))
-
 (use-package clojure-mode
   :after (paredit)
   :mode (("\\.edn\\'" . clojure-mode))
+  :config (when work-install
+            (setq clojure-indent-style 'always-indent))
   :hook
   (clojure-mode . paredit-mode)
   (clojure-mode . cider-mode))
@@ -251,7 +260,7 @@
               ("s-l a" . eglot-code-actions)
               ("s-l r" . eglot-rename)
               ("s-l c n" . eglot-code-action-organize-imports))
-  :custom (eglot-connect-timeout 120))
+  :custom (eglot-connect-timeout 240))
 
 (use-package eldoc
   :ensure f
@@ -289,14 +298,6 @@
   :bind (:map flymake-mode-map
               ("M-n" . flymake-goto-next-error)
               ("M-p" . flymake-goto-prev-error)))
-
-(use-package flyspell
-  :disabled
-  :ensure f
-  :config
-  (add-hook 'text-mode-hook 'flyspell-mode)
-  (add-hook 'prog-mode-hook 'flyspell-prog-mode)
-  (setq ispell-program-name "aspell"))
 
 (use-package git-link)
 
@@ -359,8 +360,6 @@
     (setq indent-tabs-mode nil))
   (add-hook 'lisp-interaction-mode-hook 'indent-spaces-mode))
 
-(use-package lua-mode)
-
 (use-package magit
   :bind (("C-c g"   . magit-status))
   :custom
@@ -368,11 +367,6 @@
   (magit-save-repository-buffers 'dontask)
   :config (when work-install
             (remove-hook 'magit-status-headers-hook #'magit-insert-tags-header)))
-
-(use-package magit-todos
-  :after magit
-  :config (magit-todos-mode 1)
-  :custom ((magit-todos-exclude-globs  '("*.map"))))
 
 (use-package man
   :ensure f
@@ -460,7 +454,6 @@
 
 (use-package ob-php)
 
-
 (use-package org
   :ensure f
   :custom
@@ -470,15 +463,14 @@
   (org-refile-allow-creating-parent-nodes 'confirm)
   (org-priority-default ?C)
   (org-priority-lowest ?D)
-  (org-tag-alist (quote (("@peter" . ?p)
-                         ("@whelan" . ?w)
-                         ("@ryan" . ?r)
-                         ("@rangel" . ?R)
-                         ("@greg" . ?g)
-                         ("@gunner" . ?G)
-                         ("@bill" . ?b)
-                         ("@ajith" . ?a)
-                         ("@spencer" . ?s)
+  (org-tag-alist (quote (("@mike" . ?m)
+                         ("@rick" . ?r)
+                         ("@maja" . ?p)
+                         ("@karl" . ?k)
+                         ("@goose" . ?g)
+                         ("@tim" . ?t)
+                         ("@chris" . ?c)
+                         ("@luke" . ?l)
                          (:newline)
                          ("delegated" . ?d))))
 
@@ -689,11 +681,6 @@ same directory as the org-buffer and insert a link to this file."
 
 (use-package org-mac-link)
 
-(use-package org-modern
-  :disabled
-  :after org
-  :config (global-org-modern-mode))
-
 (use-package org-roam
   :after (org vulpea)
   :custom (org-roam-directory jcs/org-roam-dir)
@@ -783,38 +770,42 @@ canceled tasks."
 
 (use-package php-mode
   :if work-install
-  :hook (after-save . jcs/php-format)
+  :hook (php-mode . php-cs-fixer-format-on-save-mode)
+  :init
+  (require 'reformatter)
+
+  (defgroup php-cs-fixer-format nil
+    "PHP file formatting using php-cs-fixer."
+    :group 'php)
+
+  (defcustom php-cs-fixer-format-command
+    "php-cs-fixer"
+    "Name of the php-cs-fixer executable."
+    :group 'php-cs-fixer-format
+    :type 'string)
+
+  (defcustom php-cs-fixer-format-arguments
+    nil
+    "Arguments to pass to php-cs-fixer."
+    :group 'php-cs-fixer-format
+    :type '(repeat string))
+
+;;;###autoload (autoload 'php-cs-fixer-format-buffer "php-cs-fixer-format" nil t)
+;;;###autoload (autoload 'php-cs-fixer-format-region "php-cs-fixer-format" nil t)
+;;;###autoload (autoload 'php-cs-fixer-format-on-save-mode "php-cs-fixer-format" nil t)
+  (reformatter-define
+    php-cs-fixer-format
+    :program php-cs-fixer-format-command
+    :stdin nil
+    :stdout nil
+    :args (append '("fix" "-q") php-cs-fixer-format-arguments (list input-file))
+    :lighter " php-cs-fixer"
+    :group 'php-cs-fixer-format)
+
   :config
-  (setq website-dir (expand-file-name "~/code/work/Website"))
-
-  (defun jcs/php-format ()
-    (when (eq major-mode 'php-mode)
-      (eglot-format)
-      (save-buffer)))
-
-  (defun website-test-class ()
-    (interactive)
-    (let ((class-path (file-relative-name (buffer-file-name) website-dir)))
-      (compile (concat "docker exec -t app php artisan test " class-path))))
-
-  (defun website-test-method ()
-    (interactive)
-    (let ((class-path (file-relative-name (buffer-file-name) website-dir))
-          (filter (thing-at-point 'symbol)))
-      (compile (concat "docker exec -t app php artisan test " class-path " --filter " filter))))
-
-  (defun website-test-case (case)
-    (interactive
-     (list
-      (let* ((prompt "Run case: ")
-             (input (read-from-minibuffer prompt nil nil nil nil)))
-        input)))
-    (let ((class-path (file-relative-name (buffer-file-name) website-dir))
-          (filter (thing-at-point 'symbol))
-          (escaped-case
-           (replace-regexp-in-string (regexp-quote "$") "\\$" case nil
-                                     'literal)))
-      (compile (concat "docker exec -t app php artisan test " class-path " --filter " filter "@'" escaped-case "'")))))
+  (with-eval-after-load 'eglot
+    (add-to-list 'eglot-server-programs
+                     '((php-mode) . ("intelephense" "--stdio")))))
 
 (use-package prog-mode
   :ensure f
@@ -841,8 +832,6 @@ canceled tasks."
                         ".cpcache"
                         ".lsp/.cache"))
   :config (add-to-list 'project-switch-commands '(magit-project-status "Magit" ?m) t))
-
-(use-package protobuf-mode)
 
 (use-package recentf
   :ensure f
@@ -880,10 +869,10 @@ canceled tasks."
 (use-package environ :if work-install)
 (use-package splash
   :if work-install
-  :after cider
   :load-path "/Users/csims/code/work/stonehenge/development/emacs/"
   :custom
-  (splash-stonehenge-dir "/Users/csims/code/work/stonehenge/"))
+  (splash-stonehenge-dir "/Users/csims/code/work/stonehenge/")
+  (splash-website-dir "/Users/csims/code/work/Website/"))
 
 (use-package sqlformat
   :config (setq sqlformat-command 'sql-formatter))
@@ -1011,8 +1000,6 @@ Passes ARG onto `zap-to-char` or `backward-kill-word` if used."
         scroll-error-top-bottom t       ; Scroll similar to vim
         user-full-name "Chris Sims"
         user-mail-address "chris@jcsi.ms"
-        calendar-latitude 45.7
-        calendar-longitude -122.7
         use-short-answers t
         ;; Prevent eldoc from using so much of the minibuffer
         max-mini-window-height 0.2)
