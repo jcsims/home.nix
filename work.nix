@@ -24,5 +24,5 @@
       ${pkgs.bazelisk}/bin/bazelisk "$@"
     '';
     executable = true;
-  };;
+  };
 }
