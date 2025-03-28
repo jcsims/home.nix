@@ -410,8 +410,8 @@
 
 (use-package obsidian
   :demand t
+  :custom (obsidian-directory "~/notes/notes")
   :config
-  (obsidian-specify-path "~/notes/splash")
   (global-obsidian-mode)
 
   (require 'dash)

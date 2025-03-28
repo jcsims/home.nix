@@ -10,7 +10,7 @@
   home.packages =
     (lib.attrValues specialArgs.extraPackages)
     ++ (with pkgs; [
-      _1password
+      _1password-cli
       aspell
       aspellDicts.en
       babashka
@@ -127,7 +127,7 @@
     text = ''
       #!/usr/bin/env bash
 
-      ${pkgs.emacs29}/bin/emacsclient -ne "(present-open-bookmark-frame)"
+      ${pkgs.emacs}/bin/emacsclient -ne "(present-open-bookmark-frame)"
     '';
     executable = true;
   };
@@ -170,7 +170,7 @@
   programs.eza = {
     enable = true;
     git = true;
-    icons = true;
+    icons = "auto";
   };
 
   # This value determines the Home Manager release that your
