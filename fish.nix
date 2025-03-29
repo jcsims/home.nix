@@ -9,7 +9,8 @@
     "gd" = "git diff";
     "gdc" = "git diff --cached";
     "gf" = "git fetch --all";
-    "gl" = "git log --graph --abbrev-commit --date=relative --pretty=format:'%C(bold blue)%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'";
+    "gl" =
+      "git log --graph --abbrev-commit --date=relative --pretty=format:'%C(bold blue)%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'";
     "gp" = "git push origin HEAD";
     "gpl" = "git pull --rebase --prune";
     "gs" = "git status -sb";

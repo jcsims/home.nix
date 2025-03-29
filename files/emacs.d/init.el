@@ -805,7 +805,7 @@ canceled tasks."
   :config
   (with-eval-after-load 'eglot
     (add-to-list 'eglot-server-programs
-                     '((php-mode) . ("intelephense" "--stdio")))))
+                 '((php-mode) . ("intelephense" "--stdio")))))
 
 (use-package prog-mode
   :ensure f
