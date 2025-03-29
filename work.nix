@@ -6,11 +6,11 @@
 }:
 {
   home.packages =
-    (lib.attrValues specialArgs.extraPackages)
+    [ specialArgs.pkgs-unstable.intelephense ]
+    ++ (lib.attrValues specialArgs.extraPackages)
     ++ (with pkgs; [
       awscli2
       bazelisk
-      nodePackages.intelephense
       python310
       terraform
     ]);
